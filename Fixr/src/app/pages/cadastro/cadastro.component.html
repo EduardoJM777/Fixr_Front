@@ -1,21 +1,29 @@
-<div class="fixr">
-    <h1>FIXR</h1>
-    <br>
-    <button>LOGIN COM GOOGLE</button>
-    <p>--------- ou ---------</p>
-    <input placeholder="EMAIL">
-    <br>
-    <input placeholder="SENHA">
-    <br>
-    <button>TIPO DE CONTA</button>
-    <h3>ENTRAR</h3>
-    <h4>Recuperar senha</h4>
-</div>
+<div class="container">
 
-<div class="cadastro">
-    <h1>CADASTRO</h1>
-    <br>
-    <p>TIPO DE USUARIO</p>
-    <br>
-    <button>CLIENTE</button> <button>PRESTADOR</button>
+    <div class="fixr">
+        <h1 class="titulo">FIXR</h1>
+        <br>
+        <button class="loginGoogle">LOGIN COM GOOGLE</button>
+        <p>--------- ou ---------</p>
+        <input placeholder="EMAIL" type="email" class="inputEmail">
+        <br>
+        <input placeholder="SENHA" type="password" class="inputSenha">
+        <br>
+        <select id="tipoConta">
+            <option value=""></option>
+        </select>
+        <button class="btn-entrar">ENTRAR</button>
+        <button class="btn-rec">Recuperar senha</button>
+    </div>
+
+    <div class="cadastro">
+        <h1 class="titulo-cad">CADASTRO</h1>
+        <br>
+        <p class="tituloTipo">TIPO DE USUARIO</p>
+        <br>
+        <div class="botoes-cad">
+            <button class="btn-cliente">CLIENTE</button> <button class="btn-prestador">PRESTADOR</button>
+        </div>
+    </div>
+
 </div>
