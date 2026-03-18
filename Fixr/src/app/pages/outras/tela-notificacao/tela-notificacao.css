@@ -54,6 +54,13 @@
     border-radius: 10px;
 }
 
+.ativa {
+    width: 1355px;
+    height: 48px;
+    background-color: #9C9393;
+    border-radius: 10px;
+}
+
 .not1 p{
     margin-left: 47px;
     font-size: 15px;

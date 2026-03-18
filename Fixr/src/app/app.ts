@@ -12,7 +12,7 @@ import { SubHeaderCliente } from './components/sub-header-cliente/sub-header-cli
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, SubHeaderCliente],
+  imports: [RouterOutlet, TelaNotificacao],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

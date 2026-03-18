@@ -21,24 +21,28 @@
 
     <hr>
 
-    <div class="not1">
+    <div class="not1" 
+         [class.ativa]="div1">
         <p><span>Laura</span> quer fechar acordo.</p>
-        <button>Marcar como lida</button>
+        <button (click)="div1 = !div1">Marcar como lida</button>
     </div>
 
-    <div class="not2">
+    <div class="not2"
+         [class.not1]="div2">
         <p>Está com algum problema? Publique seu anúncio hoje mesmo e veja quem está disposto a te ajudar!</p>
-        <button>Marcar como lida</button>
+        <button (click)="div2 = !div2">Marcar como lida</button>
     </div>
 
-    <div class="not3">
+    <div class="not3"
+         [class.ativa]="div3">
         <p><span>Marcelo</span> quer fechar acordo.</p>
-        <button>Marcar como lida</button>
+        <button (click)="div3 = !div3">Marcar como lida</button>
     </div>
 
-    <div class="not4">
+    <div class="not4"
+         [class.ativa]="div4">
         <p><span>João</span> enviou uma mensagem.(3)</p>
-        <button>Marcar como lida</button>
+        <button (click)="div4 = !div4">Marcar como lida</button>
     </div>
 
 </div>

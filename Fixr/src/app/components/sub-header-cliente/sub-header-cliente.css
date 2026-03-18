@@ -1,11 +1,24 @@
-.subHeader {
-    width: 100%;
-    height: 112px;
-    background-color: #014A7F;
+* {
+    font-family: 'Inter', sans-serif;
 }
 
-.links {
-    display: flex;
-    margin-left: 114px;
-    height: 24px;
+.navbar{
+    background:#014A7F;
+    height: 112px;
+}
+
+.navbar ul{
+    list-style:none;
+    display:flex;
+    justify-content:space-around;
+    margin:0;
+    padding:0;
+}
+
+.navbar li{
+    color:white;
+    font-weight:800;
+    cursor:pointer;
+    font-size: 24px;
+    padding-top: 41px;
 }

@@ -10,4 +10,9 @@ import { SubHeaderSolid } from '../../../components/sub-header-solid/sub-header-
 })
 export class TelaNotificacao {
 
+    div1 = false;
+    div2 = false;
+    div3 = false;
+    div4 = false;
+
 }
