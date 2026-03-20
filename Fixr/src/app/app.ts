@@ -9,7 +9,7 @@ import { CriarContaPrestador } from './pages/criarConta/criar-conta-prestador/cr
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CadastroComponent, ChatVazioComponent, ChatVazioComponent, CriarContaClienteComponent, CriarContaPrestador],
+  imports: [RouterOutlet, CriarContaPrestador],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
