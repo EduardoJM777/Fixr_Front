@@ -11,7 +11,7 @@ import { RecuSenhaOk } from "./pages/recu-senha/recu-senha-ok/recu-senha-ok";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CadastroComponent, ChatVazioComponent, ChatVazioComponent, CriarContaClienteComponent, CriarContaPrestador, RecuSenhaComponent, CriarProfissaoComponent, RecuSenhaOk],
+  imports: [RouterOutlet, CadastroComponent, ChatVazioComponent, ChatVazioComponent, CriarContaClienteComponent, CriarContaPrestador, RecuSenhaComponent, CriarProfissaoComponent, RecuSenhaOk, ],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

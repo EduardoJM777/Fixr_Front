@@ -121,3 +121,9 @@ button:hover {
     top: 320px;
     right: 250px;
 }
+.ladoDireito{
+    display: flex;
+    position: absolute;
+    top: 320px;
+    right: 250px;
+}
