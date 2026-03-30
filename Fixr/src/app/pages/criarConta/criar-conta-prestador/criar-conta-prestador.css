@@ -12,7 +12,7 @@
     justify-content: center;
     background-color: #014A7F;
     height: 116px;
-    width: 100%;
+    width: 101%;
 }
 
 
@@ -30,7 +30,9 @@
 
 /* CONTAINER */
 .container {
-    width: 1353px;
+    width: 100%;
+    max-width: 1400px;
+    margin: 55px, auto;
     margin-left: 70px;
     margin-top: 55px;
     background-color: #008EB6;
@@ -39,6 +41,7 @@
     padding-top: 5px;
     padding-bottom: 39px;
     border-radius: 10px;
+    position: absolute;
 }
 
 
@@ -88,10 +91,14 @@ h3 {
     padding-left: 10px;
 }
 
+.linha{
+    margin-top: 2%;
+}
+
 
 .inEmail {
-    width: 1306px;
-    height: 59px;
+    width: 90%;
+    height: 61px;
     background-color: #D9D9D9;
     border-radius: 10px;
     border: none;
@@ -103,7 +110,7 @@ h3 {
 
 
 .inSenha {
-    width: 610px;
+    width: 90%;
     height: 61px;
     background-color: #D9D9D9;
     border: none;
@@ -116,7 +123,7 @@ h3 {
 
 
 .inConfSenha {
-    width: 613px;
+    width: 90%;
     height: 60px;
     background-color: #D9D9D9;
     border: none;
@@ -129,7 +136,7 @@ h3 {
 
 
 .inTel {
-    width: 637px;
+    width: 90%;
     height: 57px;
     background-color: #D9D9D9;
     border: none;
@@ -149,11 +156,12 @@ h3 {
 .data-inputs {
     display: flex;
     gap: 10px;
+    margin-top: 10%;
 }
 
 
 .data-inputs input {
-    width: 184px;
+    width: 30%;
     text-align: center;
     height: 52px;
     font-size: 20px;
@@ -162,6 +170,7 @@ h3 {
     background-color: #D9D9D9;
     border-radius: 10px;
     border: none;
+    margin-top: -5%;
 }
 .linha {
     display: flex;
@@ -170,7 +179,7 @@ h3 {
 .profi {
     display: flex;
     flex-direction: column;
-    width: 610px;
+    width: 40%;
     font-family: 'Inter', sans-serif;
 }
 
@@ -223,8 +232,8 @@ h3 {
     margin: 30px auto;
     display: flex;
     position: absolute;
-    top: 650px;
-    left: 760px;
+    top: 70%;
+    left: 50%;
 }
 
 /* BOTÃO */
@@ -236,20 +245,22 @@ h3 {
 
 button {
     background-color: #014a7f;
-    color: white;
-    border: none;
+    color: rgb(255, 255, 255);
     border-radius: 8px;
     font-size: 16px;
     cursor: pointer;
-    width: 295px;
-    height: 77px;
-    margin-bottom: 0;
+    width: 20%;
+    height: 8%;
     font-size: 32px;
     font-weight: 700;
+    display: flex;
+    margin-bottom: auto;
+    text-align: center;
 }
 
 
 button:hover {
     background-color: #083d5f;
 }
+
 
