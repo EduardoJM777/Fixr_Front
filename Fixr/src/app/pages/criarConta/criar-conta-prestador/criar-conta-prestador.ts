@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-criar-conta-prestador',
-  imports: [HeaderRec],
+  imports: [],
   templateUrl: './criar-conta-prestador.html',
   styleUrl: './criar-conta-prestador.css',
 })
