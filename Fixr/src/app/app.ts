@@ -11,10 +11,12 @@ import { RecuSenhaOk } from "./pages/recu-senha/recu-senha-ok/recu-senha-ok";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CadastroComponent, ChatVazioComponent, ChatVazioComponent, CriarContaClienteComponent, CriarContaPrestador, RecuSenhaComponent, CriarProfissaoComponent, RecuSenhaOk, ],
+  standalone: true,
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
+
 export class App {
   protected readonly title = signal('Fixr');
 }

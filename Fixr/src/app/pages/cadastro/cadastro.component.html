@@ -13,7 +13,7 @@
             <option value=""></option>
         </select>
         <button class="btn-entrar">ENTRAR</button>
-        <button class="btn-rec">Recuperar senha</button>
+        <button class="btn-rec" (click)="irRecSenha()">Recuperar senha</button>
     </div>
 
     <div class="cadastro">
@@ -22,7 +22,8 @@
         <p class="tituloTipo">TIPO DE USUARIO</p>
         <br>
         <div class="botoes-cad">
-            <button class="btn-cliente">CLIENTE</button> <button class="btn-prestador">PRESTADOR</button>
+            <button class="btn-cliente" (click)="irCadCliente()">CLIENTE</button> 
+            <button class="btn-prestador" (click)="irCadPrestador()">PRESTADOR</button>
         </div>
     </div>
 

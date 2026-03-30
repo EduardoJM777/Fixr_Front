@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HeaderRec } from '../../../components/header-rec/header-rec';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-criar-conta-prestador',
@@ -8,5 +8,13 @@ import { HeaderRec } from '../../../components/header-rec/header-rec';
   styleUrl: './criar-conta-prestador.css',
 })
 export class CriarContaPrestador {
+
+  constructor(private router: Router){}
+
+  irCadProfissao(){
+    this.router.navigate(['/criarProfissao'])
+  }
+
+
 
 }

@@ -1,45 +1,55 @@
-<div class="container">
 
+<header>
     <div class="header">
-        <header class="headerCadPres">CADASTRO - CLIENTE</header>
+        <h1 class="cliHeader">CADASTRO - CLIENTE</h1>
     </div>
+</header>
 
-    <br>
 
-    <div class="container-main">
+<div class="container">
+    <form>
 
-        <div class="fundoCad">
-
-            <div class="nome">
-                <label>NOME COMPLETO</label> 
-                <input type="text" size="50px">
+        <div class="linha">
+            <div class="campo">
+                <label>NOME COMPLETO</label>
+                <input type="text" class="inNome">
             </div>
 
-            <div class="data">
+            <div class="campo data">
                 <label>DATA DE NASCIMENTO</label>
-                <input type="date" placeholder="DD/MM/AAAA" size="10">
-                <br>
+                <div class="data-inputs">
+                    <input type="text" maxlength="2" placeholder="DD">
+                    <input type="text" maxlength="2" placeholder="MM">
+                    <input type="text" maxlength="4" placeholder="AAAA">
+                </div>
             </div>
-            
-
-            <h3>EMAIL</h3>
-            <input type="email" size="100px">
-            <br>
-
-            <h3>SENHA</h3>               
-            <input type="password" size="50px"> 
-            
-            <h3>CONFIRME SUA SENHA</h3>
-            <input type="password" size="50px">
-
-            <h3>TELEFONE</h3>
-            <input type="number">
-
-
-            <button>CADASTRAR</button>
-
         </div>
 
-    </div>
+        <div class="campo">
+            <label>E-MAIL</label>
+            <input type="email" class="inEmail">
+        </div>
 
+        <div class="linha">
+            <div class="campo">
+                <label>SENHA</label>
+                <input type="password" class="inSenha">
+            </div>
+
+            <div class="campo">
+                <label>CONFIRME SUA SENHA</label>
+                <input type="password" class="inConfSenha">
+            </div>
+        </div>
+
+        <div class="campo telefone">
+            <label>TELEFONE</label>
+            <input type="tel" class="inTel">
+        </div>
+
+        <div class="acoes">
+            <button type="submit">Cadastrar</button>
+        </div>
+
+    </form>
 </div>
