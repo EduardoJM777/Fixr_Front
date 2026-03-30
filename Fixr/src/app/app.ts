@@ -9,10 +9,12 @@ import { CriarContaPrestador } from './pages/criarConta/criar-conta-prestador/cr
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CriarContaPrestador],
+  standalone: true,
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
+
 export class App {
   protected readonly title = signal('Fixr');
 }

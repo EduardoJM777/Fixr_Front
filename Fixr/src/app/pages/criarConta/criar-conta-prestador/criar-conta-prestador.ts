@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-criar-conta-prestador',
@@ -7,5 +8,13 @@ import { Component } from '@angular/core';
   styleUrl: './criar-conta-prestador.css',
 })
 export class CriarContaPrestador {
+
+  constructor(private router: Router){}
+
+  irCadProfissao(){
+    this.router.navigate(['/criarProfissao'])
+  }
+
+
 
 }

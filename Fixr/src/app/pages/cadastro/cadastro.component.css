@@ -129,6 +129,7 @@
     font-size: 24px;
     font-weight: 800;
     border: none;
+    cursor: pointer;
 }
 
 .cadastro .botoes-cad .btn-prestador {
@@ -141,4 +142,5 @@
     font-weight: 800;
     border: none;
     margin-left: 20px;
+    cursor: pointer;
 }
