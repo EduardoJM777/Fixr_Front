@@ -12,7 +12,7 @@
         <div class="linha">
             <div class="campo">
                 <label>NOME COMPLETO</label>
-                <input type="text" class="inNome">
+                <input type="text" class="inNome" ([ngModel])="nome">
             </div>
 
             <div class="campo data">
@@ -27,24 +27,24 @@
 
         <div class="campo">
             <label>E-MAIL</label>
-            <input type="email" class="inEmail">
+            <input type="email" class="inEmail" ([ngModel])="email">
         </div>
 
         <div class="linha">
             <div class="campo">
                 <label>SENHA</label>
-                <input type="password" class="inSenha">
+                <input type="password" class="inSenha" ([ngModel])="senha">
             </div>
 
             <div class="campo">
                 <label>CONFIRME SUA SENHA</label>
-                <input type="password" class="inConfSenha">
+                <input type="password" class="inConfSenha" ([ngModel])="confSenha">
             </div>
         </div>
 
         <div class="campo telefone">
             <label>TELEFONE</label>
-            <input type="tel" class="inTel">
+            <input type="tel" class="inTel" ([ngModel])="telefone">
         </div>
 
         <div class="acoes">
