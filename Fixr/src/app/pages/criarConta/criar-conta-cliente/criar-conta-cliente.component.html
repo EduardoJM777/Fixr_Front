@@ -7,12 +7,16 @@
 
 
 <div class="container">
-    <form>
+    <form (ngSubmit)="cadastrarCliente()" #form="ngForm">
 
         <div class="linha">
             <div class="campo">
                 <label>NOME COMPLETO</label>
-                <input type="text" class="inNome">
+                <input type="text"
+                       class="inNome"
+                       name="nome"
+                       [(ngModel)]="novoCliente.nome"
+                       required>
             </div>
 
             <div class="campo data">
@@ -27,7 +31,11 @@
 
         <div class="campo">
             <label>E-MAIL</label>
-            <input type="email" class="inEmail">
+            <input type="email" 
+                   class="inEmail"
+                   name="email"
+                   [(ngModel)]="novoCliente.email"
+                   required>
         </div>
 
         <div class="linha">
@@ -48,7 +56,8 @@
         </div>
 
         <div class="acoes">
-            <button type="submit">Cadastrar</button>
+            <button type="submit"
+                    [disabled]="form.invalid">Cadastrar</button>
         </div>
 
     </form>

@@ -5,11 +5,16 @@
 <br>
 
 <div class="container">
-    <form>
+    <form (ngSubmit)="cadastrarPrestador()" #form="ngForm">
+
         <div class="linha">
             <div class="campo">
                 <h3>NOME COMPLETO</h3>
-                <input class="inNome" type="text">
+                <input type="text"
+                       class="inNome"
+                       name="nome"
+                       [(ngModel)]="novoPrestador.nome"
+                       required>
             </div>
 
             <div class="campo_data">
@@ -24,7 +29,11 @@
 
         <div class="campo">
             <h3>EMAIL</h3>
-            <input type="email" class="inEmail">
+            <input type="email" 
+                   class="inEmail"
+                   name="email"
+                   [(ngModel)]="novoPrestador.email"
+                   required>
         </div>
 
         <div class="linha">
@@ -39,13 +48,21 @@
         </div>
 
             <div class="profi">
-            <label for="profissao">Profissão</label>
-            <select id="profissao">
-                <option selected disabled>Mecânico</option>
-                <option>Encanador</option>
-                <option>Jardineiro</option>
-                <option>Outros</option>
-            </select>
+                <label for="profissao">Profissão</label>
+                <select id="profissao"
+                        name="profissao"
+                        [(ngModel)]="novoPrestador.profissao">
+                        
+                    <option [ngValue]="null"
+                            selected 
+                            disabled>Selecione</option>
+
+                    <option *ngFor="let p of profissoes" [value]="p">
+                        {{ p }}
+                    </option>        
+                    
+                    <option>Outros</option>
+                </select>
             </div>
 
             <div class="campo telefone">
@@ -54,7 +71,8 @@
             </div>
 
         <div class="acoes">
-            <button type="submit">Cadastrar</button>
+            <button type="submit"
+                    [disabled]="form.invalid">Cadastrar</button>
         </div>
     </form>
 </div>
