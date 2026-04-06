@@ -1,55 +1,46 @@
+<form (ngSubmit)="cadastrar()">
 
-<header>
-    <div class="header">
-        <h1 class="cliHeader">CADASTRO - CLIENTE</h1>
+    <div class="linha">
+        <div class="campo">
+            <label>NOME COMPLETO</label>
+            <input type="text"
+                   [(ngModel)]="nome"
+                   name="nome">
+        </div>
     </div>
-</header>
 
+    <div class="campo">
+        <label>E-MAIL</label>
+        <input type="email"
+               [(ngModel)]="email"
+               name="email">
+    </div>
 
-<div class="container">
-    <form>
-
-        <div class="linha">
-            <div class="campo">
-                <label>NOME COMPLETO</label>
-                <input type="text" class="inNome" [(ngModel)]="nome">
-            </div>
-
-            <div class="campo data">
-                <label>DATA DE NASCIMENTO</label>
-                <div class="data-inputs">
-                    <input type="text" maxlength="2" placeholder="DD">
-                    <input type="text" maxlength="2" placeholder="MM">
-                    <input type="text" maxlength="4" placeholder="AAAA">
-                </div>
-            </div>
+    <div class="linha">
+        <div class="campo">
+            <label>SENHA</label>
+            <input type="password"
+                   [(ngModel)]="senha"
+                   name="senha">
         </div>
 
         <div class="campo">
-            <label>E-MAIL</label>
-            <input type="email" class="inEmail" [(ngModel)]="email">
+            <label>CONFIRME SUA SENHA</label>
+            <input type="password"
+                   [(ngModel)]="confSenha"
+                   name="confSenha">
         </div>
+    </div>
 
-        <div class="linha">
-            <div class="campo">
-                <label>SENHA</label>
-                <input type="password" class="inSenha" [(ngModel)]="senha">
-            </div>
+    <div class="campo">
+        <label>TELEFONE</label>
+        <input type="tel"
+               [(ngModel)]="telefone"
+               name="telefone">
+    </div>
 
-            <div class="campo">
-                <label>CONFIRME SUA SENHA</label>
-                <input type="password" class="inConfSenha" [(ngModel)]="confSenha">
-            </div>
-        </div>
+    <div class="acoes">
+        <button type="submit">Cadastrar</button>
+    </div>
 
-        <div class="campo telefone">
-            <label>TELEFONE</label>
-            <input type="tel" class="inTel" [(ngModel)]="telefone">
-        </div>
-
-        <div class="acoes">
-            <button type="submit">Cadastrar</button>
-        </div>
-
-    </form>
-</div>
+</form>

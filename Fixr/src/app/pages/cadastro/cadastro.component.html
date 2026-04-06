@@ -2,29 +2,31 @@
 
     <div class="fixr">
         <h1 class="titulo">FIXR</h1>
-        <br>
+
         <button class="loginGoogle">LOGIN COM GOOGLE</button>
         <p>--------- ou ---------</p>
-        <input placeholder="EMAIL" type="email" class="inputEmail" [(ngModel)] = "email">
-        <br>
-        <input placeholder="SENHA" type="password" class="inputSenha" 
-        [(ngModel)] = "senha">
-        <br>
-        <select id="tipoConta">
-            <option value=""></option>
-        </select>
-        <button class="btn-entrar">ENTRAR</button>
-        <button class="btn-rec" (click)="irRecSenha()">Recuperar senha</button>
+
+        <input placeholder="EMAIL" type="email"
+               [(ngModel)]="email" name="email">
+
+        <input placeholder="SENHA" type="password"
+               [(ngModel)]="senha" name="senha">
+
+        <button class="btn-entrar" (click)="login()">ENTRAR</button>
+
+        <button class="btn-rec" (click)="irRecSenha()">
+            Recuperar senha
+        </button>
     </div>
 
     <div class="cadastro">
         <h1 class="titulo-cad">CADASTRO</h1>
-        <br>
+
         <p class="tituloTipo">TIPO DE USUARIO</p>
-        <br>
+
         <div class="botoes-cad">
-            <button class="btn-cliente" (click)="irCadCliente()">CLIENTE</button> 
-            <button class="btn-prestador" (click)="irCadPrestador()">PRESTADOR</button>
+            <button (click)="irCadCliente()">CLIENTE</button> 
+            <button (click)="irCadPrestador()">PRESTADOR</button>
         </div>
     </div>
 

@@ -1,60 +1,57 @@
-<div class="header">
-    <header class="preHeader">CADASTRO - PRESTADOR</header>
-</div>
+<form (ngSubmit)="cadastrar()">
 
-<br>
+    <div class="linha">
+        <div class="campo">
+            <h3>NOME COMPLETO</h3>
+            <input class="inNome" type="text"
+                   [(ngModel)]="nome" name="nome">
+        </div>
+    </div>
 
-<div class="container">
-    <form>
-        <div class="linha">
-            <div class="campo">
-                <h3>NOME COMPLETO</h3>
-                <input class="inNome" type="text">
-            </div>
+    <div class="campo">
+        <h3>EMAIL</h3>
+        <input type="email"
+               [(ngModel)]="email" name="email">
+    </div>
 
-            <div class="campo_data">
-                <h3 >DATA DE NASCIMENTO</h3>
-                <div class="data-inputs">
-                    <input type="text" placeholder="DD" maxlength="2">
-                    <input type="text" placeholder="MM" maxlength="2">
-                    <input type="text" placeholder="AAAA" maxlength="4">
-                </div>
-            </div>
+    <div class="linha">
+        <div class="campo">
+            <h3>SENHA</h3>
+            <input type="password"
+                   [(ngModel)]="senha" name="senha">
         </div>
 
         <div class="campo">
-            <h3>EMAIL</h3>
-            <input type="email" class="inEmail">
+            <h3>CONFIRME SUA SENHA</h3>
+            <input type="password"
+                   [(ngModel)]="confSenha" name="confSenha">
         </div>
+    </div>
 
-        <div class="linha">
-            <div class="campo">
-                <h3 class="">SENHA</h3>
-                <input type="password" class="inSenha">
-            </div>
-            <div class="campo">
-                <h3 class="">CONFIRME SUA SENHA</h3>
-                <input type="password" class="inConfSenha">
-            </div>
-        </div>
+    <!-- 🔥 PROFISSÃO DINÂMICA -->
+    <div class="profi">
+        <label>Profissão</label>
 
-            <div class="profi">
-            <label for="profissao">Profissão</label>
-            <select id="profissao">
-                <option selected disabled>Mecânico</option>
-                <option>Encanador</option>
-                <option>Jardineiro</option>
-                <option>Outros</option>
-            </select>
-            </div>
+        <select [(ngModel)]="profissaoId"
+                name="profissaoId"
+                (change)="onProfissaoChange()">
 
-            <div class="campo telefone">
-                <h3>TELEFONE</h3>
-                <input type="tel" class="inTel">
-            </div>
+            <option *ngFor="let p of profissoes" [value]="p.id">
+                {{ p.nome }}
+            </option>
 
-        <div class="acoes">
-            <button type="submit">Cadastrar</button>
-        </div>
-    </form>
-</div>
+            <option value="outro">Outros</option>
+        </select>
+    </div>
+
+    <div class="campo telefone">
+        <h3>TELEFONE</h3>
+        <input type="tel"
+               [(ngModel)]="telefone" name="telefone">
+    </div>
+
+    <div class="acoes">
+        <button type="submit">Cadastrar</button>
+    </div>
+
+</form>

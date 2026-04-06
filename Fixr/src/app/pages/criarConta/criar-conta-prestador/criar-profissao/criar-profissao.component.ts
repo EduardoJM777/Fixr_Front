@@ -1,4 +1,4 @@
-import {  Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
@@ -15,9 +15,46 @@ export class CriarProfissaoComponent {
 
   constructor(private router: Router, private http: HttpClient){}
 
-  desc: string="";
-  nomeProf: string="";
+  nomeProf: string = "";
+  desc: string = "";
 
+  profissaoSemelhanteId: number | null = null;
+  profissoes: any[] = [];
 
+  // 🔥 carrega profissões existentes
+  ngOnInit(){
+    this.http.get<any[]>("http://localhost:8080/profissao")
+      .subscribe(res => {
+        this.profissoes = res;
+      });
+  }
 
+  // 🔥 cadastro
+  cadastrar(){
+
+    if(!this.nomeProf || !this.desc){
+      alert("Preencha todos os campos");
+      return;
+    }
+
+    const dados = {
+      nome: this.nomeProf,
+      desc: this.desc,
+      profissaoPaiId: this.profissaoSemelhanteId // opcional
+    };
+
+    this.http.post("http://localhost:8080/profissao", dados)
+      .subscribe({
+        next: () => {
+          alert("Profissão cadastrada!");
+
+          // 🔥 volta pra tela de prestador
+          this.router.navigate(['/criarContaPrestador']);
+        },
+        error: (err) => {
+          console.log(err);
+          alert("Erro ao cadastrar profissão");
+        }
+      });
+  }
 }
