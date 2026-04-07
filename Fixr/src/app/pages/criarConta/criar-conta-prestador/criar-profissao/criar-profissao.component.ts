@@ -15,8 +15,8 @@ export class CriarProfissaoComponent {
 
   constructor(private router: Router, private http: HttpClient){}
 
-  desc: string="desc";
-  nomeProf: string="nomeProf";
+  desc: string="";
+  nomeProf: string="";
 
 
 
