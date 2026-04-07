@@ -4,13 +4,19 @@
         <h1 class="titulo">FIXR</h1>
 
         <button class="loginGoogle">LOGIN COM GOOGLE</button>
-        <p>--------- ou ---------</p>
+        <p style="font-size: 24px">--------- OU ---------</p>
 
-        <input placeholder="EMAIL" type="email"
-               [(ngModel)]="email" name="email">
+        <input class="inputEmail"
+               placeholder="EMAIL" 
+               type="email"
+               name="email"
+               [(ngModel)]="email">
 
-        <input placeholder="SENHA" type="password"
-               [(ngModel)]="senha" name="senha">
+        <input class="inputSenha"
+               placeholder="SENHA" 
+               type="password"
+               name="senha"
+               [(ngModel)]="senha">
 
         <button class="btn-entrar" (click)="login()">ENTRAR</button>
 
@@ -25,8 +31,12 @@
         <p class="tituloTipo">TIPO DE USUARIO</p>
 
         <div class="botoes-cad">
-            <button (click)="irCadCliente()">CLIENTE</button> 
-            <button (click)="irCadPrestador()">PRESTADOR</button>
+            <button
+                   class="btn-cliente"
+                   (click)="irCadCliente()">CLIENTE</button> 
+            <button
+                   class="btn-prestador" 
+                   (click)="irCadPrestador()">PRESTADOR</button>
         </div>
     </div>
 
