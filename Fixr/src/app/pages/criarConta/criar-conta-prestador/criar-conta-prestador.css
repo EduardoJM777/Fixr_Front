@@ -1,41 +1,266 @@
 * {
+    padding: 0;
+    box-sizing: border-box;
     font-family: 'Inter', sans-serif;
 }
 
 
-
+/* HEADER */
 .header {
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: #014A7F;
     height: 116px;
-    width: 100%;
+    width: 101%;
 }
 
-.headerCadPres {
-    margin: 0;
-    color: #FFFFFF;
+
+.header .preHeader {
+    font-family: 'Inter', sans-serif;
     font-size: 40px;
     font-weight: 800;
+    color: #FFFFFF;
 }
 
 
 
-.container-main {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 
-.fundoCad {
+
+
+/* CONTAINER */
+.container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 55px, auto;
+    margin-left: 70px;
+    margin-top: 55px;
     background-color: #008EB6;
-    width: 1353px;
-    height: 770px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 39px;
     border-radius: 10px;
+    position: absolute;
 }
 
-.nome{
+
+
+
+
+
+/* LAYOUT */
+.linha {
     display: flex;
-    
+    gap: 40px;
+    margin-bottom: 25px;
+    margin-top: 55px;
 }
+
+
+.campo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* LABEL */
+h3 {
+    color: #FFFFFF;
+    font-weight: 800;
+    margin-bottom: 5px;
+    font-size: 20px;
+}
+
+
+
+
+
+
+/* INPUTS */
+.inNome{
+    width: 612px;
+    height: 50px;
+    background-color: #D9D9D9;
+    border-radius: 10px;
+    border: none;
+    font-size: 20px;
+    font-weight: 800;
+    color: #000000;
+    padding-left: 10px;
+}
+
+.linha{
+    margin-top: 2%;
+}
+
+
+.inEmail {
+    width: 90%;
+    height: 61px;
+    background-color: #D9D9D9;
+    border-radius: 10px;
+    border: none;
+    font-size: 20px;
+    font-weight: 800;
+    color: #000000;
+    padding-left: 10px;
+}
+
+
+.inSenha {
+    width: 90%;
+    height: 61px;
+    background-color: #D9D9D9;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: 800;
+    color: #000000;
+    padding-left: 10px;
+}
+
+
+.inConfSenha {
+    width: 90%;
+    height: 60px;
+    background-color: #D9D9D9;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: 800;
+    color: #000000;
+    padding-left: 10px;
+}
+
+
+.inTel {
+    width: 90%;
+    height: 57px;
+    background-color: #D9D9D9;
+    border: none;
+    border-radius: 10px;
+     font-size: 20px;
+    font-weight: 800;
+    color: #000000;
+    padding-left: 10px;
+}
+
+
+
+
+
+
+/* DATA NASCIMENTO */
+.data-inputs {
+    display: flex;
+    gap: 10px;
+    margin-top: 10%;
+}
+
+
+.data-inputs input {
+    width: 30%;
+    text-align: center;
+    height: 52px;
+    font-size: 20px;
+    font-weight: 800;
+    color: #000000;
+    background-color: #D9D9D9;
+    border-radius: 10px;
+    border: none;
+    margin-top: -5%;
+}
+.linha {
+    display: flex;
+}
+
+.profi {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Label */
+.profi label {
+    background-color: #D9D9D9;
+    padding: 10px;
+    font-weight: bold;
+    border-radius: 10px 10px 0 0;
+}
+
+/* Select principal */
+.profi select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    background-color: #D9D9D9;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 0 0 10px 10px;
+    cursor: pointer;
+    outline: none;
+}
+
+/* Ícone de seta */
+.profi {
+    position: relative;
+}
+
+.profi::after {
+    content: "▼";
+    position: absolute;
+    right: 15px;
+    top: 38px;
+    pointer-events: none;
+    font-size: 12px;
+}
+
+/* Opções do dropdown */
+.profi select option {
+    background-color: #D9D9D9;
+    color: black;
+}
+
+/* TELEFONE CENTRALIZADO */
+.telefone {
+    width: 50%;
+    margin: 30px auto;
+    display: flex;
+    position: absolute;
+    top: 70%;
+    left: 50%;
+}
+
+/* BOTÃO */
+.acoes {
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+button {
+    background-color: #014a7f;
+    color: rgb(255, 255, 255);
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 20%;
+    height: 8%;
+    font-size: 32px;
+    font-weight: 700;
+    display: flex;
+    margin-bottom: auto;
+    text-align: center;
+}
+
+
+button:hover {
+    background-color: #083d5f;
+}
+
+

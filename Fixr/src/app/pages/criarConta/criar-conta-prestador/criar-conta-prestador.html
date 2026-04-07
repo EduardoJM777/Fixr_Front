@@ -1,53 +1,77 @@
+<div class="header">
+    <header class="preHeader">CADASTRO - PRESTADOR</header>
+</div>
+
+<br>
+
 <div class="container">
+    <form (ngSubmit)="cadastrarPrestador()" #form="ngForm">
 
-    <div class="header">
-        <header class="headerCadPres">CADASTRO - PRESTADOR</header>
-    </div>
-
-    <br>
-
-    <div class="container-main">
-
-        <div class="fundoCad">
-
-            <div class="nome">
-                <label>NOME COMPLETO</label> 
-                <input type="text" size="50px">
+        <div class="linha">
+            <div class="campo">
+                <h3>NOME COMPLETO</h3>
+                <input type="text"
+                       class="inNome"
+                       name="nome"
+                       [(ngModel)]="novoPrestador.nome"
+                       required>
             </div>
 
-            <div class="data">
-                <label>DATA DE NASCIMENTO</label>
-                <input type="date" placeholder="DD/MM/AAAA" size="10">
-                <br>
+            <div class="campo_data">
+                <h3 >DATA DE NASCIMENTO</h3>
+                <div class="data-inputs">
+                    <input type="text" placeholder="DD" maxlength="2">
+                    <input type="text" placeholder="MM" maxlength="2">
+                    <input type="text" placeholder="AAAA" maxlength="4">
+                </div>
             </div>
-            
-
-            <h3>EMAIL</h3>
-            <input type="email" size="100px">
-            <br>
-
-            <h3>SENHA</h3>               
-            <input type="password" size="50px"> 
-            
-            <h3>CONFIRME SUA SENHA</h3>
-            <input type="password" size="50px">
-
-            <h3>TELEFONE</h3>
-            <input type="number">
-
-            <br><br>
-
-            <select id="profissao">
-                <option>Mecânico</option>
-                <option>Encanador</option>
-                <option>Jardineiro</option>
-                <option>Outros</option>
-            </select>
-
-            <button>CADASTRAR</button>
-
         </div>
 
-    </div>
+        <div class="campo">
+            <h3>EMAIL</h3>
+            <input type="email" 
+                   class="inEmail"
+                   name="email"
+                   [(ngModel)]="novoPrestador.email"
+                   required>
+        </div>
 
+        <div class="linha">
+            <div class="campo">
+                <h3 class="">SENHA</h3>
+                <input type="password" class="inSenha">
+            </div>
+            <div class="campo">
+                <h3 class="">CONFIRME SUA SENHA</h3>
+                <input type="password" class="inConfSenha">
+            </div>
+        </div>
+
+            <div class="profi">
+                <label for="profissao">Profissão</label>
+                <select id="profissao"
+                        name="profissao"
+                        [(ngModel)]="novoPrestador.profissao">
+                        
+                    <option [ngValue]="null"
+                            selected 
+                            disabled>Selecione</option>
+
+                    <option *ngFor="let p of profissoes" [value]="p">
+                        {{ p }}
+                    </option>        
+                    
+                </select>
+            </div>
+
+            <div class="campo telefone">
+                <h3>TELEFONE</h3>
+                <input type="tel" class="inTel">
+            </div>
+
+        <div class="acoes">
+            <button type="submit"
+                    [disabled]="form.invalid">Cadastrar</button>
+        </div>
+    </form>
 </div>

@@ -12,16 +12,21 @@
 
             <div class="nome">
                 <label>NOME DA PROFISSÃO</label> 
-                <input type="text" size="50px">
+                <input type="text" size="50px" [(ngModel)]="nomeProf">
             </div>
 
             <br>
 
             <div class="data">
                 <label>DESCREVA A PROFISSÃO</label><br>
-                <input type="text" style="width:612px; height:208px">
+                <input type="text" style="width:612px; height:208px" [(ngModel)]="desc">
                 <br>
 
+                <div class="ladoDireitoCima">
+                    <p>PROFISSÃO:       OUTROS</p>
+                </div>
+
+                <div class="ladoDireito">
                 <label>PROFISSÃO SEMELHANTE</label>
                 <select id="profissão ">
                 <option>Mecânico</option>
@@ -29,6 +34,8 @@
                 <option>Jardineiro</option>
                 <option>Outros</option>
             </select>
+            </div>
+            
 
             <button>CADASTRAR PROFISSÃO</button>
             </div>
