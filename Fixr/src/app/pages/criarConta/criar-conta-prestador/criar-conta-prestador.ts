@@ -70,5 +70,7 @@ export class CriarContaPrestador {
           alert("Erro ao cadastrar");
         }
       });
+      
   }
+
 }

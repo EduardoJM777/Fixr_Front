@@ -3,127 +3,119 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Inter', sans-serif;
 }
+
+
 
 /* Fundo geral */
 body {
-    background-color: #d9d9d9;
+    background-color: #f3f3f3;
 }
 
-/* Header */
-.headerCadPres {
-    background-color: #0f4c75;
-    color: white;
-    text-align: center;
-    padding: 20px;
-    font-size: 28px;
-    font-weight: bold;
+
+
+.linha {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 25px;
+    margin-top: 55px;
 }
+
+.campo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+/* Header */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #014A7F;
+    height: 116px;
+    width: 101%;
+}
+
+.headerCadPres {
+    font-size: 40px;
+    font-weight: 800;
+    color: #FFFFFF;
+}
+
+
 
 /* Container principal */
 .container-main {
     display: flex;
     justify-content: center;
-    margin-top: 30px;
+    margin-top: 55px;
 }
+
+
 
 /* Card azul */
 .fundoCad {
-    background-color: #1b8aa5;
+    background-color: #008eb6;
     width: 90%;
-    max-width: 1100px;
     padding: 40px;
-    border-radius: 8px;
+    border-radius: 10px;
 }
+
+
 
 /* Labels */
 label {
-    color: white;
-    font-size: 14px;
-    font-weight: bold;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 800;
     display: block;
     margin-bottom: 8px;
 }
 
+
+
 /* Inputs padrão */
 input, select {
-    background-color: #cfcfcf;
+    background-color: #d9d9d9;
     border: none;
-    border-radius: 6px;
+    border-radius: 10px;
     padding: 12px;
     width: 100%;
     margin-bottom: 20px;
-    font-size: 14px;
+    font-size: 20px;
 }
 
-/* Input grande (descrição) */
-.data input[type="text"] {
-    height: 200px;
+textarea {
+    background-color: #d9d9d9;
+    border-radius: 10px;
+    font-size: 20px;
 }
 
-/* Layout em duas colunas */
-.fundoCad {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-}
 
-/* Nome ocupa esquerda */
-.nome {
-    
-}
-
-/* Descrição também esquerda */
-.data {
-    grid-column: 1 / 2;
-    flex: 2;
-}
-
-/* Select vai pra direita */
-.data select {
-    grid-column: 2 / 3;
-}
 
 /* Botão */
 button {
-    background-color: #0f4c75;
-    color: white;
+    background-color: #014A7F;
+    color: #ffffff;
     border: none;
     padding: 15px;
-    border-radius: 8px;
-    font-size: 18px;
+    border-radius: 10px;
+    font-size: 32px;
     cursor: pointer;
-    width: 300px;
+    width: 597px;
+    font-weight: 700;
+    grid-column: 2 / 3;
     justify-self: end;
+    margin-top: 20px;
 }
+
+
 
 /* Hover do botão */
 button:hover {
     background-color: #09324d;
-}
-
-.ladoDireitoCima{
-    background-color: #cbcaca;
-    display: flex;
-    position: absolute;
-    top: 190px;
-    right: 250px;
-    padding-left: 80px;
-    padding-right: 80px;
-    padding-bottom: 10px;
-    padding-top: 10px;
-}
-
-.ladoDireito{
-    display: flex;
-    position: absolute;
-    top: 320px;
-    right: 250px;
-}
-.ladoDireito{
-    display: flex;
-    position: absolute;
-    top: 320px;
-    right: 250px;
 }

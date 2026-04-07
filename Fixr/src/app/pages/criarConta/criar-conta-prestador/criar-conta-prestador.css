@@ -5,6 +5,7 @@
 }
 
 
+
 /* HEADER */
 .header {
     display: flex;
@@ -15,16 +16,11 @@
     width: 101%;
 }
 
-
 .header .preHeader {
-    font-family: 'Inter', sans-serif;
     font-size: 40px;
     font-weight: 800;
     color: #FFFFFF;
 }
-
-
-
 
 
 
@@ -46,23 +42,21 @@
 
 
 
-
-
-
 /* LAYOUT */
 .linha {
     display: flex;
     gap: 40px;
     margin-bottom: 25px;
     margin-top: 55px;
+    margin-top: 2%;
 }
-
 
 .campo {
     flex: 1;
     display: flex;
     flex-direction: column;
 }
+
 
 
 /* LABEL */
@@ -72,9 +66,6 @@ h3 {
     margin-bottom: 5px;
     font-size: 20px;
 }
-
-
-
 
 
 
@@ -91,11 +82,6 @@ h3 {
     padding-left: 10px;
 }
 
-.linha{
-    margin-top: 2%;
-}
-
-
 .inEmail {
     width: 90%;
     height: 61px;
@@ -107,7 +93,6 @@ h3 {
     color: #000000;
     padding-left: 10px;
 }
-
 
 .inSenha {
     width: 90%;
@@ -121,7 +106,6 @@ h3 {
     padding-left: 10px;
 }
 
-
 .inConfSenha {
     width: 90%;
     height: 60px;
@@ -134,21 +118,17 @@ h3 {
     padding-left: 10px;
 }
 
-
 .inTel {
     width: 90%;
     height: 57px;
     background-color: #D9D9D9;
     border: none;
     border-radius: 10px;
-     font-size: 20px;
+    font-size: 20px;
     font-weight: 800;
     color: #000000;
     padding-left: 10px;
 }
-
-
-
 
 
 
@@ -158,7 +138,6 @@ h3 {
     gap: 10px;
     margin-top: 10%;
 }
-
 
 .data-inputs input {
     width: 30%;
@@ -172,16 +151,14 @@ h3 {
     border: none;
     margin-top: -5%;
 }
-.linha {
-    display: flex;
-}
 
 .profi {
     display: flex;
     flex-direction: column;
     width: 40%;
-    font-family: 'Inter', sans-serif;
 }
+
+
 
 /* Label */
 .profi label {
@@ -190,6 +167,8 @@ h3 {
     font-weight: bold;
     border-radius: 10px 10px 0 0;
 }
+
+
 
 /* Select principal */
 .profi select {
@@ -206,6 +185,8 @@ h3 {
     outline: none;
 }
 
+
+
 /* Ícone de seta */
 .profi {
     position: relative;
@@ -220,11 +201,15 @@ h3 {
     font-size: 12px;
 }
 
+
+
 /* Opções do dropdown */
 .profi select option {
     background-color: #D9D9D9;
     color: black;
 }
+
+
 
 /* TELEFONE CENTRALIZADO */
 .telefone {
@@ -236,12 +221,13 @@ h3 {
     left: 50%;
 }
 
+
+
 /* BOTÃO */
 .acoes {
     display: flex;
     justify-content: flex-end;
 }
-
 
 button {
     background-color: #014a7f;
@@ -258,9 +244,6 @@ button {
     text-align: center;
 }
 
-
 button:hover {
     background-color: #083d5f;
 }
-
-
