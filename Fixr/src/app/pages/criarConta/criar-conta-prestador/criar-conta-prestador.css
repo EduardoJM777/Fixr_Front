@@ -123,28 +123,6 @@ h3 {
 
 
 
-/* DATA NASCIMENTO */
-.data-inputs {
-    display: flex;
-    gap: 10px;
-    margin-top: 10%;
-}
-
-.data-inputs input {
-    width: 30%;
-    text-align: center;
-    height: 52px;
-    font-size: 20px;
-    font-weight: 800;
-    color: #000000;
-    background-color: #D9D9D9;
-    border-radius: 10px;
-    border: none;
-    margin-top: -5%;
-}
-
-
-
 .profi {
     color: #FFFFFF;
     font-size: 20px;

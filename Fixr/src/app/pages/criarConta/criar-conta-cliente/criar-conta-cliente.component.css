@@ -16,7 +16,7 @@
     width: 100%;
 }
 
-.header .cliHeader {
+.cliHeader {
     font-family: 'Inter', sans-serif;
     font-size: 40px;
     font-weight: 800;
@@ -125,26 +125,6 @@ label {
     font-weight: 800;
     color: #000000;
     padding-left: 10px;
-}
-
-
-
-/* DATA NASCIMENTO */
-.data-inputs {
-    display: flex;
-    gap: 10px;
-}
-
-.data-inputs input {
-    width: 184px;
-    text-align: center;
-    height: 52px;
-    font-size: 20px;
-    font-weight: 800;
-    color: #000000;
-    background-color: #D9D9D9;
-    border-radius: 10px;
-    border: none;
 }
 
 

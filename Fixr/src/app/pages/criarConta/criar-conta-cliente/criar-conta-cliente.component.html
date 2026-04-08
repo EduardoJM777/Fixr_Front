@@ -13,27 +13,20 @@
                 <input type="text"
                        class="inNome"
                        name="nome"
-                       [(ngModel)]="novoCliente.nome"
+                       [(ngModel)]="nome"
                        required>
-            </div>
-
-            <div class="campo data">
-                <label>DATA DE NASCIMENTO</label>
-                <div class="data-inputs">
-                    <input type="text" maxlength="2" placeholder="DD">
-                    <input type="text" maxlength="2" placeholder="MM">
-                    <input type="text" maxlength="4" placeholder="AAAA">
-                </div>
             </div>
         </div>
 
-        <div class="campo">
-            <label>E-MAIL</label>
-            <input type="email" 
-                   class="inEmail"
-                   name="email"
-                   [(ngModel)]="novoCliente.email"
-                   required>
+        <div class="linha">            
+            <div class="campo">
+                <label>E-MAIL</label>
+                <input type="email" 
+                       class="inEmail"
+                       name="email"
+                       [(ngModel)]="email"
+                       required>
+            </div>
         </div>
 
         <div class="linha">
@@ -54,17 +47,18 @@
             </div>
         </div>
 
-        <div class="campo telefone">
-            <label>TELEFONE</label>
-            <input type="tel"
-                   class="inTel"
-                   name="telefone"
-                   [(ngModel)]="telefone">
-        </div>
+        
+            <div class="campo telefone">
+                <label>TELEFONE</label>
+                <input type="tel"
+                       class="inTel"
+                       name="telefone"
+                       [(ngModel)]="telefone">
+            </div>
+        
 
         <div class="acoes">
-            <button type="submit"
-                    [disabled]="form.invalid">Cadastrar</button>
+            <button type="submit">Cadastrar</button>
         </div>
 
     </form>

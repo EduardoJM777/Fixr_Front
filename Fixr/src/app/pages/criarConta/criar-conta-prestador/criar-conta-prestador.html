@@ -11,27 +11,20 @@
                 <input type="text"
                        class="inNome"
                        name="nome"
-                       [(ngModel)]="novoPrestador.nome"
+                       [(ngModel)]="nome"
                        required>
-            </div>
-
-            <div class="campo_data">
-                <h3 >DATA DE NASCIMENTO</h3>
-                <div class="data-inputs">
-                    <input type="text" placeholder="DD" maxlength="2">
-                    <input type="text" placeholder="MM" maxlength="2">
-                    <input type="text" placeholder="AAAA" maxlength="4">
-                </div>
             </div>
         </div>
 
-        <div class="campo">
-            <h3>EMAIL</h3>
-            <input type="email" 
-                   class="inEmail"
-                   name="email"
-                   [(ngModel)]="novoPrestador.email"
-                   required>
+        <div class="linha">
+            <div class="campo">
+                <h3>EMAIL</h3>
+                <input type="email" 
+                    class="inEmail"
+                    name="email"
+                    [(ngModel)]="email"
+                    required>
+            </div>
         </div>
 
         <div class="linha">
@@ -51,7 +44,6 @@
                        [(ngModel)]="confSenha">
             </div>
         </div>
-
 
         <div class="linha">
             <div class="campo">
@@ -79,8 +71,7 @@
         </div>
 
         <div class="acoes">
-            <button type="submit"
-                    [disabled]="form.invalid">Cadastrar</button>
+            <button type="submit">Cadastrar</button>
         </div>
 
     </form>
