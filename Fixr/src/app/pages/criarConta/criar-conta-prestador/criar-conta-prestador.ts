@@ -24,7 +24,7 @@ export class CriarContaPrestador {
   profissaoId: any = "";
   profissoes: any[] = [];
 
-  // 🔥 CARREGA PROFISSÕES
+  
   ngOnInit(){
     this.http.get<any[]>("http://localhost:8080/profissao")
       .subscribe(res => {
@@ -32,14 +32,14 @@ export class CriarContaPrestador {
       });
   }
 
-  // 🔥 REGRA DO "OUTROS"
+  
   onProfissaoChange(){
     if(this.profissaoId === 'outro'){
       this.router.navigate(['/criarProfissao']);
     }
   }
 
-  // 🔥 CADASTRO
+  
   cadastrar(){
 
     if(this.senha !== this.confSenha){
@@ -57,6 +57,7 @@ export class CriarContaPrestador {
       email: this.email,
       senha: this.senha,
       profissaoId: this.profissaoId
+
     };
 
     this.http.post("http://localhost:8080/prestador", dados)
