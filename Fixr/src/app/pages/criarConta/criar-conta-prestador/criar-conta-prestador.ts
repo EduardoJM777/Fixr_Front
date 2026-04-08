@@ -1,42 +1,78 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormsModule } from "@angular/forms";
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { PrestadorDTO } from '../../../models/prestadorDTO.model';
-import { Profissao } from '../../../models/enums/profissao.enum';
-import { PrestadorService } from '../../../services/prestador-service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-criar-conta-prestador',
-  imports: [CommonModule, FormsModule],
+  standalone: true,
+  imports: [FormsModule, CommonModule],
   templateUrl: './criar-conta-prestador.html',
   styleUrl: './criar-conta-prestador.css',
 })
 
 export class CriarContaPrestador {
 
-  novoPrestador: PrestadorDTO = {nome: '', email: '', profissao: null};
+  constructor(private http: HttpClient, private router: Router){}
 
-  constructor(private router: Router, private prestadorService: PrestadorService){}
+  nome = "";
+  email = "";
+  senha = "";
+  confSenha = "";
+  telefone = "";
 
-  profissoes = Object.values(Profissao);
+  profissaoId: any = "";
+  profissoes: any[] = [];
 
-  cadastrarPrestador(){
-    this.prestadorService.salvar({...this.novoPrestador})
-      .subscribe({
-        next: () => {
-          alert('Prestador Cadastrado');
-          this.novoPrestador = {nome: '', email: '', profissao: null};
-        },
-        error: (err) => {
-          console.error(err);
-          alert('Erro ao cadastar');
-        }
-      })
+  
+  ngOnInit(){
+    this.http.get<any[]>("http://localhost:8080/profissao")
+      .subscribe(res => {
+        this.profissoes = res;
+      });
   }
 
-  irCadProfissao(){
-    this.router.navigate(['/criarProfissao'])
+  
+  onProfissaoChange(){
+    if(this.profissaoId === 'outro'){
+      this.router.navigate(['/criarProfissao']);
+    }
+  }
+
+  
+  cadastrar(){
+
+    if(this.senha !== this.confSenha){
+      alert("Senhas não conferem");
+      return;
+    }
+
+    if(this.profissaoId === 'outro'){
+      alert("Selecione uma profissão válida");
+      return;
+    }
+
+    const dados = {
+      nome: this.nome,
+      email: this.email,
+      senha: this.senha,
+      profissaoId: this.profissaoId
+
+    };
+
+    this.http.post("http://localhost:8080/prestador", dados)
+      .subscribe({
+        next: () => {
+          alert("Prestador cadastrado!");
+          this.router.navigate(['/']);
+        },
+        error: (err) => {
+          console.log(err);
+          alert("Erro ao cadastrar");
+        }
+      });
+      
   }
 
 }

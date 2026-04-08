@@ -1,34 +1,52 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ClienteDTO } from '../../../models/clienteDTO.model';
-import { ClienteService } from '../../../services/cliente-service';
+import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-criar-conta-cliente',
-  imports: [CommonModule, FormsModule],
+  standalone: true,
+  imports: [FormsModule, CommonModule],
   templateUrl: './criar-conta-cliente.component.html',
   styleUrl: './criar-conta-cliente.component.css'
 })
 export class CriarContaClienteComponent {
 
-  novoCliente: ClienteDTO = {nome: '', email: ''};
+  constructor(private http: HttpClient, private router: Router){}
 
-  constructor(private clienteService: ClienteService){}
+  nome = "";
+  email = "";
+  senha = "";
+  confSenha = "";
+  telefone = "";
 
-  cadastrarCliente(){
-    this.clienteService.salvar({...this.novoCliente})
+  cadastrar(){
+
+    // 🔒 validação básica
+    if(this.senha !== this.confSenha){
+      alert("Senhas não conferem");
+      return;
+    }
+
+    const dados = {
+      nome: this.nome,
+      email: this.email,
+      senha: this.senha,
+      telefone: this.telefone
+    };
+
+    this.http.post("http://localhost:8080/cliente", dados)
       .subscribe({
         next: () => {
-          alert('Cliente Cadastrado!');
-          this.novoCliente = {nome: '', email: ''};
+          alert("Cadastro realizado!");
+          this.router.navigate(['/']); // volta pro login
         },
         error: (err) => {
-          console.error(err);
-          alert('Erro ao cadastrar');
+          console.log(err);
+          alert("Erro ao cadastrar");
         }
       });
   }
-
-
 }

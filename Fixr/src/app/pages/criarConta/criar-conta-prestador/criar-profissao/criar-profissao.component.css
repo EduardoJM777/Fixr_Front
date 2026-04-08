@@ -1,129 +1,144 @@
 /* Reset básico */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Inter', sans-serif;
 }
+
+
 
 /* Fundo geral */
 body {
-    background-color: #d9d9d9;
+    background-color: #f3f3f3;
 }
 
-/* Header */
-.headerCadPres {
-    background-color: #0f4c75;
-    color: white;
-    text-align: center;
-    padding: 20px;
-    font-size: 28px;
-    font-weight: bold;
+
+
+.linha {
+    display: flex;
+    gap: 107px;
+    margin-bottom: 44px;
 }
+
+.campo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+/* Header */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #014A7F;
+    height: 116px;
+    width: 100%;
+}
+
+.headerCadPres {
+    font-size: 40px;
+    font-weight: 800;
+    color: #FFFFFF;
+}
+
+
 
 /* Container principal */
 .container-main {
     display: flex;
     justify-content: center;
-    margin-top: 30px;
+    margin-top: 55px;
 }
+
+
 
 /* Card azul */
 .fundoCad {
-    background-color: #1b8aa5;
-    width: 90%;
-    max-width: 1100px;
+    background-color: #008eb6;
     padding: 40px;
-    border-radius: 8px;
+    border-radius: 10px;
+    position: relative;
+    padding-bottom: 230px;
 }
+
+
 
 /* Labels */
 label {
-    color: white;
-    font-size: 14px;
-    font-weight: bold;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 800;
     display: block;
-    margin-bottom: 8px;
 }
+
+
 
 /* Inputs padrão */
-input, select {
-    background-color: #cfcfcf;
+.nomeProf {
+    width: 612px;
+    height: 50px;
+    background-color: #d9d9d9;
+    border-radius: 10px;
     border: none;
-    border-radius: 6px;
-    padding: 12px;
-    width: 100%;
-    margin-bottom: 20px;
-    font-size: 14px;
+    font-size: 20px;
 }
 
-/* Input grande (descrição) */
-.data input[type="text"] {
-    height: 200px;
+.exibProf {
+    display: flex;
+    background-color: #d9d9d9;
+    width: 597px;
+    height: 75px;
+    align-items: center;
+    font-size: 20px;
+    border-radius: 10px;
 }
 
-/* Layout em duas colunas */
-.fundoCad {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
+.txtProf {
+    margin-right: 121px;
+    margin-left: 21px;
+    font-weight: 800;
 }
 
-/* Nome ocupa esquerda */
-.nome {
-    
+select {
+    background-color: #d9d9d9;
+    border: none;
+    border-radius: 10px;
+    width: 597px;
+    height: 75px;
+    font-size: 20px;
 }
 
-/* Descrição também esquerda */
-.data {
-    grid-column: 1 / 2;
-    flex: 2;
+textarea {
+    background-color: #d9d9d9;
+    border-radius: 10px;
+    font-size: 20px;
+    width:612px; 
+    height:208px;
 }
 
-/* Select vai pra direita */
-.data select {
-    grid-column: 2 / 3;
-}
+
 
 /* Botão */
 button {
-    background-color: #0f4c75;
-    color: white;
+    background-color: #014A7F;
+    color: #ffffff;
     border: none;
-    padding: 15px;
-    border-radius: 8px;
-    font-size: 18px;
+    border-radius: 10px;
+    font-size: 32px;
     cursor: pointer;
-    width: 300px;
-    justify-self: end;
+    width: 597px;
+    height: 77px;
+    font-weight: 700;
+
+    position: absolute;
+    bottom: 38px;
+    right: 37px;
 }
+
+
 
 /* Hover do botão */
 button:hover {
     background-color: #09324d;
-}
-
-.ladoDireitoCima{
-    background-color: #cbcaca;
-    display: flex;
-    position: absolute;
-    top: 190px;
-    right: 250px;
-    padding-left: 80px;
-    padding-right: 80px;
-    padding-bottom: 10px;
-    padding-top: 10px;
-}
-
-.ladoDireito{
-    display: flex;
-    position: absolute;
-    top: 320px;
-    right: 250px;
-}
-.ladoDireito{
-    display: flex;
-    position: absolute;
-    top: 320px;
-    right: 250px;
 }

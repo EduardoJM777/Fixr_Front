@@ -2,10 +2,8 @@
     <header class="preHeader">CADASTRO - PRESTADOR</header>
 </div>
 
-<br>
-
 <div class="container">
-    <form (ngSubmit)="cadastrarPrestador()" #form="ngForm">
+    <form (ngSubmit)="cadastrar()">
 
         <div class="linha">
             <div class="campo">
@@ -38,40 +36,52 @@
 
         <div class="linha">
             <div class="campo">
-                <h3 class="">SENHA</h3>
-                <input type="password" class="inSenha">
+                <h3>SENHA</h3>
+                <input type="password"
+                       class="inSenha"
+                       name="senha"
+                       [(ngModel)]="senha">
             </div>
+
             <div class="campo">
-                <h3 class="">CONFIRME SUA SENHA</h3>
-                <input type="password" class="inConfSenha">
+                <h3>CONFIRME SUA SENHA</h3>
+                <input type="password"
+                       class="inConfSenha"
+                       name="confSenha"
+                       [(ngModel)]="confSenha">
             </div>
         </div>
 
-            <div class="profi">
-                <label for="profissao">Profissão</label>
-                <select id="profissao"
-                        name="profissao"
-                        [(ngModel)]="novoPrestador.profissao">
-                        
-                    <option [ngValue]="null"
-                            selected 
-                            disabled>Selecione</option>
 
-                    <option *ngFor="let p of profissoes" [value]="p">
-                        {{ p }}
-                    </option>        
-                    
-                </select>
+        <div class="linha">
+            <div class="campo">
+                    <label class="profi">PROFISSÃO</label>
+
+                    <select name="profissaoId"
+                            [(ngModel)]="profissaoId"
+                            (change)="onProfissaoChange()">
+
+                        <option *ngFor="let p of profissoes" [value]="p.id">
+                            {{ p.nome }}
+                        </option>
+
+                        <option value="outro">Outros</option>
+                    </select>
             </div>
 
-            <div class="campo telefone">
+            <div class="campo">
                 <h3>TELEFONE</h3>
-                <input type="tel" class="inTel">
+                <input type="tel"
+                       class="inTel"
+                       name="telefone"
+                       [(ngModel)]="telefone">
             </div>
+        </div>
 
         <div class="acoes">
             <button type="submit"
                     [disabled]="form.invalid">Cadastrar</button>
         </div>
+
     </form>
 </div>

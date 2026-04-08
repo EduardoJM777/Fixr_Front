@@ -1,13 +1,11 @@
-
 <header>
     <div class="header">
         <h1 class="cliHeader">CADASTRO - CLIENTE</h1>
     </div>
 </header>
 
-
 <div class="container">
-    <form (ngSubmit)="cadastrarCliente()" #form="ngForm">
+    <form (ngSubmit)="cadastrar()">
 
         <div class="linha">
             <div class="campo">
@@ -41,18 +39,27 @@
         <div class="linha">
             <div class="campo">
                 <label>SENHA</label>
-                <input type="password" class="inSenha">
+                <input type="password"
+                       class="inSenha"
+                       name="senha"
+                       [(ngModel)]="senha">
             </div>
 
             <div class="campo">
                 <label>CONFIRME SUA SENHA</label>
-                <input type="password" class="inConfSenha">
+                <input type="password"
+                       class="inConfSenha"
+                       name="confSenha"
+                       [(ngModel)]="confSenha">
             </div>
         </div>
 
         <div class="campo telefone">
             <label>TELEFONE</label>
-            <input type="tel" class="inTel">
+            <input type="tel"
+                   class="inTel"
+                   name="telefone"
+                   [(ngModel)]="telefone">
         </div>
 
         <div class="acoes">
