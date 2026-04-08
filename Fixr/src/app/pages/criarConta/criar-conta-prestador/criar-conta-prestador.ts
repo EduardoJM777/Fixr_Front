@@ -11,6 +11,7 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './criar-conta-prestador.html',
   styleUrl: './criar-conta-prestador.css',
 })
+
 export class CriarContaPrestador {
 
   constructor(private http: HttpClient, private router: Router){}

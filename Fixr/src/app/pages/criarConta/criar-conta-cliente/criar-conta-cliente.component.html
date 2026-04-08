@@ -13,16 +13,27 @@
                 <input type="text"
                        class="inNome"
                        name="nome"
-                       [(ngModel)]="nome">
+                       [(ngModel)]="novoCliente.nome"
+                       required>
+            </div>
+
+            <div class="campo data">
+                <label>DATA DE NASCIMENTO</label>
+                <div class="data-inputs">
+                    <input type="text" maxlength="2" placeholder="DD">
+                    <input type="text" maxlength="2" placeholder="MM">
+                    <input type="text" maxlength="4" placeholder="AAAA">
+                </div>
             </div>
         </div>
 
         <div class="campo">
             <label>E-MAIL</label>
-            <input type="email"
+            <input type="email" 
                    class="inEmail"
                    name="email"
-                   [(ngModel)]="email">
+                   [(ngModel)]="novoCliente.email"
+                   required>
         </div>
 
         <div class="linha">
@@ -52,7 +63,8 @@
         </div>
 
         <div class="acoes">
-            <button type="submit">Cadastrar</button>
+            <button type="submit"
+                    [disabled]="form.invalid">Cadastrar</button>
         </div>
 
     </form>
