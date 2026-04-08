@@ -15,13 +15,15 @@
             </div>
         </div>
 
-        <div class="campo">
-            <h3>EMAIL</h3>
-            <input type="email"
-                   class="inEmail"
-                   name="email"
-                   [(ngModel)]="email">
-        </div>
+        <div class="linha">
+            <div class="campo">
+                <h3>EMAIL</h3>
+                <input type="email"
+                       class="inEmail"
+                       name="email"
+                       [(ngModel)]="email">
+            </div>
+        </div>    
 
         <div class="linha">
             <div class="campo">
@@ -41,28 +43,30 @@
             </div>
         </div>
 
-        <!-- 🔥 PROFISSÃO DINÂMICA -->
-        <div class="profi">
-            <label>Profissão</label>
 
-            <select name="profissaoId"
-                    [(ngModel)]="profissaoId"
-                    (change)="onProfissaoChange()">
+        <div class="linha">
+            <div class="campo">
+                    <label class="profi">Profissão</label>
 
-                <option *ngFor="let p of profissoes" [value]="p.id">
-                    {{ p.nome }}
-                </option>
+                    <select name="profissaoId"
+                            [(ngModel)]="profissaoId"
+                            (change)="onProfissaoChange()">
 
-                <option value="outro">Outros</option>
-            </select>
-        </div>
+                        <option *ngFor="let p of profissoes" [value]="p.id">
+                            {{ p.nome }}
+                        </option>
 
-        <div class="campo telefone">
-            <h3>TELEFONE</h3>
-            <input type="tel"
-                   class="inTel"
-                   name="telefone"
-                   [(ngModel)]="telefone">
+                        <option value="outro">Outros</option>
+                    </select>
+            </div>
+
+            <div class="campo">
+                <h3>TELEFONE</h3>
+                <input type="tel"
+                       class="inTel"
+                       name="telefone"
+                       [(ngModel)]="telefone">
+            </div>
         </div>
 
         <div class="acoes">

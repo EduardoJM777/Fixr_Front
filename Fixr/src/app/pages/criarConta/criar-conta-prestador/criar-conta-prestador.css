@@ -13,10 +13,10 @@
     justify-content: center;
     background-color: #014A7F;
     height: 116px;
-    width: 101%;
+    width: 100%;
 }
 
-.header .preHeader {
+.preHeader {
     font-size: 40px;
     font-weight: 800;
     color: #FFFFFF;
@@ -27,14 +27,13 @@
 /* CONTAINER */
 .container {
     width: 100%;
-    max-width: 1400px;
-    margin: 55px, auto;
-    margin-left: 70px;
+    max-width: 1353px;
+    margin-left: 43px;
     margin-top: 55px;
     background-color: #008EB6;
     padding-left: 20px;
     padding-right: 20px;
-    padding-top: 5px;
+    padding-top: 25px;
     padding-bottom: 39px;
     border-radius: 10px;
     position: absolute;
@@ -46,9 +45,6 @@
 .linha {
     display: flex;
     gap: 40px;
-    margin-bottom: 25px;
-    margin-top: 55px;
-    margin-top: 2%;
 }
 
 .campo {
@@ -63,7 +59,7 @@
 h3 {
     color: #FFFFFF;
     font-weight: 800;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     font-size: 20px;
 }
 
@@ -78,55 +74,50 @@ h3 {
     border: none;
     font-size: 20px;
     font-weight: 800;
-    color: #000000;
     padding-left: 10px;
 }
 
 .inEmail {
-    width: 90%;
-    height: 61px;
+    width: 1306px;
+    height: 59px;
     background-color: #D9D9D9;
     border-radius: 10px;
     border: none;
     font-size: 20px;
     font-weight: 800;
-    color: #000000;
     padding-left: 10px;
 }
 
 .inSenha {
-    width: 90%;
+    width: 610px;
     height: 61px;
     background-color: #D9D9D9;
     border: none;
     border-radius: 10px;
     font-size: 20px;
     font-weight: 800;
-    color: #000000;
     padding-left: 10px;
 }
 
 .inConfSenha {
-    width: 90%;
+    width: 613px;
     height: 60px;
     background-color: #D9D9D9;
     border: none;
     border-radius: 10px;
     font-size: 20px;
     font-weight: 800;
-    color: #000000;
     padding-left: 10px;
 }
 
 .inTel {
-    width: 90%;
+    width: 613px;
     height: 57px;
     background-color: #D9D9D9;
     border: none;
     border-radius: 10px;
     font-size: 20px;
     font-weight: 800;
-    color: #000000;
     padding-left: 10px;
 }
 
@@ -152,75 +143,6 @@ h3 {
     margin-top: -5%;
 }
 
-.profi {
-    display: flex;
-    flex-direction: column;
-    width: 40%;
-}
-
-
-
-/* Label */
-.profi label {
-    background-color: #D9D9D9;
-    padding: 10px;
-    font-weight: bold;
-    border-radius: 10px 10px 0 0;
-}
-
-
-
-/* Select principal */
-.profi select {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-
-    background-color: #D9D9D9;
-    border: none;
-    padding: 12px;
-    font-size: 16px;
-    border-radius: 0 0 10px 10px;
-    cursor: pointer;
-    outline: none;
-}
-
-
-
-/* Ícone de seta */
-.profi {
-    position: relative;
-}
-
-.profi::after {
-    content: "▼";
-    position: absolute;
-    right: 15px;
-    top: 38px;
-    pointer-events: none;
-    font-size: 12px;
-}
-
-
-
-/* Opções do dropdown */
-.profi select option {
-    background-color: #D9D9D9;
-    color: black;
-}
-
-
-
-/* TELEFONE CENTRALIZADO */
-.telefone {
-    width: 50%;
-    margin: 30px auto;
-    display: flex;
-    position: absolute;
-    top: 70%;
-    left: 50%;
-}
-
 
 
 /* BOTÃO */
@@ -231,17 +153,15 @@ h3 {
 
 button {
     background-color: #014a7f;
-    color: rgb(255, 255, 255);
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    width: 20%;
-    height: 8%;
+    color: #ffffff;
+    border-radius: 10px;
     font-size: 32px;
+    cursor: pointer;
+    width: 295px;
+    height: 77px;
     font-weight: 700;
     display: flex;
-    margin-bottom: auto;
-    text-align: center;
+    justify-content: center;
 }
 
 button:hover {

@@ -16,7 +16,7 @@ export class CriarProfissaoComponent {
   constructor(private router: Router, private http: HttpClient){}
 
   nomeProf: string = "";
-  desc: string = "";
+  descricao: string = "";
 
   profissaoSemelhanteId: number | null = null;
   profissoes: any[] = [];
@@ -32,14 +32,14 @@ export class CriarProfissaoComponent {
   // 🔥 cadastro
   cadastrar(){
 
-    if(!this.nomeProf || !this.desc){
+    if(!this.nomeProf || !this.descricao){
       alert("Preencha todos os campos");
       return;
     }
 
     const dados = {
       nome: this.nomeProf,
-      desc: this.desc,
+      desc: this.descricao,
       profissaoPaiId: this.profissaoSemelhanteId // opcional
     };
 

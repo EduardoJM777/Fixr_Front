@@ -1,76 +1,61 @@
-<div class="container">
+<div class="header">
+    <header class="headerCadPres">CADASTRO - PROFISSÃO</header>
+</div>
 
-    <div class="header">
-        <header class="headerCadPres">CADASTRO - PROFISSÃO</header>
-    </div>
+<div class="container-main">
 
-    <br>
+    <form (ngSubmit)="cadastrar()">
 
-    <div class="container-main">
+        <div class="fundoCad">
 
-        <form (ngSubmit)="cadastrar()">
-
-            <div class="fundoCad">
-
-                <div class="linha">
-                    <div class="campo">
-                        <label>NOME DA PROFISSÃO</label> 
-                        <input type="text"
-                               class="nomeProf"
-                               [(ngModel)]="nomeProf"
-                               name="nomeProf">
-                    </div>
-
-                     <div class="campo">
-                        <p>PROFISSÃO: Outros</p>
-                    </div>
+            <div class="linha">
+                <div class="campo">
+                    <label>NOME DA PROFISSÃO</label> 
+                    <input type="text"
+                        class="nomeProf"
+                        [(ngModel)]="nomeProf"
+                        name="nomeProf">
                 </div>
 
-                <br>
-
-                <div class="linha">
-                    <div class="campo">
-                        <label>DESCREVA A PROFISSÃO</label><br>
-
-                        <textarea
-                            [(ngModel)]="desc"
-                            name="desc"
-                            style="width:612px; height:208px">
-                        </textarea>
-                    </div>    
-
-                        <br>
-
-                    <div class="campo">
-                        <!-- 🔥 PROFISSÃO SEMELHANTE DINÂMICA -->
-                            <label>PROFISSÃO SEMELHANTE</label>
-
-                            <select [(ngModel)]="profissaoSemelhanteId"
-                                    name="profissaoSemelhanteId">
-
-                                <option [ngValue]="null">Nenhuma</option>
-
-                                <option *ngFor="let p of profissoes"
-                                        [value]="p.id">
-                                    {{ p.nome }}
-                                </option>
-
-                            </select>
-
+                <div class="campo">
+                    <div class="exibProf">
+                        <p class="txtProf">PROFISSÃO:</p><p>Outros</p>
                     </div>
-
-                </div>  
-
-                    <br>
-
-                <div class="linha">    
-                    <button type="submit">Cadastrar Profissão</button>
-                </div>    
-
+                </div>
             </div>
 
-        </form>
+            <div class="linha">
+                <div class="campo">
+                    <label>DESCREVA A PROFISSÃO</label><br>
+                    <textarea
+                        [(ngModel)]="descricao"
+                        name="descricao">
+                    </textarea>
+                </div>    
 
-    </div>
+                <div class="campo">
+                    <!-- 🔥 PROFISSÃO SEMELHANTE DINÂMICA -->
+                        <label>PROFISSÃO SEMELHANTE</label>
+                        <select [(ngModel)]="profissaoSemelhanteId"
+                                name="profissaoSemelhanteId">
+
+                            <option [ngValue]="null">Nenhuma</option>
+
+                            <option *ngFor="let p of profissoes"
+                                    [value]="p.id">
+                                {{ p.nome }}
+                            </option>
+
+                        </select>
+                </div>
+            </div>  
+
+            <div class="linha">    
+                <button type="submit">Cadastrar Profissão</button>
+            </div>    
+
+        </div>
+
+    </form>
 
 </div>
