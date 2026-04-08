@@ -18,7 +18,7 @@ export class CadastroComponent {
   email: string = "";
   senha: string = "";
 
-  // ✅ LOGIN
+  
   login(){
 
     const dados = {
@@ -43,7 +43,7 @@ export class CadastroComponent {
       });
   }
 
-  // ✅ NAVEGAÇÃO
+  
   irCadCliente(){
     this.router.navigate(['/criarContaCliente']);
   }

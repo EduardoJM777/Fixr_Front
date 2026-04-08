@@ -29,7 +29,7 @@ export class CriarProfissaoComponent {
       });
   }
 
-  // 🔥 cadastro
+  
   cadastrar(){
 
     if(!this.nomeProf || !this.descricao){
