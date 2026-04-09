@@ -1,0 +1,24 @@
+* {
+    font-family: 'Inter', sans-serif;
+}
+
+.navbar{
+    background:#014A7F;
+    height: 112px;
+}
+
+.navbar ul{
+    list-style:none;
+    display:flex;
+    justify-content:space-around;
+    margin:0;
+    padding:0;
+}
+
+.navbar li{
+    color:white;
+    font-weight:800;
+    cursor:pointer;
+    font-size: 24px;
+    padding-top: 41px;
+}
