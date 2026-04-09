@@ -6,6 +6,8 @@
     margin-top: 101px;
 }
 
+
+
 .quadro-rec {
     display: flex;
     flex-direction: column;
@@ -17,14 +19,14 @@
     border-radius: 10px;
 }
 
-.texto-email {
+.quadro-rec .texto-email {
     font-family: 'Inter', sans-serif;
     font-size: 20px;
     font-weight: 800;
     color: #FFFFFF;
 }
 
-.input-rec {
+.quadro-rec .input-rec {
     width: 913px;
     height: 59px;
     background-color: #FFFFFF;
@@ -33,7 +35,7 @@
     font-size: 30px;
 }
 
-.btn-rec {
+.quadro-rec .btn-rec {
     width: 240px;
     height: 32px;
     background-color: #014A7F;
@@ -46,6 +48,8 @@
     margin-top: 41px;
     cursor: pointer;
 }
+
+
 
 .container-instru {
     display: flex;

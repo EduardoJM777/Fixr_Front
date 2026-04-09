@@ -4,18 +4,19 @@ import { CadastroComponent } from './pages/cadastro/cadastro.component';
 import { HeaderRec } from './components/header-rec/header-rec';
 import { RecuSenhaComponent } from './pages/recu-senha/recu-senha.component';
 import { CriarContaClienteComponent } from './pages/criarConta/criar-conta-cliente/criar-conta-cliente.component';
-import { HeaderFixrVazio } from './components/header-fixr-vazio/header-fixr-vazio';
-import { TelaNotificacao } from './pages/outras/tela-notificacao/tela-notificacao';
-import { SubHeaderSolid } from './components/sub-header-solid/sub-header-solid';
-import { HeaderFixrCliente } from './components/header-fixr-cliente/header-fixr-cliente';
-import { SubHeaderCliente } from './components/sub-header-cliente/sub-header-cliente';
+import { ChatVazioComponent } from "./pages/chat-vazio/chat-vazio.component";
+import { CriarContaPrestador } from './pages/criarConta/criar-conta-prestador/criar-conta-prestador';
+import { CriarProfissaoComponent } from "./pages/criarConta/criar-conta-prestador/criar-profissao/criar-profissao.component";
+import { RecuSenhaOk } from "./pages/recu-senha/recu-senha-ok/recu-senha-ok";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, TelaNotificacao],
+  standalone: true,
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
+
 export class App {
   protected readonly title = signal('Fixr');
 }
