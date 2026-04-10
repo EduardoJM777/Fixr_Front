@@ -19,7 +19,8 @@
 
                 <div class="campo">
                     <div class="exibProf">
-                        <p class="txtProf">PROFISSÃO:</p><p>Outros</p>
+                        <p class="txtProf">PROFISSÃO:</p>
+                        <p>Outros</p>
                     </div>
                 </div>
             </div>
@@ -34,19 +35,18 @@
                 </div>    
 
                 <div class="campo">
-                    <!-- 🔥 PROFISSÃO SEMELHANTE DINÂMICA -->
-                        <label>PROFISSÃO SEMELHANTE</label>
-                        <select [(ngModel)]="profissaoSemelhanteId"
-                                name="profissaoSemelhanteId">
+                    <label>PROFISSÃO SEMELHANTE</label>
+                    <select [(ngModel)]="profissaoSemelhanteId"
+                            name="profissaoSemelhanteId">
 
-                            <option [ngValue]="null">Nenhuma</option>
+                        <option [ngValue]="null">Nenhuma</option>
 
-                            <option *ngFor="let p of profissoes"
-                                    [value]="p.id">
-                                {{ p.nome }}
-                            </option>
+                        <option *ngFor="let p of profissoes"
+                                [value]="p.id">
+                            {{ p.nome }}
+                        </option>
 
-                        </select>
+                    </select>
                 </div>
             </div>  
 

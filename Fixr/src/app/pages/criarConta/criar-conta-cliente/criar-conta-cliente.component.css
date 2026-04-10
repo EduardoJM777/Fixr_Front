@@ -6,7 +6,6 @@
 
 
 
-/* HEADER */
 .header {
     display: flex;
     align-items: center;
@@ -25,7 +24,6 @@
 
 
 
-/* CONTAINER */
 .container {
     width: 1353px;
     margin-left: 70px;
@@ -40,7 +38,6 @@
 
 
 
-/* LAYOUT */
 .linha {
     display: flex;
     gap: 40px;
@@ -56,7 +53,6 @@
 
 
 
-/* LABEL */
 label {
     color: #FFFFFF;
     font-weight: 800;
@@ -66,7 +62,6 @@ label {
 
 
 
-/* INPUTS */
 .inNome{
     width: 612px;
     height: 50px;
@@ -140,7 +135,6 @@ label {
 
 
 
-/* TELEFONE CENTRALIZADO */
 .telefone {
     width: 50%;
     margin: 30px auto;
@@ -148,7 +142,6 @@ label {
 
 
 
-/* BOTÃO */
 .acoes {
     display: flex;
     justify-content: flex-end;

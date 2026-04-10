@@ -5,4 +5,5 @@ export interface PrestadorDTO {
     dataNascimento: string;
     email: string;
     profissao: Profissao | null;
+    telefone: string;
 }

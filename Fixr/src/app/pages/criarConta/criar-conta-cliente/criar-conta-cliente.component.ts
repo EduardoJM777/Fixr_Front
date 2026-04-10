@@ -24,7 +24,6 @@ export class CriarContaClienteComponent {
 
   cadastrar(){
 
-    // 🔒 validação básica
     if(this.senha !== this.confSenha){
       alert("Senhas não conferem");
       return;
@@ -42,7 +41,7 @@ export class CriarContaClienteComponent {
       .subscribe({
         next: () => {
           alert("Cadastro realizado!");
-          this.router.navigate(['/']); // volta pro login
+          this.router.navigate(['/']);
         },
         error: (err) => {
           console.log(err);

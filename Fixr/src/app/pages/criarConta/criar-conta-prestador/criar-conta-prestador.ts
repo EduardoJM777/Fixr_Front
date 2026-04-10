@@ -59,8 +59,8 @@ export class CriarContaPrestador {
       dataNascimento: this.dataNascimento,
       email: this.email,
       senha: this.senha,
-      profissaoId: this.profissaoId
-
+      profissaoId: this.profissaoId,
+      telefone: this.telefone
     };
 
     this.http.post("http://localhost:8080/prestador", dados)

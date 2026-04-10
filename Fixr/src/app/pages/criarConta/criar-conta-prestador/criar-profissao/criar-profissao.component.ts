@@ -21,7 +21,6 @@ export class CriarProfissaoComponent {
   profissaoSemelhanteId: number | null = null;
   profissoes: any[] = [];
 
-  // 🔥 carrega profissões existentes
   ngOnInit(){
     this.http.get<any[]>("http://localhost:8080/profissao")
       .subscribe(res => {
@@ -40,7 +39,7 @@ export class CriarProfissaoComponent {
     const dados = {
       nome: this.nomeProf,
       desc: this.descricao,
-      profissaoPaiId: this.profissaoSemelhanteId // opcional
+      profissaoPaiId: this.profissaoSemelhanteId
     };
 
     this.http.post("http://localhost:8080/profissao", dados)
@@ -48,7 +47,6 @@ export class CriarProfissaoComponent {
         next: () => {
           alert("Profissão cadastrada!");
 
-          // 🔥 volta pra tela de prestador
           this.router.navigate(['/criarContaPrestador']);
         },
         error: (err) => {
