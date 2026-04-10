@@ -16,6 +16,7 @@ export class CriarContaClienteComponent {
   constructor(private http: HttpClient, private router: Router){}
 
   nome = "";
+  dataNascimento = "";
   email = "";
   senha = "";
   confSenha = "";
@@ -31,6 +32,7 @@ export class CriarContaClienteComponent {
 
     const dados = {
       nome: this.nome,
+      dataNascimento: this.dataNascimento,
       email: this.email,
       senha: this.senha,
       telefone: this.telefone

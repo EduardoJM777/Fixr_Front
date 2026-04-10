@@ -17,6 +17,7 @@ export class CriarContaPrestador {
   constructor(private http: HttpClient, private router: Router){}
 
   nome = "";
+  dataNascimento = "";
   email = "";
   senha = "";
   confSenha = "";
@@ -55,6 +56,7 @@ export class CriarContaPrestador {
 
     const dados = {
       nome: this.nome,
+      dataNascimento: this.dataNascimento,
       email: this.email,
       senha: this.senha,
       profissaoId: this.profissaoId
