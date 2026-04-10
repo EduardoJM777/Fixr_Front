@@ -1,41 +1,44 @@
 * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     font-family: 'Inter', sans-serif;
 }
 
-
-
-.header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #014A7F;
-    height: 116px;
+.body {
     width: 100%;
-}
-
-.headerCadPres {
-    margin: 0;
-    color: #FFFFFF;
-    font-size: 40px;
-    font-weight: 800;
-}
-
-
-
-.container-main {
+    height: 769px;
+    background-color: #008eb6;
     display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-.fundoCad {
-    background-color: #008EB6;
-    width: 1353px;
-    height: 770px;
+.containerCont {
+    width: 994px;
+    height: 769px;
+}
+
+.contatosChat {
+    width: 960px;
+    height: 630px;
+    background-color: #014a7f;
+    margin-top: 51px;
+    margin-left: 34px;
     border-radius: 10px;
 }
 
-.nome{
-    display: flex;
+.contatosChat h3 {
+    color: #FFFFFF;
+    padding-top: 30px;
+    padding-left: 88px;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.inPesquisa {
     
+}
+
+.iconesAnuncio {
+    width: 100%;
+    margin-left: 38px;
 }
