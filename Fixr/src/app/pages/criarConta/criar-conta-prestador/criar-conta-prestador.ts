@@ -1,0 +1,80 @@
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+
+@Component({
+  selector: 'app-criar-conta-prestador',
+  standalone: true,
+  imports: [FormsModule, CommonModule],
+  templateUrl: './criar-conta-prestador.html',
+  styleUrl: './criar-conta-prestador.css',
+})
+
+export class CriarContaPrestador {
+
+  constructor(private http: HttpClient, private router: Router){}
+
+  nome = "";
+  dataNascimento = "";
+  email = "";
+  senha = "";
+  confSenha = "";
+  telefone = "";
+
+  profissaoId: any = "";
+  profissoes: any[] = [];
+
+  
+  ngOnInit(){
+    this.http.get<any[]>("http://localhost:8080/profissao")
+      .subscribe(res => {
+        this.profissoes = res;
+      });
+  }
+
+  
+  onProfissaoChange(){
+    if(this.profissaoId === 'outro'){
+      this.router.navigate(['/criarProfissao']);
+    }
+  }
+
+  
+  cadastrar(){
+
+    if(this.senha !== this.confSenha){
+      alert("Senhas não conferem");
+      return;
+    }
+
+    if(this.profissaoId === 'outro'){
+      alert("Selecione uma profissão válida");
+      return;
+    }
+
+    const dados = {
+      nome: this.nome,
+      dataNascimento: this.dataNascimento,
+      email: this.email,
+      senha: this.senha,
+      profissaoId: this.profissaoId,
+      telefone: this.telefone
+    };
+
+    this.http.post("http://localhost:8080/prestador", dados)
+      .subscribe({
+        next: () => {
+          alert("Prestador cadastrado!");
+          this.router.navigate(['/']);
+        },
+        error: (err) => {
+          console.log(err);
+          alert("Erro ao cadastrar");
+        }
+      });
+      
+  }
+
+}

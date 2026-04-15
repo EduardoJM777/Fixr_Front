@@ -1,0 +1,61 @@
+<div class="header">
+    <header class="headerCadPres">CADASTRO - PROFISSÃO</header>
+</div>
+
+<div class="container-main">
+
+    <form (ngSubmit)="cadastrar()">
+
+        <div class="fundoCad">
+
+            <div class="linha">
+                <div class="campo">
+                    <label>NOME DA PROFISSÃO</label> 
+                    <input type="text"
+                           class="nomeProf"
+                           [(ngModel)]="nomeProf"
+                           name="nomeProf">
+                </div>
+
+                <div class="campo">
+                    <div class="exibProf">
+                        <p class="txtProf">PROFISSÃO:</p>
+                        <p>Outros</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="linha">
+                <div class="campo">
+                    <label>DESCREVA A PROFISSÃO</label><br>
+                    <textarea
+                        [(ngModel)]="descricao"
+                        name="descricao">
+                    </textarea>
+                </div>    
+
+                <div class="campo">
+                    <label>PROFISSÃO SEMELHANTE</label>
+                    <select [(ngModel)]="profissaoSemelhanteId"
+                            name="profissaoSemelhanteId">
+
+                        <option [ngValue]="null">Nenhuma</option>
+
+                        <option *ngFor="let p of profissoes"
+                                [value]="p.id">
+                            {{ p.nome }}
+                        </option>
+
+                    </select>
+                </div>
+            </div>  
+
+            <div class="linha">    
+                <button type="submit">Cadastrar Profissão</button>
+            </div>    
+
+        </div>
+
+    </form>
+
+</div>

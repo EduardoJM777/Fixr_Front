@@ -1,0 +1,75 @@
+<header>
+    <div class="header">
+        <h1 class="cliHeader">CADASTRO - CLIENTE</h1>
+    </div>
+</header>
+
+<div class="container">
+    <form (ngSubmit)="cadastrar()">
+
+        <div class="linha">
+            <div class="campo">
+                <label>NOME COMPLETO</label>
+                <input type="text"
+                       class="inNome"
+                       name="nome"
+                       [(ngModel)]="nome"
+                       required>
+            </div>
+
+            <div class="campo">
+                <label>DATA DE NASCIMENTO</label>
+                <input type="date"
+                       class="inDataNasc"
+                       name="dataNascimento"
+                       [(ngModel)]="dataNascimento">
+            </div>
+
+
+        </div>
+
+        <div class="linha">            
+            <div class="campo">
+                <label>E-MAIL</label>
+                <input type="email" 
+                       class="inEmail"
+                       name="email"
+                       [(ngModel)]="email"
+                       required>
+            </div>
+        </div>
+
+        <div class="linha">
+            <div class="campo">
+                <label>SENHA</label>
+                <input type="password"
+                       class="inSenha"
+                       name="senha"
+                       [(ngModel)]="senha">
+            </div>
+
+            <div class="campo">
+                <label>CONFIRME SUA SENHA</label>
+                <input type="password"
+                       class="inConfSenha"
+                       name="confSenha"
+                       [(ngModel)]="confSenha">
+            </div>
+        </div>
+
+        
+            <div class="campo telefone">
+                <label>TELEFONE</label>
+                <input type="tel"
+                       class="inTel"
+                       name="telefone"
+                       [(ngModel)]="telefone">
+            </div>
+        
+
+        <div class="acoes">
+            <button type="submit">Cadastrar</button>
+        </div>
+
+    </form>
+</div>
