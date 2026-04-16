@@ -6,3 +6,17 @@ html, body {
     height: 100%;
     margin: 0;
 }
+
+app-root {
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+}
+
+app-chat-vazio {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
