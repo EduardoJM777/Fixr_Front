@@ -7,6 +7,8 @@ import { CriarProfissaoComponent } from './pages/criarConta/criar-conta-prestado
 import { ChatVazioComponent } from './pages/cliente/chat-vazio/chat-vazio.component';
 import { AnunciarProblemaComponent } from './pages/cliente/criar-anuncio/criar-anuncio';
 import { BuscarPrestadorComponent } from './pages/cliente/buscar-prestador/buscar-prestador';
+import { EstatisticasClienteComponent } from './pages/cliente/estatistica/estatistica';
+import { FavoritosComponent } from './pages/cliente/favoritos/favoritos';
 
 export const routes: Routes = [
 
@@ -18,6 +20,8 @@ export const routes: Routes = [
     {path: 'criarProfissao', component: CriarProfissaoComponent},
     {path: 'criarAnuncio', component: AnunciarProblemaComponent},
     {path: 'buscarPrestador', component: BuscarPrestadorComponent},
+    {path: 'estatistica', component: EstatisticasClienteComponent},
+    {path: 'favoritos', component: FavoritosComponent},
     {path: '', redirectTo: 'cadastro', pathMatch: 'full'}
     
 ];

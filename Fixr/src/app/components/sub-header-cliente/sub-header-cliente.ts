@@ -18,5 +18,14 @@ export class SubHeaderCliente {
    irAnuncio(){
     this.router.navigate(['/criarAnuncio'])
   }
+  irBuscarPrestador(){
+    this.router.navigate(['/buscarPrestador'])
+  }
+  irEstatistica(){
+    this.router.navigate(['estatistica'])
+  }
+  irFavoritos(){
+    this.router.navigate(['favoritos'])
+  }
 
 }
