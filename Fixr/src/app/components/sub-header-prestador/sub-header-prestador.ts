@@ -1,0 +1,22 @@
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+
+@Component({
+  selector: 'app-sub-header-prestador',
+  standalone: true,
+  imports: [],
+  templateUrl: './sub-header-prestador.html',
+  styleUrl: './sub-header-prestador.css',
+})
+export class SubHeaderCliente {
+
+  constructor(private http: HttpClient, private router: Router){}
+
+  irBuscarAnuncio(){
+    this.router.navigate(['/buscarAnuncio'])
+  }
+  
+}
