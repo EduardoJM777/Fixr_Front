@@ -1,6 +1,6 @@
 import { Profissao } from "./enums/profissao.enum";
 
-export interface Usuario {
+export interface UsuarioDTO {
     nome: string;
     dataNascimento: string;
     email: string;

@@ -5,11 +5,12 @@ import { CriarContaClienteComponent } from './pages/criarConta/criar-conta-clien
 import { CriarContaPrestador } from './pages/criarConta/criar-conta-prestador/criar-conta-prestador';
 import { CriarProfissaoComponent } from './pages/criarConta/criar-conta-prestador/criar-profissao/criar-profissao.component';
 import { ChatVazioComponent } from './pages/cliente/chat-vazio/chat-vazio.component';
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
 
     {path: 'cadastro', component: CadastroComponent},
-    {path: 'chatVazio', component: ChatVazioComponent},
+    {path: 'chatVazio', component: ChatVazioComponent, canActivate: [AuthGuard]},
     {path: 'recuperarSenha', component: RecuSenhaComponent},
     {path: 'criarContaCliente', component: CriarContaClienteComponent},
     {path: 'criarContaPrestador', component: CriarContaPrestador},
