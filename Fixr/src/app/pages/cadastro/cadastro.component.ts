@@ -46,6 +46,9 @@ export class CadastroComponent {
   irChatVazio(){
     this.router.navigate(['/chatVazio']);
   }
+  irChatVazioPrestador(){
+    this.router.navigate(['/chatVazioPrestador']);
+  }
   
   irCadCliente(){
     this.router.navigate(['/criarContaCliente']);

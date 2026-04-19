@@ -11,12 +11,18 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './sub-header-prestador.html',
   styleUrl: './sub-header-prestador.css',
 })
-export class SubHeaderCliente {
+export class SubHeaderPrestador {
 
   constructor(private http: HttpClient, private router: Router){}
 
   irBuscarAnuncio(){
     this.router.navigate(['/buscarAnuncio'])
+  }
+  irEstatisticasPrestador(){
+    this.router.navigate(['/estatisticasPrestador'])
+  }
+  irFavoritosPrestador(){
+    this.router.navigate(['/favoritosPrestador'])
   }
   
 }

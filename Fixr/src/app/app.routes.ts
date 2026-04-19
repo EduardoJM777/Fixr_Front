@@ -10,6 +10,7 @@ import { BuscarPrestadorComponent } from './pages/cliente/buscar-prestador/busca
 import { EstatisticasClienteComponent } from './pages/cliente/estatistica/estatistica';
 import { FavoritosComponent } from './pages/cliente/favoritos/favoritos';
 import { BuscarAnuncioComponent } from './pages/prestador/buscar-anuncio/buscar-anuncio';
+import { ChatVazioPrestadorComponent } from './pages/chat-vazio-prestador/chat-vazio-prestador';
 
 export const routes: Routes = [
 
@@ -24,6 +25,7 @@ export const routes: Routes = [
     {path: 'estatistica', component: EstatisticasClienteComponent},
     {path: 'favoritos', component: FavoritosComponent},
     {path: 'buscarAnuncio', component: BuscarAnuncioComponent},
+    {path: 'chatVazioPrestador', component: ChatVazioPrestadorComponent},
     {path: '', redirectTo: 'cadastro', pathMatch: 'full'}
     
 ];
