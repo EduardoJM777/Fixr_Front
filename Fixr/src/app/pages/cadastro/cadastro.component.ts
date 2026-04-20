@@ -13,52 +13,5 @@ import { CommonModule } from '@angular/common';
 })
 export class CadastroComponent {
 
-  constructor(private http: HttpClient, private router: Router){}
-
-  email: string = "";
-  senha: string = "";
-
-  
-  login(){
-
-    const dados = {
-      email: this.email,
-      senha: this.senha
-    };
-
-    this.http.post<boolean>("http://localhost:8080/prestador/login", dados)
-      .subscribe({
-        next: (res) => {
-          if(res){
-            alert("Login realizado!");
-            this.router.navigate(['/home']);
-          } else {
-            alert("Email ou senha inválidos");
-          }
-        },
-        error: (err) => {
-          console.log(err);
-          alert("Erro ao conectar com o servidor");
-        }
-      });
-  }
-
-  irChatVazio(){
-    this.router.navigate(['/chatVazio']);
-  }
-  irChatVazioPrestador(){
-    this.router.navigate(['/chatVazioPrestador']);
-  }
-  
-  irCadCliente(){
-    this.router.navigate(['/criarContaCliente']);
-  }
-
-  irCadPrestador(){
-    this.router.navigate(['/criarContaPrestador']);
-  }
-
-  irRecSenha(){
-    this.router.navigate(['/recuperarSenha']);
-  }
+ 
 }
