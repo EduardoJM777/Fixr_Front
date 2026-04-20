@@ -1,0 +1,226 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.page-wrapper {
+  background: #008EB6;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 10px 20px 20px;
+  position: relative;
+}
+
+/* ─── Ícones topo direito ─── */
+.top-icons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.top-icons svg {
+  cursor: pointer;
+  opacity: 0.92;
+}
+
+.top-icons svg:hover {
+  opacity: 1;
+}
+
+/* ─── Filtros ─── */
+.filtros-row {
+  margin-bottom: 4px;
+}
+
+.profissao-label {
+  font-size: 22px;
+  font-weight: 400;
+  color: #fff;
+}
+
+.filtros-controles {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 0;
+}
+
+.select-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.select-wrapper select {
+  appearance: none;
+  background: #e8e4dc;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 36px 8px 14px;
+  font-size: 15px;
+  color: #333;
+  cursor: pointer;
+  min-width: 180px;
+  outline: none;
+}
+
+.select-arrow {
+  position: absolute;
+  right: 12px;
+  font-size: 11px;
+  color: #555;
+  pointer-events: none;
+}
+
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #e8e4dc;
+  border-radius: 6px;
+  padding: 8px 14px;
+  min-width: 220px;
+  margin-left: auto;
+}
+
+.search-wrapper input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 15px;
+  color: #333;
+  width: 100%;
+}
+
+.search-wrapper input::placeholder {
+  color: #888;
+}
+
+/* ─── Divider ─── */
+.divider {
+  height: 2px;
+  background: rgba(0,0,0,0.15);
+  margin: 12px 0 16px;
+}
+
+/* ─── Lista ─── */
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ─── Card favorito ─── */
+.card-favorito {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #ccc;
+  border: 3px solid rgba(255,255,255,0.4);
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: 700;
+  color: #fff;
+  background: #1a3c6e;
+}
+
+.card-info {
+  background: #fff;
+  border-radius: 8px;
+  padding: 10px 16px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.nome {
+  font-size: 18px;
+  font-weight: 400;
+  color: #111;
+  min-width: 80px;
+}
+
+.badge-prof {
+  background: #e8e4dc;
+  color: #333;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+}
+
+.btn-avaliar {
+  background: #1a3c6e;
+  border: none;
+  border-radius: 20px;
+  padding: 5px 18px;
+  font-size: 13px;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.btn-avaliar:hover {
+  background: #122b52;
+}
+
+.tempo {
+  font-size: 14px;
+  color: #555;
+  margin-left: 4px;
+}
+
+/* ─── Status dot ─── */
+.status-dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.status-dot.ativo {
+  background: #22c55e;
+  box-shadow: 0 0 6px rgba(34, 197, 94, 0.6);
+}
+
+.status-dot.inativo {
+  background: #aaa;
+}
+
+/* ─── Sem resultados ─── */
+.sem-resultados {
+  text-align: center;
+  color: rgba(255,255,255,0.8);
+  font-size: 16px;
+  margin-top: 32px;
+}
