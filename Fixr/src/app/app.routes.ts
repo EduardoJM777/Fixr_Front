@@ -11,6 +11,8 @@ import { EstatisticasClienteComponent } from './pages/cliente/estatistica/estati
 import { FavoritosComponent } from './pages/cliente/favoritos/favoritos';
 import { BuscarAnuncioComponent } from './pages/prestador/buscar-anuncio/buscar-anuncio';
 import { ChatVazioPrestadorComponent } from './pages/chat-vazio-prestador/chat-vazio-prestador';
+import { FavoritosPrestador } from './pages/prestador/favoritos-prestador/favoritos-prestador';
+import { EstatisticasPrestador } from './pages/prestador/estatisticas-prestador/estatisticas-prestador';
 
 export const routes: Routes = [
 
@@ -26,6 +28,8 @@ export const routes: Routes = [
     {path: 'favoritos', component: FavoritosComponent},
     {path: 'buscarAnuncio', component: BuscarAnuncioComponent},
     {path: 'chatVazioPrestador', component: ChatVazioPrestadorComponent},
+    {path: 'favoritosPrestador', component: FavoritosPrestador},
+    {path: 'estatisticaPrestador', component: EstatisticasPrestador},
     {path: '', redirectTo: 'cadastro', pathMatch: 'full'}
     
 ];

@@ -19,7 +19,7 @@ export class SubHeaderPrestador {
     this.router.navigate(['/buscarAnuncio'])
   }
   irEstatisticasPrestador(){
-    this.router.navigate(['/estatisticasPrestador'])
+    this.router.navigate(['/estatisticaPrestador'])
   }
   irFavoritosPrestador(){
     this.router.navigate(['/favoritosPrestador'])

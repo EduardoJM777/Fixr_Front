@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { SubHeaderCliente } from "../../../components/sub-header-prestador/sub-header-prestador";
+import { SubHeaderPrestador } from "../../../components/sub-header-prestador/sub-header-prestador";
 import { HeadrFixrPrestador } from "../../../components/headr-fixr-prestador/headr-fixr-prestador";
 
 interface Anuncio {
@@ -18,7 +18,7 @@ interface Anuncio {
 @Component({
   selector: 'app-buscar-anuncio',
   standalone: true,
-  imports: [CommonModule, FormsModule, SubHeaderCliente, HeadrFixrPrestador],
+  imports: [CommonModule, FormsModule, SubHeaderPrestador, HeadrFixrPrestador],
   templateUrl: './buscar-anuncio.html',
   styleUrls: ['./buscar-anuncio.css']
 })

@@ -1,1 +1,70 @@
-<p>estatisticas-prestador works!</p>
+<app-headr-fixr-prestador></app-headr-fixr-prestador>
+<app-sub-header-prestador></app-sub-header-prestador>
+
+<div class="page">
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <button class="toolbar-icon" title="Notificações">🔔</button>
+    <button class="toolbar-icon" title="Configurações">⚙</button>
+  </div>
+
+  <!-- Botão meu perfil -->
+  <div class="perfil-btn-wrapper">
+    <button class="btn-meu-perfil">MEU PERFIL</button>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- Conteúdo principal -->
+  <div class="content">
+
+    <!-- Coluna esquerda -->
+    <div class="col-esquerda">
+      <div class="avatar-wrapper">
+        <img [src]="prestador.foto" [alt]="prestador.nome" class="avatar" />
+      </div>
+
+      <div class="nome-box">{{ prestador.nome }}</div>
+
+      <div class="profissoes-box" (click)="toggleProfissoes()">
+        <span>Profissões:</span>
+        <span class="chevron" [class.aberto]="profissoesAberto">&#8964;</span>
+      </div>
+
+      <ul class="profissoes-lista" *ngIf="profissoesAberto">
+        <li *ngFor="let p of prestador.profissoes">{{ p }}</li>
+      </ul>
+
+      <button class="btn-editar" (click)="editarPerfil()">Editar Perfil</button>
+    </div>
+
+    <!-- Coluna direita: stats -->
+    <div class="stats-card">
+      <div class="stat-item destaque">
+        <span>Avaliações recebidas: <strong>{{ prestador.avaliacoes }}</strong></span>
+      </div>
+      <hr />
+      <div class="stat-item destaque">
+        <span>Trabalhos realizados: <strong>{{ prestador.trabalhos }}</strong></span>
+      </div>
+      <hr />
+      <div class="stat-item">
+        <span>Tempo no App : <strong>{{ prestador.tempoApp }}</strong></span>
+      </div>
+      <hr />
+      <div class="stat-item">
+        <span>Experiência de trabalho: <strong>{{ prestador.experiencia }}</strong></span>
+      </div>
+      <hr />
+      <div class="stat-item">
+        <span>Ranking de posição total: <strong>{{ prestador.ranking }}</strong></span>
+      </div>
+      <hr />
+      <div class="stat-item">
+        <span>Preço médio por serviço: <strong>{{ prestador.precoMedio }}</strong></span>
+      </div>
+    </div>
+
+  </div>
+</div>

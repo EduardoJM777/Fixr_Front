@@ -1,1 +1,48 @@
-<p>favoritos-prestador works!</p>
+<app-headr-fixr-prestador></app-headr-fixr-prestador>
+<app-sub-header-prestador></app-sub-header-prestador>
+
+
+<div class="page">
+
+  <div class="toolbar">
+    <button class="toolbar-icon" title="Notificações">🔔</button>
+    <button class="toolbar-icon" title="Configurações">⚙</button>
+  </div>
+
+  <div class="search-bar">
+    <div class="search-wrapper">
+      <input
+        type="text"
+        placeholder="Pesquisar"
+        [(ngModel)]="termoBusca"
+        (input)="filtrar()"
+      />
+      <span class="search-icon">🔍</span>
+    </div>
+  </div>
+
+  <!-- Lista de favoritos -->
+  <div class="favoritos-list">
+    <div class="favorito-item" *ngFor="let fav of favoritosFiltrados">
+      <div class="avatar-wrapper">
+        <img [src]="fav.foto" [alt]="fav.nome" class="avatar" />
+      </div>
+
+      <div class="info-card">
+        <span class="nome">{{ fav.nome }}</span>
+        <button class="btn-avaliar" (click)="avaliar(fav)">Avaliar</button>
+        <span class="tempo" *ngIf="fav.tempo">{{ fav.tempo }}</span>
+        <span
+          class="status-dot"
+          [class.online]="fav.online"
+          [class.offline]="!fav.online"
+        ></span>
+      </div>
+    </div>
+
+    <div class="empty" *ngIf="favoritosFiltrados.length === 0">
+      <p>Nenhum favorito encontrado.</p>
+    </div>
+  </div>
+
+</div>
