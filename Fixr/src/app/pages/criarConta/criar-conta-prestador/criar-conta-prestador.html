@@ -3,7 +3,7 @@
 </div>
 
 <div class="container">
-    <form (ngSubmit)="cadastrar()">
+    <form (ngSubmit)="cadastrar()" novalidate>
 
         <div class="linha">
             <div class="campo">
@@ -61,11 +61,13 @@
                             [(ngModel)]="profissaoId"
                             (change)="onProfissaoChange()">
 
-                        <option *ngFor="let p of profissoes" [value]="p.id">
+                        <option [ngValue]="null">Selecione...</option>    
+
+                        <option *ngFor="let p of profissoes" [ngValue]="p.id">
                             {{ p.nome }}
                         </option>
 
-                        <option value="outro">Outros</option>
+                        <option [ngValue]="OUTRO">Outros...</option>
                     </select>
             </div>
 
