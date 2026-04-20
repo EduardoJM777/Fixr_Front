@@ -1,0 +1,195 @@
+:host {
+  --fixr-primary: #1a5f7a;
+  --fixr-dark: #0d3f52;
+  --fixr-bg: #008EB6;
+  --fixr-white: #ffffff;
+  --fixr-border: #d0dde3;
+  --fixr-text: #1a2e35;
+  --fixr-muted: #6b8a95;
+  --fixr-link: #3b4fc4;
+}
+
+.page {
+  background: var(--fixr-bg);
+  min-height: calc(100vh - 100px);
+  padding-bottom: 40px;
+}
+
+/* Toolbar */
+.toolbar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 8px 20px 4px;
+  gap: 10px;
+
+  .toolbar-icon {
+    width: 32px;
+    height: 32px;
+    background: var(--fixr-primary);
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-size: 14px;
+    transition: background 0.2s;
+
+    &:hover {
+      background: var(--fixr-dark);
+    }
+  }
+}
+
+/* Botão meu perfil */
+.perfil-btn-wrapper {
+  padding: 8px 20px 12px;
+
+  .btn-meu-perfil {
+    background: var(--fixr-white);
+    border: 1.5px solid var(--fixr-border);
+    border-radius: 6px;
+    padding: 8px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--fixr-text);
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: background 0.2s;
+
+    &:hover {
+      background: #f0f4f6;
+    }
+  }
+}
+
+.divider {
+  border: none;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.25);
+  margin: 0 0 24px;
+}
+
+/* Layout principal */
+.content {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+  padding: 0 40px;
+}
+
+/* Coluna esquerda */
+.col-esquerda {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  min-width: 180px;
+
+  .avatar-wrapper {
+    .avatar {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--fixr-white);
+    }
+  }
+
+  .nome-box {
+    background: var(--fixr-white);
+    border-radius: 20px;
+    padding: 8px 32px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--fixr-text);
+    min-width: 140px;
+    text-align: center;
+  }
+
+  .profissoes-box {
+    background: var(--fixr-white);
+    border-radius: 20px;
+    padding: 8px 20px;
+    font-size: 14px;
+    color: var(--fixr-text);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    min-width: 140px;
+    justify-content: space-between;
+    user-select: none;
+
+    .chevron {
+      font-size: 18px;
+      transition: transform 0.2s;
+
+      &.aberto {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  .profissoes-lista {
+    background: var(--fixr-white);
+    border-radius: 8px;
+    padding: 8px 16px;
+    list-style: disc;
+    margin: 0;
+    width: 100%;
+
+    li {
+      font-size: 13px;
+      color: var(--fixr-text);
+      padding: 4px 0;
+    }
+  }
+
+  .btn-editar {
+    background: var(--fixr-primary);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 24px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+
+    &:hover {
+      background: var(--fixr-dark);
+    }
+  }
+}
+
+/* Card de estatísticas */
+.stats-card {
+  background: var(--fixr-white);
+  border-radius: 12px;
+  padding: 20px 28px;
+  flex: 1;
+  max-width: 420px;
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--fixr-border);
+    margin: 6px 0;
+  }
+
+  .stat-item {
+    padding: 10px 0;
+    font-size: 14px;
+    color: var(--fixr-text);
+
+    strong {
+      font-weight: 600;
+    }
+
+    &.destaque {
+      color: var(--fixr-link);
+      font-weight: 500;
+
+      strong {
+        color: var(--fixr-link);
+      }
+    }
+  }
+}
