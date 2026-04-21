@@ -23,7 +23,7 @@ export class CriarContaPrestador {
   confSenha = "";
   telefone = "";
   readonly OUTRO = -1;
-  profissaoId: number | null = null;
+  profissaoId: string = "";
   profissoes: any[] = [];
 
   
@@ -31,6 +31,7 @@ export class CriarContaPrestador {
     this.http.get<any[]>("http://localhost:8080/profissao")
       .subscribe(res => {
         this.profissoes = res;
+        console.log(res);
       });
   }
 
@@ -49,15 +50,10 @@ export class CriarContaPrestador {
       return;
     }
 
-    if (!this.profissaoId || Number(this.profissaoId) === this.OUTRO) {
-      alert('Selecione uma profissão válida');
-      return;
-    }
-
     const idProfissao = Number(this.profissaoId)
 
-    if (isNaN(idProfissao)) {
-      alert('Profissão inválida');
+    if (!this.profissaoId || idProfissao === this.OUTRO || isNaN(idProfissao)) {
+      alert('Selecione uma profissão válida');
       return;
     }
 

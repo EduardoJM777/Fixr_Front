@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth-service';
 
@@ -34,7 +33,7 @@ export class CadastroComponent {
         if (usuario.tipo === 'CLIENTE') {
           this.router.navigate(['/chatVazio']);
         } else {
-          this.router.navigate(['/']) //inserir aqui rota do prestador depois
+          this.router.navigate(['/chatVazioPrestador'])
         }
       },
       error: (err) => {
@@ -47,10 +46,6 @@ export class CadastroComponent {
       }
     });
   }
-
-  // irChatVazio(){
-  //   this.router.navigate(['/chatVazio']);
-  // }
   
   irCadCliente(){
     this.router.navigate(['/criarContaCliente']);
