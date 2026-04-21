@@ -1,0 +1,22 @@
+.head {
+    display: flex;
+    width: 100%;
+    height: 143px;
+    font-family: 'Inter', sans-serif;
+}
+
+.title {
+    font-weight: 300;
+    font-size: 96px;
+    margin-left: 30px;
+    margin-top: 11px;
+    margin-bottom: 16px;
+}
+
+.type {
+    margin-left: 399px;
+    margin-top: 50px;
+    margin-bottom: 46px;
+    font-size: 40px;
+    font-weight: 800;
+}

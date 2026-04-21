@@ -3,7 +3,7 @@
 </div>
 
 <div class="container">
-    <form (ngSubmit)="cadastrar()">
+    <form (ngSubmit)="cadastrar()" novalidate>
 
         <div class="linha">
             <div class="campo">
@@ -28,10 +28,10 @@
             <div class="campo">
                 <h3>EMAIL</h3>
                 <input type="email" 
-                    class="inEmail"
-                    name="email"
-                    [(ngModel)]="email"
-                    required>
+                       class="inEmail"
+                       name="email"
+                       [(ngModel)]="email"
+                       required>
             </div>
         </div>
 
@@ -55,17 +55,19 @@
 
         <div class="linha">
             <div class="campo">
-                    <label class="profi">PROFISSÃO</label>
+                    <h3>PROFISSÃO</h3>
 
                     <select name="profissaoId"
                             [(ngModel)]="profissaoId"
                             (change)="onProfissaoChange()">
 
-                        <option *ngFor="let p of profissoes" [value]="p.id">
+                        <option [ngValue]="null">Selecione...</option>    
+
+                        <option *ngFor="let p of profissoes" [ngValue]="p.id">
                             {{ p.nome }}
                         </option>
 
-                        <option value="outro">Outros</option>
+                        <option [ngValue]="OUTRO">Outros...</option>
                     </select>
             </div>
 
