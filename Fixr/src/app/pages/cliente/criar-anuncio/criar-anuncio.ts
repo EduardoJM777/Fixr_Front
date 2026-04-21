@@ -13,10 +13,12 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './criar-anuncio.html',
   styleUrls: ['./criar-anuncio.css']
 })
+
 export class AnunciarProblemaComponent {
-   descricao: string = '';
+
+  descricao: string = '';
   profissoes: any[] = [];
-  idProfissao: number | null = null;
+  profissaoId: string = '';
   imagemUrl: string | null = null;
 
   constructor(public http: HttpClient) {}
@@ -39,14 +41,14 @@ export class AnunciarProblemaComponent {
   }
 
   publicar(): void {
-    if (!this.descricao || !this.idProfissao) {
+    if (!this.descricao || !this.profissaoId) {
       alert('Preencha todos os campos antes de publicar.');
       return;
     }
 
     const body = {
       descricao: this.descricao,
-      idProfissao: this.idProfissao,
+      profissaoId: this.profissaoId,
       imagem: this.imagemUrl
     };
 
@@ -55,5 +57,7 @@ export class AnunciarProblemaComponent {
         next: () => alert('Problema publicado com sucesso!'),
         error: (err) => alert('Erro ao publicar: ' + err.message)
       });
+
   }
+  
 }

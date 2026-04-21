@@ -1,8 +1,7 @@
 import { Profissao } from "./enums/profissao.enum";
 
 export interface AnunciosDTO {
-    titulo: string;
     descricao: string;
-    profissao: Profissao;
+    profissaoId: number;
     idCliente: number;
 }

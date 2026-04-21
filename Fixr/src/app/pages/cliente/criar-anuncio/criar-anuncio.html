@@ -5,7 +5,7 @@
 
   <div class="content">
 
-    
+
     <div class="top-icons">
       <span class="icon">🔔</span>
       <span class="icon">⚙️</span>
@@ -13,45 +13,48 @@
 
     <div class="form-area">
 
-      
+
       <div class="image-box">
-        <img
-          *ngIf="imagemUrl"
-          [src]="imagemUrl"
-          alt="Foto do problema"
-          class="problem-image"
-        />
-        <label class="image-placeholder" *ngIf="!imagemUrl">
+        <img *ngIf="imagemUrl" 
+             [src]="imagemUrl" 
+             alt="Foto do problema" 
+             class="problem-image" />
+        <label class="image-placeholder" 
+               *ngIf="!imagemUrl">
           <span>+ Adicionar foto</span>
-          <input type="file" (change)="onImagemSelecionada($event)" accept="image/*" hidden />
+          <input type="file" 
+                 (change)="onImagemSelecionada($event)" 
+                 accept="image/*" 
+                 hidden />
         </label>
       </div>
 
-      
+
       <div class="form-fields">
 
         <label class="field-label">DESCRIÇÃO:</label>
-        <textarea
-          class="field-textarea"
-          [(ngModel)]="descricao"
-          placeholder="Descreva o problema...">
+        <textarea class="field-textarea" 
+                  [(ngModel)]="descricao" 
+                  placeholder="Descreva o problema...">
         </textarea>
 
         <label class="field-label">PROFISSIONAL NECESSÁRIO:</label>
         <div class="select-wrapper">
-          <select class="field-select" [(ngModel)]="idProfissao">
-            <option value="">Selecione...</option>
-            <option value="borracheiro">Borracheiro(a)</option>
-            <option value="eletricista">Eletricista(a)</option>
-            <option value="carpinteiro">Carpinteiro(a)</option>
-            <option value="jardineiro">Jardineiro(a)</option>
-            <option value="chapeador">Chapeador(a)</option>
-            <option value="outros">Outros...</option>
+          <select class="field-select" 
+                  name="profissaoId" 
+                  [(ngModel)]="profissaoId">
+
+            <option [ngValue]="null">Selecione...</option>
+
+            <option *ngFor="let p of profissoes" [ngValue]="p.id">
+              {{ p.nome }}
+            </option>
           </select>
           <span class="select-arrow">▼</span>
         </div>
 
-        <button class="btn-publicar" (click)="publicar()">Publicar</button>
+        <button class="btn-publicar" 
+                (click)="publicar()">Publicar</button>
 
       </div>
     </div>
