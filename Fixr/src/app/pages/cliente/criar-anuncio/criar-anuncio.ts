@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HeaderFixrCliente } from "../../../components/header-fixr-cliente/header-fixr-cliente";
 import { SubHeaderCliente } from "../../../components/sub-header-cliente/sub-header-cliente";
 import { HttpClient } from '@angular/common/http';
+import { AnuncioService } from '../../../services/anuncio-service';
 
 @Component({
   selector: 'app-anunciar-problema',
@@ -13,47 +14,59 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './criar-anuncio.html',
   styleUrls: ['./criar-anuncio.css']
 })
-export class AnunciarProblemaComponent {
-   descricao: string = '';
-  profissoes: any[] = [];
-  idProfissao: number | null = null;
-  imagemUrl: string | null = null;
 
-  constructor(public http: HttpClient) {}
+export class AnunciarProblemaComponent {
+
+  descricao: string = '';
+  profissaoId: number | null = null;
+  profissoes: any[] = [];
+  
+  imagemSelecionada: File | null = null;
+  previewUrl: string | null = null;
+
+  constructor(private anuncioService: AnuncioService) {}
 
   ngOnInit(): void {
-    this.http.get<any[]>('http://localhost:8080/profissao')
-      .subscribe({
-        next: (dados) => this.profissoes = dados,
-        error: () => alert('Erro ao carregar profissões.')
+    this.anuncioService.getProfissoes().subscribe({
+        next: (data) => this.profissoes = data,
+        error: (err) => console.error('Erro ao carregar profissões', err)
       });
   }
 
   onImagemSelecionada(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files[0]) {
+      this.imagemSelecionada = input.files[0];
+
       const reader = new FileReader();
-      reader.onload = () => this.imagemUrl = reader.result as string;
-      reader.readAsDataURL(input.files[0]);
+      reader.onload = () => this.previewUrl = reader.result as string;
+      reader.readAsDataURL(this.imagemSelecionada);
     }
+  }
+
+  removerImagem(): void {
+    this.imagemSelecionada = null;
+    this.previewUrl = null;
   }
 
   publicar(): void {
-    if (!this.descricao || !this.idProfissao) {
-      alert('Preencha todos os campos antes de publicar.');
-      return;
-    }
-
-    const body = {
+    if (!this.descricao || !this.profissaoId || !this.imagemSelecionada) return;
+    
+    const dados = {
       descricao: this.descricao,
-      idProfissao: this.idProfissao,
-      imagem: this.imagemUrl
+      profissaoId: this.profissaoId,
+      clienteId: 1
     };
 
-    this.http.post('http://localhost:8080/anuncio', body)
-      .subscribe({
-        next: () => alert('Problema publicado com sucesso!'),
-        error: (err) => alert('Erro ao publicar: ' + err.message)
+    this.anuncioService.cadastrar(dados, this.imagemSelecionada).subscribe({
+        next: (response) => { alert('Anúncio publicado!');
+        this.descricao = '';
+        this.profissaoId = null;
+        this.imagemSelecionada = null;
+        this.previewUrl = null;
+      },
+        error: (err) => alert('Erro ao publicar')
       });
   }
+  
 }

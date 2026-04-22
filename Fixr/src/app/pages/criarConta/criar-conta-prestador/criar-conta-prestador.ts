@@ -31,7 +31,6 @@ export class CriarContaPrestador {
     this.http.get<any[]>("http://localhost:8080/profissao")
       .subscribe(res => {
         this.profissoes = res;
-        console.log(res);
       });
   }
 
