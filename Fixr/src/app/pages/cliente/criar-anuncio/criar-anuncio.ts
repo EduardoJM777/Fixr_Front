@@ -55,12 +55,17 @@ export class AnunciarProblemaComponent {
     const dados = {
       descricao: this.descricao,
       profissaoId: this.profissaoId,
-      clienteId: 2
+      clienteId: 1
     };
 
     this.anuncioService.cadastrar(dados, this.imagemSelecionada).subscribe({
-        next: (response) => console.log('Anúncio publicado!', response),
-        error: (err) => console.error('Erro ao publicar', err)
+        next: (response) => { alert('Anúncio publicado!');
+        this.descricao = '';
+        this.profissaoId = null;
+        this.imagemSelecionada = null;
+        this.previewUrl = null;
+      },
+        error: (err) => alert('Erro ao publicar')
       });
   }
   
