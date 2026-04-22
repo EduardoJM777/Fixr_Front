@@ -1,4 +1,4 @@
-import { Profissao } from "./enums/profissao.enum";
+import { Profissao } from "./profissao.model";
 
 export interface PrestadorDTO {
     nome: string;
@@ -6,4 +6,12 @@ export interface PrestadorDTO {
     email: string;
     profissaoId: number;
     telefone: string;
+}
+
+export interface PrestadorResponse {
+  id: number;
+  nome: string;
+  profissao: Profissao;
+  nota: number;
+  foto?: string;
 }

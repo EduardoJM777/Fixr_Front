@@ -9,14 +9,13 @@
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
   </div>
 
-  <!-- Filtros -->
   <div class="filtros-row">
     <div class="profissao-label">Profissão</div>
 
     <div class="select-wrapper">
       <select [(ngModel)]="profissaoSelecionada" (change)="filtrar()">
-        <option value="">Todas</option>
-        <option *ngFor="let p of profissoes" [value]="p">{{ p }}</option>
+        <option [ngValue]="null">Todas</option>
+        <option *ngFor="let p of profissoes" [ngValue]="p.id">{{ p.nome }}</option>
       </select>
       <span class="select-arrow">▼</span>
     </div>
@@ -32,10 +31,10 @@
     </div>
   </div>
 
-  <!-- Divider -->
+ 
   <div class="divider"></div>
 
-  <!-- Lista de prestadores -->
+ 
   <div class="lista">
     <div class="card-prestador" *ngFor="let p of prestadoresFiltrados">
 
@@ -53,10 +52,10 @@
         </div>
         <div class="profissao-row">
           <span class="label-prof">Profissão:</span>
-          <span class="badge-prof">{{ p.profissao }}</span>
+          <span class="badge-prof">{{ p.profissao.nome }}</span>
         </div>
         <div class="card-footer">
-          <a class="btn-detalhes" (click)="verDetalhes(p)">DETALHES</a>
+          <a class="btn-detalhes">DETALHES</a>
         </div>
       </div>
 

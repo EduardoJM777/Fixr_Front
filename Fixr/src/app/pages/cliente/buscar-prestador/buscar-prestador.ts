@@ -5,16 +5,13 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { SubHeaderCliente } from "../../../components/sub-header-cliente/sub-header-cliente";
 import { HeaderFixrCliente } from "../../../components/header-fixr-cliente/header-fixr-cliente";
+import { PrestadorDTO } from '../../../models/prestadorDTO.model';
+import { Profissao } from '../../../models/profissao.model';
+import { AnuncioService } from '../../../services/anuncio-service';
+import { PrestadorResponse } from '../../../models/prestadorDTO.model';
 
 
 
-interface Prestador {
-  id: number;
-  nome: string;
-  profissao: string;
-  nota: number;
-  foto?: string;
-}
 
 @Component({
   selector: 'app-buscar-prestador',
@@ -28,23 +25,24 @@ export class BuscarPrestadorComponent implements OnInit {
   private baseUrl = "http://localhost:8080/prestador";
   
 
-  prestadores: Prestador[] = [];
-  prestadoresFiltrados: Prestador[] = [];
-  profissoes: string[] = [];
+  prestadores: PrestadorResponse[] = [];
+  prestadoresFiltrados: PrestadorResponse[] = [];
+  profissoes: Profissao[] = [];
 
   termoBusca: string = '';
-  profissaoSelecionada: string = '';
+  profissaoSelecionada: number | null = null;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, 
+    private anuncioService: AnuncioService) {}
 
   ngOnInit(): void {
-    this.http.get<Prestador[]>(this.baseUrl)
+    this.http.get<PrestadorResponse[]>(this.baseUrl)
       .subscribe({
         next: (dados) => {
           this.prestadores = dados;
           this.prestadoresFiltrados = dados;
 
-          this.profissoes = [...new Set(dados.map(p => p.profissao))];
+          this.profissoes = [...new Map(dados.map(p => [p.profissao.id, p.profissao])).values()];
         },
         error: () => alert('Erro ao carregar prestadores.')
       });
@@ -53,7 +51,7 @@ export class BuscarPrestadorComponent implements OnInit {
   filtrar(): void {
     this.prestadoresFiltrados = this.prestadores.filter(p => {
       const nomeOk = p.nome.toLowerCase().includes(this.termoBusca.toLowerCase());
-      const profissaoOk = !this.profissaoSelecionada || p.profissao === this.profissaoSelecionada;
+      const profissaoOk = !this.profissaoSelecionada || p.profissao.id === this.profissaoSelecionada;
       return nomeOk && profissaoOk;
     });
   }
@@ -65,9 +63,5 @@ export class BuscarPrestadorComponent implements OnInit {
       if (i < nota) return 'estrela-metade';
       return 'estrela-vazia';
     });
-  }
-
-  verDetalhes(prestador: Prestador): void {
-    this.router.navigate(['/prestador', prestador.id]);
   }
 }
