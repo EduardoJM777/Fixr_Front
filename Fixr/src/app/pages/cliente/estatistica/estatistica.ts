@@ -8,7 +8,6 @@ import { ClienteDTO } from '../../../models/clienteDTO.model';
 import { Subject, takeUntil } from 'rxjs';
 
 
-
 export interface EstatisticasDTO {
   avaliacoesRecebidas: number;
   anunciosPublicados: number;
@@ -24,6 +23,7 @@ export interface EstatisticasDTO {
   templateUrl: './estatistica.html',
   styleUrls: ['./estatistica.css']
 })
+
 export class EstatisticasClienteComponent implements OnInit, OnDestroy {
 
   cliente: (ClienteDTO & { id: number }) | null = null;

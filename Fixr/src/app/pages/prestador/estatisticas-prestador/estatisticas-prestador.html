@@ -22,18 +22,21 @@
     <!-- Coluna esquerda -->
     <div class="col-esquerda">
       <div class="avatar-wrapper">
-        <img [src]="prestador.foto" [alt]="prestador.nome" class="avatar" />
+        <img *ngIf="prestador?.foto" [src]="prestador!.foto" [alt]="prestador!.nome" class="avatar" />
+        <div *ngIf="!prestador?.foto" class="foto-placeholder">
+          {{ prestador?.nome?.charAt(0) || '?' }}
+        </div>
       </div>
 
-      <div class="nome-box">{{ prestador.nome }}</div>
+      <div class="nome-box">{{ prestador?.nome || 'Carregando...' }}</div>
 
       <div class="profissoes-box" (click)="toggleProfissoes()">
-        <span>Profissões:</span>
+        <span>Profissão:</span>
         <span class="chevron" [class.aberto]="profissoesAberto">&#8964;</span>
       </div>
 
       <ul class="profissoes-lista" *ngIf="profissoesAberto">
-        <li *ngFor="let p of prestador.profissoes">{{ p }}</li>
+        <li>{{ prestador?.profissao?.nome || '-' }}</li>
       </ul>
 
       <button class="btn-editar" (click)="editarPerfil()">Editar Perfil</button>
@@ -41,29 +44,52 @@
 
     <!-- Coluna direita: stats -->
     <div class="stats-card">
-      <div class="stat-item destaque">
-        <span>Avaliações recebidas: <strong>{{ prestador.avaliacoes }}</strong></span>
-      </div>
-      <hr />
-      <div class="stat-item destaque">
-        <span>Trabalhos realizados: <strong>{{ prestador.trabalhos }}</strong></span>
-      </div>
-      <hr />
-      <div class="stat-item">
-        <span>Tempo no App : <strong>{{ prestador.tempoApp }}</strong></span>
-      </div>
-      <hr />
-      <div class="stat-item">
-        <span>Experiência de trabalho: <strong>{{ prestador.experiencia }}</strong></span>
-      </div>
-      <hr />
-      <div class="stat-item">
-        <span>Ranking de posição total: <strong>{{ prestador.ranking }}</strong></span>
-      </div>
-      <hr />
-      <div class="stat-item">
-        <span>Preço médio por serviço: <strong>{{ prestador.precoMedio }}</strong></span>
-      </div>
+
+      <div *ngIf="carregando" class="loading">Carregando...</div>
+
+      <ng-container *ngIf="!carregando">
+
+        <div class="stat-item">
+          <span>Avaliações recebidas: <strong>{{ stats?.avaliacoesRecebidas ?? '-' }}</strong></span>
+          <hr />
+        </div>
+      
+        <div class="stat-item">
+          <span>Trabalhos realizados: <strong>{{ stats?.trabalhosRealizados ?? '-' }}</strong></span>
+          <hr />
+        </div>
+        
+        <div class="stat-item">
+          <span>Tempo no App : <strong>{{ stats?.tempoNoApp || '-' }}</strong></span>
+          <hr />
+        </div>
+        
+        <div class="stat-item">
+          <div *ngIf="!editandoExperiencia">
+            <span>Experiência de trabalho: <strong>{{ stats?.experienciaTrabalho || 'Não informado' }}</strong></span>
+            <button class="btn-editar-inline" (click)="iniciarEdicaoExperiencia()">✏️</button>
+          </div>
+          <div *ngIf="editandoExperiencia" class="experiencia-edit">
+            <input [(ngModel)]="experienciaTemp" placeholder="Ex: 5 anos como eletricista" class="input-experiencia" />
+            <div class="experiencia-acoes">
+              <button class="btn-salvar" (click)="salvarExperiencia()">Salvar</button>
+              <button class="btn-cancelar" (click)="cancelarEdicao()">Cancelar</button>
+            </div>
+          </div>
+          <hr />
+        </div>
+
+        <div class="stat-item">
+          <span>Ranking de posição total: <strong>{{ stats?.rankingPosicao ?? '-' }}</strong></span>
+          <hr />
+        </div>
+      
+        <div class="stat-item">
+          <span>Preço médio por serviço: <strong>R$ {{ stats?.precoMedio ?? '-' }}</strong></span>
+          <hr />
+        </div>
+
+      </ng-container>
     </div>
 
   </div>
