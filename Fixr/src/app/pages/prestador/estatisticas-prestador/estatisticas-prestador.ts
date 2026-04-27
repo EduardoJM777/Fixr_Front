@@ -1,17 +1,18 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { SubHeaderPrestador } from "../../../components/sub-header-prestador/sub-header-prestador";
 import { HeadrFixrPrestador } from "../../../components/headr-fixr-prestador/headr-fixr-prestador";
 import { EstatisticasPrestadorDTO, PrestadorResponse } from '../../../models/prestadorDTO.model';
 import { Subject, takeUntil } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-estatisticas',
   standalone: true,
-  imports: [NgFor, NgIf, SubHeaderPrestador, HeadrFixrPrestador],
+  imports: [NgIf, SubHeaderPrestador, HeadrFixrPrestador, FormsModule],
   templateUrl: './estatisticas-prestador.html',
   styleUrls: ['./estatisticas-prestador.css'],
 })
@@ -41,6 +42,16 @@ export class EstatisticasPrestador implements OnInit, OnDestroy{
     this.prestador = JSON.parse(dados);
 
     if (this.prestador?.id) {
+
+      this.http.get<PrestadorResponse>(`http://localhost:8080/prestador/${this.prestador.id}`)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: (prestadorCompleto) => {
+            this.prestador = prestadorCompleto;
+          },
+          error: () => console.error('Erro ao buscar dados do prestador')
+        });
+
       this.http.get<EstatisticasPrestadorDTO>(`http://localhost:8080/prestador/${this.prestador.id}/stats`)
         .pipe(takeUntil(this.destroy$))
         .subscribe({
@@ -79,18 +90,31 @@ export class EstatisticasPrestador implements OnInit, OnDestroy{
   }
 
   salvarExperiencia(): void {
-    if (!this.prestador?.id) return;
+    if (!this.prestador?.id) {
+      console.log('ID do prestador não encontrado:', this.prestador)
+      return;
+    }
 
-    this.http.patch('http://localhost:8080/prestador/${this.prestador.id}/stats/experiencia', {
+    console.log('Enviando para:', `http://localhost:8080/prestador/${this.prestador.id}/stats/experiencia`);
+    console.log('Payload:', { experienciaTrabalho: this.experienciaTemp });
+
+
+
+    this.http.patch(`http://localhost:8080/prestador/${this.prestador.id}/stats/experiencia`, {
       experienciaTrabalho: this.experienciaTemp
     })
     .pipe(takeUntil(this.destroy$))
     .subscribe({
-      next: () => {
+      next: (res) => {
+        console.log('Sucesso:', res);
         if (this.stats) this.stats.experienciaTrabalho = this.experienciaTemp;
         this.editandoExperiencia = false;
       },
-      error: () => alert('Erro ao salvar experiência. Tente novamente.')
+      error: (err) => {
+        console.error('Erro completo:', err);
+        console.error('Status:', err.status);
+        console.error('Mensagem:', err.error);
+      }
     });
   }
 
