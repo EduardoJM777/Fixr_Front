@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { SubHeaderPrestador } from "../../../components/sub-header-prestador/sub-header-prestador";
 import { HeadrFixrPrestador } from "../../../components/headr-fixr-prestador/headr-fixr-prestador";
 import { EstatisticasPrestadorDTO, PrestadorResponse } from '../../../models/prestadorDTO.model';
@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-estatisticas',
   standalone: true,
-  imports: [NgIf, SubHeaderPrestador, HeadrFixrPrestador, FormsModule],
+  imports: [SubHeaderPrestador, HeadrFixrPrestador, FormsModule, CommonModule],
   templateUrl: './estatisticas-prestador.html',
   styleUrls: ['./estatisticas-prestador.css'],
 })
@@ -91,29 +91,20 @@ export class EstatisticasPrestador implements OnInit, OnDestroy{
 
   salvarExperiencia(): void {
     if (!this.prestador?.id) {
-      console.log('ID do prestador não encontrado:', this.prestador)
       return;
     }
 
-    console.log('Enviando para:', `http://localhost:8080/prestador/${this.prestador.id}/stats/experiencia`);
-    console.log('Payload:', { experienciaTrabalho: this.experienciaTemp });
-
-
 
     this.http.patch(`http://localhost:8080/prestador/${this.prestador.id}/stats/experiencia`, {
-      experienciaTrabalho: this.experienciaTemp
-    })
+      experienciaTrabalho: this.experienciaTemp})
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next: (res) => {
-        console.log('Sucesso:', res);
         if (this.stats) this.stats.experienciaTrabalho = this.experienciaTemp;
         this.editandoExperiencia = false;
       },
       error: (err) => {
         console.error('Erro completo:', err);
-        console.error('Status:', err.status);
-        console.error('Mensagem:', err.error);
       }
     });
   }

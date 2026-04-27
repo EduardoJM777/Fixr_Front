@@ -38,7 +38,7 @@ export class EstatisticasClienteComponent implements OnInit, OnDestroy {
     const dados = sessionStorage.getItem('usuario');
 
     if (!dados) {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/']);
       return;
     }
 
