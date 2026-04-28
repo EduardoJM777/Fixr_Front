@@ -3,6 +3,8 @@ import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HeadrFixrPrestador } from "../../../components/headr-fixr-prestador/headr-fixr-prestador";
 import { SubHeaderPrestador } from "../../../components/sub-header-prestador/sub-header-prestador";
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 export interface Favorito {
   id: number;
@@ -20,28 +22,25 @@ export interface Favorito {
   styleUrls: ['./favoritos-prestador.css'],
 })
 export class FavoritosPrestador implements OnInit {
+
+  constructor(private http: HttpClient, private router: Router){}
+
   termoBusca = '';
 
-  favoritos: Favorito[] = [
-    {
-      id: 1,
-      nome: 'Cleber',
-      foto: 'https://randomuser.me/api/portraits/men/32.jpg',
-      online: true,
-      tempo: '5h',
-    },
-    {
-      id: 2,
-      nome: 'Rômulo',
-      foto: 'https://randomuser.me/api/portraits/men/44.jpg',
-      online: false,
-    },
-  ];
+  favoritos: Favorito[] = [];
 
   favoritosFiltrados: Favorito[] = [];
 
   ngOnInit(): void {
-    this.favoritosFiltrados = [...this.favoritos];
+    const usuario = JSON.parse(sessionStorage.getItem('usuario') || '{}');
+     this.http.get<Favorito[]>(`http://localhost:8080/favoritos?usuarioId=${usuario.id}`)
+      .subscribe({
+        next: (dados) => {
+          this.favoritos = dados;
+          this.favoritosFiltrados = [...dados];
+        },
+        error: () => alert('Erro ao carregar favoritos.')
+      });
   }
 
   filtrar(): void {
@@ -51,7 +50,20 @@ export class FavoritosPrestador implements OnInit {
       : [...this.favoritos];
   }
 
+  desfavoritar(fav: Favorito): void {
+    const usuario = JSON.parse(sessionStorage.getItem('usuario') || '{}');
+
+    this.http.delete(`http://localhost:8080/favoritos/${fav.id}?usuarioId=${usuario.id}`)
+      .subscribe({
+        next: () => {
+          this.favoritos = this.favoritos.filter(f => f.id !== fav.id);
+          this.filtrar();
+        },
+        error: () => alert('Erro ao desfavoritar.')
+      });
+  }
+
   avaliar(fav: Favorito): void {
-    alert(`Avaliar prestador: ${fav.nome}`);
+    this.router.navigate(['/avaliar', fav.id]);
   }
 }
