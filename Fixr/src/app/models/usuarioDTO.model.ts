@@ -1,4 +1,4 @@
-import { Profissao } from "./enums/profissao.enum";
+import { Profissao } from "./profissao.model";
 
 export interface UsuarioDTO {
     nome: string;

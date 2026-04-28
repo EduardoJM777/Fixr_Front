@@ -15,3 +15,12 @@ export interface PrestadorResponse {
   nota: number;
   foto?: string;
 }
+
+export interface EstatisticasPrestadorDTO {
+  avaliacoesRecebidas: number;
+  trabalhosRealizados: number;
+  tempoNoApp: string;
+  rankingPosicao: number;
+  precoMedio: number;
+  experienciaTrabalho: string | null;
+}
