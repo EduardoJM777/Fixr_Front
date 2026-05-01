@@ -31,6 +31,7 @@
       <div class="info-card">
         <span class="nome">{{ fav.nome }}</span>
         <button class="btn-avaliar" (click)="avaliar(fav)">Avaliar</button>
+        <button class="btn-desfavoritar" (click)="desfavoritar(fav)">✕</button>
         <span class="tempo" *ngIf="fav.tempo">{{ fav.tempo }}</span>
         <span
           class="status-dot"
