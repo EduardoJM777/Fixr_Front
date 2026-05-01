@@ -1,0 +1,75 @@
+<app-header-fixr-cliente></app-header-fixr-cliente>
+<app-sub-header-cliente></app-sub-header-cliente>
+
+
+<div class="page-wrapper" *ngIf="prestador">
+
+  <div class="conteudo">
+
+    <!-- Coluna esquerda -->
+    <div class="coluna-esquerda">
+      <div class="avatar">
+        <img *ngIf="prestador.foto" [src]="prestador.foto" [alt]="prestador.nome" />
+        <div *ngIf="!prestador.foto" class="avatar-placeholder">
+          {{ prestador.nome.charAt(0) }}
+        </div>
+      </div>
+      <span class="nome">{{ prestador.nome }}</span>
+      <span class="badge-prof">{{ prestador.profissao.nome }}</span>
+
+      <div class="select-wrapper">
+        <span>Profissões:</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Coluna direita: estatísticas -->
+    <div class="coluna-direita">
+
+      <div *ngIf="carregando" class="carregando">Carregando...</div>
+
+      <div *ngIf="!carregando && stats" class="stats-lista">
+        <div class="stat-item">
+          <span>Última nota recebida:</span>
+          <span>{{ prestador.nota | number:'1.1-1' }}</span>
+        </div>
+        <div class="stat-item">
+          <span>Trabalhos realizados:</span>
+          <span>{{ stats.trabalhosRealizados }}</span>
+        </div>
+        <div class="stat-item">
+          <span>Tempo no App:</span>
+          <span>{{ stats.tempoNoApp }}</span>
+        </div>
+        <div class="stat-item" *ngIf="stats.experienciaTrabalho">
+          <span>Experiência de trabalho:</span>
+          <span>{{ stats.experienciaTrabalho }}</span>
+        </div>
+        <div class="stat-item">
+          <span>Ranking de posição total:</span>
+          <span>{{ stats.rankingPosicao }}º</span>
+        </div>
+        <div class="stat-item">
+          <span>Preço médio por serviço:</span>
+          <span>R${{ stats.precoMedio | number:'1.0-0' }}</span>
+        </div>
+      </div>
+
+      <button
+        class="btn-chamar"
+        (click)="chamar()"
+        [disabled]="chamando">
+        {{ chamando ? 'Aguardando...' : 'Chamar' }}
+      </button>
+
+      <div class="aviso-recusada" *ngIf="chamadaRecusada">
+        {{ prestador.nome.split(' ')[0] }} não está disponível no momento.
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Client, IMessage, StompSubscription } from '@stomp/stompjs';
-import SockJS from 'sockjs-client';
+import * as SockJS from 'sockjs-client';
 import { Mensagens, MensagensDTO } from '../models/mensagens.model';
 import { Chats, CallNotification, ChatsDTO } from '../models/chats.models';
 import { AuthService } from './auth-service';
@@ -28,13 +28,12 @@ export class ChatService {
     ) {}
 
     
-
     conectar(): void {
         const usuario = this.authService.getUsuario();
         if (!usuario) return;
 
         this.stompClient = new Client({
-            webSocketFactory: () => new SockJS(this.WS_URL),
+            webSocketFactory: () => new (SockJS as any)(this.WS_URL),
             reconnectDelay: 5000,
 
             onConnect: () => {

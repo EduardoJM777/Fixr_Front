@@ -7,18 +7,11 @@ export interface Chats {
     prestador: { id: number; nome: string; };
 }
 
-export interface CallNotification {
-    chatId: number;
-    chamadorId: number;
-    chamadorNome: string;
-    papelChamador: 'CLIENTE' | 'PRESTADOR';
-    anuncioTitulo?: string;
-    mensagem: string;
-}
 
 export interface ChatsDTO {
     idPrestador: number;
     idCliente: number;
+    
     chamadorId: number;
     chamadorNome: string;
     papelChamador: 'CLIENTE' | 'PRESTADOR';
@@ -26,4 +19,14 @@ export interface ChatsDTO {
     destinatarioNome: string;
     anuncioId?: number;
     anuncioTitulo?: string;
+}
+
+
+export interface CallNotification {
+    chatId: number;
+    chamadorId: number;
+    chamadorNome: string;
+    papelChamador: 'CLIENTE' | 'PRESTADOR';
+    anuncioTitulo?: string;
+    mensagem: string;
 }

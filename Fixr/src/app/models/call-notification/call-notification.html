@@ -1,1 +1,16 @@
-<p>call-notification works!</p>
+<div class="toast-chamada" *ngIf="chamadaPendente">
+  <div class="toast-icone">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+      <path d="M3 5.5C3 14 8 19 16.5 19L18 16l-3.5-1.5-1 2c-2.5-1-4-2.5-5-5l2-1L9 7 6 6 3 5.5Z"
+            stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    </svg>
+  </div>
+  <div class="toast-info">
+    <strong>{{ chamadaPendente.chamadorNome }}</strong>
+    <span>{{ chamadaPendente.mensagem }}</span>
+  </div>
+  <div class="toast-acoes">
+    <button class="btn-aceitar" (click)="aceitar()">Aceitar</button>
+    <button class="btn-recusar" (click)="recusar()">Recusar</button>
+  </div>
+</div>

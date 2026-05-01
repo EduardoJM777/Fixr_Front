@@ -5,12 +5,9 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { SubHeaderCliente } from "../../../components/sub-header-cliente/sub-header-cliente";
 import { HeaderFixrCliente } from "../../../components/header-fixr-cliente/header-fixr-cliente";
-import { PrestadorDTO } from '../../../models/prestadorDTO.model';
 import { Profissao } from '../../../models/profissao.model';
 import { AnuncioService } from '../../../services/anuncio-service';
 import { PrestadorResponse } from '../../../models/prestadorDTO.model';
-
-
 
 
 @Component({
@@ -20,6 +17,7 @@ import { PrestadorResponse } from '../../../models/prestadorDTO.model';
   templateUrl: './buscar-prestador.html',
   styleUrls: ['./buscar-prestador.css']
 })
+
 export class BuscarPrestadorComponent implements OnInit {
 
   private baseUrl = "http://localhost:8080/prestador";
@@ -56,7 +54,7 @@ export class BuscarPrestadorComponent implements OnInit {
     });
   }
 
-  // Retorna array de classes CSS para as 5 estrelas
+
   getEstrelas(nota: number): string[] {
     return Array.from({ length: 5 }, (_, i) => {
       if (i < Math.floor(nota)) return 'estrela-cheia';
@@ -64,4 +62,13 @@ export class BuscarPrestadorComponent implements OnInit {
       return 'estrela-vazia';
     });
   }
+
+  verDetalhes(prestador: PrestadorResponse): void {
+    this.router.navigate(['/detalhesPrestador'], {
+      state: { prestador }
+    });
+  }
+
+
+
 }

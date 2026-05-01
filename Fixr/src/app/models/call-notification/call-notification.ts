@@ -10,9 +10,10 @@ import { ChatService } from '../../services/chat-service';
   selector: 'app-call-notification',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './call-notification.component.html',
-  styleUrl: './call-notification.component.css'
+  templateUrl: './call-notification.html',
+  styleUrl: './call-notification.css'
 })
+
 export class CallNotificationComponent implements OnInit, OnDestroy {
 
   chamadaPendente: CallNotification | null = null;

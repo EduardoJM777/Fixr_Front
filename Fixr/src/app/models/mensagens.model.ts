@@ -11,6 +11,7 @@ export interface Mensagens {
 export interface MensagensDTO {
     texto: string;
     idChat: number;
+    
     chatId: number;
     remetenteId: number;
     remetenteNome: string;
