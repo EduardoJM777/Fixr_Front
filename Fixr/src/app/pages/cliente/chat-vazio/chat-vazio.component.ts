@@ -36,7 +36,7 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked{
   ) {}
 
   ngOnInit(): void {
-    // Recebe o chatId vindo da tela de detalhes do prestador
+    
     const nav = this.router.getCurrentNavigation();
     const state = nav?.extras?.state as { chatId: number };
 
@@ -44,7 +44,7 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked{
       this.entrarNoChat(state.chatId);
     }
 
-    // Ouve mensagens em tempo real
+    
     this.subs.push(
       this.chatService.mensagens$.subscribe(msg => {
         if (this.chatAtivo && msg.chat?.id === this.chatAtivo.id) {
