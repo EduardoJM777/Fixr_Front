@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HeaderFixrCliente } from "../../../components/header-fixr-cliente/header-fixr-cliente";
 import { SubHeaderCliente } from "../../../components/sub-header-cliente/sub-header-cliente";
-import { HttpClient } from '@angular/common/http';
 import { AnuncioService } from '../../../services/anuncio-service';
 
 @Component({

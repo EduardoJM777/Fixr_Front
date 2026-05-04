@@ -31,17 +31,18 @@ export class DetalhesPrestador implements OnInit {
     private http: HttpClient,
     private chatService: ChatService,
     private authService: AuthService
-  ) {}
-
-  ngOnInit(): void {
+  ) {
     const nav = this.router.getCurrentNavigation();
     const state = nav?.extras?.state as { prestador: PrestadorResponse };
-
     if (state?.prestador) {
       this.prestador = state.prestador;
+    }
+  }
+
+  ngOnInit(): void {
+     if (this.prestador) {
       this.carregarEstatisticas();
     } else {
-      // Se acessou direto sem state, volta para busca
       this.router.navigate(['/buscarPrestador']);
     }
   }

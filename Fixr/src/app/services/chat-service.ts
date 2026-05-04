@@ -11,46 +11,48 @@ import { AuthService } from './auth-service';
 export class ChatService {
 
     private readonly API_URL = 'http://localhost:8080/chats';
-    private readonly WS_URL  = 'http://localhost:8080/ws-chat';
+    private readonly WS_URL = 'http://localhost:8080/ws-chat';
 
     private stompClient!: Client;
     private subscriptions: StompSubscription[] = [];
 
-    
-    mensagens$      = new Subject<Mensagens>();
-    chamadas$       = new Subject<CallNotification>();
-    respostas$      = new Subject<{ chatId: number; aceito: boolean }>();
-    conectado$      = new BehaviorSubject<boolean>(false);
+    mensagens$ = new Subject<Mensagens>();
+    chamadas$ = new Subject<CallNotification>();
+    respostas$ = new Subject<{ chatId: number; aceito: boolean }>();
+    conectado$ = new BehaviorSubject<boolean>(false);
 
     constructor(
         private http: HttpClient,
         private authService: AuthService
-    ) {}
+    ) { }
 
-    
     conectar(): void {
         const usuario = this.authService.getUsuario();
         if (!usuario) return;
 
         this.stompClient = new Client({
-            webSocketFactory: () => new SockJS (this.WS_URL),
+            webSocketFactory: () => new SockJS(this.WS_URL),
             reconnectDelay: 5000,
 
             onConnect: () => {
                 this.conectado$.next(true);
+                console.log('WebSocket conectado, userId:', usuario.id);
 
-                
+
                 this.subscriptions.push(
                     this.stompClient.subscribe(
-                        `/user/${usuario.id}/queue/chamada`,
-                        (msg: IMessage) => this.chamadas$.next(JSON.parse(msg.body))
+                        `/user/queue/chamada`,
+                        (msg: IMessage) => {
+                            console.log('Chamada recebida:', msg.body);
+                            this.chamadas$.next(JSON.parse(msg.body));
+                        }
                     )
                 );
 
-                
+
                 this.subscriptions.push(
                     this.stompClient.subscribe(
-                        `/user/${usuario.id}/queue/resposta-chamada`,
+                        `/user/queue/resposta-chamada`,
                         (msg: IMessage) => this.respostas$.next(JSON.parse(msg.body))
                     )
                 );
@@ -70,7 +72,6 @@ export class ChatService {
         this.conectado$.next(false);
     }
 
-    
 
     entrarNoChat(chatId: number): void {
         const sub = this.stompClient.subscribe(
@@ -80,9 +81,24 @@ export class ChatService {
         this.subscriptions.push(sub);
     }
 
-   
 
     iniciarChamada(dto: ChatsDTO): void {
+        if (!this.stompClient?.connected) {
+            console.warn('WebSocket não conectado, tentando reconectar...');
+            this.conectar();
+            // Aguarda a conexão e tenta novamente
+            const sub = this.conectado$.subscribe(conectado => {
+                if (conectado) {
+                    this.stompClient.publish({
+                        destination: '/app/chat.chamar',
+                        body: JSON.stringify(dto),
+                    });
+                    sub.unsubscribe();
+                }
+            });
+            return;
+        }
+
         this.stompClient.publish({
             destination: '/app/chat.chamar',
             body: JSON.stringify(dto),
@@ -115,7 +131,7 @@ export class ChatService {
         });
     }
 
-    
+
 
     buscarHistorico(chatId: number): Observable<Mensagens[]> {
         return this.http.get<Mensagens[]>(`${this.API_URL}/historico/${chatId}`);

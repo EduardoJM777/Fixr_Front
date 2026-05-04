@@ -221,6 +221,8 @@
   letter-spacing: 1px;
   cursor: pointer;
   text-decoration: none;
+  background: none;
+  border: none;
 }
 
 .btn-detalhes:hover {
