@@ -17,7 +17,7 @@ import { AuthService } from '../../../services/auth-service';
   templateUrl: './chat-vazio.component.html',
   styleUrl: './chat-vazio.component.css'
 })
-export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked{
+export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   @ViewChild('mensagensContainer') mensagensContainer!: ElementRef;
 
@@ -26,6 +26,7 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked{
   novaMensagem = '';
   chatEncerrado = false;
   deveRolar = false;
+  private chatIdInicial: number | null = null;
 
   private subs: Subscription[] = [];
 
@@ -33,18 +34,19 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked{
     private router: Router,
     private chatService: ChatService,
     private authService: AuthService
-  ) {}
-
-  ngOnInit(): void {
-    
+  ) {
     const nav = this.router.getCurrentNavigation();
     const state = nav?.extras?.state as { chatId: number };
-
     if (state?.chatId) {
-      this.entrarNoChat(state.chatId);
+      this.chatIdInicial = state.chatId;
+    }
+  }
+
+  ngOnInit(): void {
+    if (this.chatIdInicial) {
+      this.entrarNoChat(this.chatIdInicial);
     }
 
-    
     this.subs.push(
       this.chatService.mensagens$.subscribe(msg => {
         if (this.chatAtivo && msg.chat?.id === this.chatAtivo.id) {
@@ -70,10 +72,15 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked{
   }
 
   entrarNoChat(chatId: number): void {
+    this.chatService.buscarChat(chatId).subscribe(chat => {
+      this.chatAtivo = chat;
+    });
+
     this.chatService.buscarHistorico(chatId).subscribe(msgs => {
       this.mensagens = msgs;
       this.deveRolar = true;
     });
+
     this.chatService.entrarNoChat(chatId);
   }
 
@@ -103,14 +110,14 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked{
     this.chatService.encerrarChat(this.chatAtivo.id);
   }
 
-   onKeyDown(event: KeyboardEvent): void {
+  onKeyDown(event: KeyboardEvent): void {
     if (event.key === 'Enter' && !event.shiftKey) {
       event.preventDefault();
       this.enviar();
     }
   }
 
-   isMinha(msg: Mensagens): boolean {
+  isMinha(msg: Mensagens): boolean {
     return msg.papelRemetente === 'CLIENTE';
   }
 
@@ -124,5 +131,4 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked{
       if (el) el.scrollTop = el.scrollHeight;
     } catch {}
   }
-
 }

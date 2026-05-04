@@ -26,6 +26,7 @@ export class ChatVazioPrestadorComponent implements OnInit, OnDestroy, AfterView
   novaMensagem = '';
   chatEncerrado = false;
   deveRolar = false;
+  private chatIdInicial: number | null = null;
 
   private subs: Subscription[] = [];
 
@@ -33,18 +34,19 @@ export class ChatVazioPrestadorComponent implements OnInit, OnDestroy, AfterView
     private router: Router,
     private chatService: ChatService,
     private authService: AuthService
-  ) {}
-
-  ngOnInit(): void {
-    // Recebe o chatId vindo da notificação de chamada aceita
+  ) {
     const nav = this.router.getCurrentNavigation();
     const state = nav?.extras?.state as { chatId: number };
-
     if (state?.chatId) {
-      this.entrarNoChat(state.chatId);
+      this.chatIdInicial = state.chatId;
+    }
+  }
+
+  ngOnInit(): void {
+    if (this.chatIdInicial) {
+      this.entrarNoChat(this.chatIdInicial);
     }
 
-    // Ouve mensagens em tempo real
     this.subs.push(
       this.chatService.mensagens$.subscribe(msg => {
         if (this.chatAtivo && msg.chat?.id === this.chatAtivo.id) {
@@ -70,10 +72,15 @@ export class ChatVazioPrestadorComponent implements OnInit, OnDestroy, AfterView
   }
 
   entrarNoChat(chatId: number): void {
+    this.chatService.buscarChat(chatId).subscribe(chat => {
+      this.chatAtivo = chat;
+    });
+
     this.chatService.buscarHistorico(chatId).subscribe(msgs => {
       this.mensagens = msgs;
       this.deveRolar = true;
     });
+
     this.chatService.entrarNoChat(chatId);
   }
 
@@ -90,7 +97,7 @@ export class ChatVazioPrestadorComponent implements OnInit, OnDestroy, AfterView
       chatId: this.chatAtivo.id,
       remetenteId: usuario.id,
       remetenteNome: usuario.nome,
-      papelRemetente: 'PRESTADOR', // única diferença em relação ao cliente
+      papelRemetente: 'PRESTADOR',
       tipo: 'CHAT',
     };
 
@@ -122,7 +129,6 @@ export class ChatVazioPrestadorComponent implements OnInit, OnDestroy, AfterView
     try {
       const el = this.mensagensContainer?.nativeElement;
       if (el) el.scrollTop = el.scrollHeight;
-    } catch {}
+    } catch { }
   }
-
 }
