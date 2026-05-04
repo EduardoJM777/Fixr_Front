@@ -72,8 +72,14 @@ export class ChatVazioPrestadorComponent implements OnInit, OnDestroy, AfterView
   }
 
   entrarNoChat(chatId: number): void {
-    this.chatService.buscarChat(chatId).subscribe(chat => {
-      this.chatAtivo = chat;
+    this.chatService.buscarChat(chatId).subscribe({
+      next: (chat) => {
+        console.log('chat carregado:', chat);
+        this.chatAtivo = chat;
+      },
+      error: (err) => {
+        console.error('erro ao buscar chat:', err);
+      }
     });
 
     this.chatService.buscarHistorico(chatId).subscribe(msgs => {

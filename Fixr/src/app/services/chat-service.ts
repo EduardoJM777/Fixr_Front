@@ -39,19 +39,22 @@ export class ChatService {
                 console.log('WebSocket conectado, userId:', usuario.id);
 
 
-               this.stompClient.subscribe(
-    `/topic/usuario/${usuario.id}/chamada`,
-    (msg: IMessage) => {
-        console.log('Chamada recebida:', msg.body);
-        this.chamadas$.next(JSON.parse(msg.body));
-    }
-);
+                this.stompClient.subscribe(
+                    `/topic/usuario/${usuario.id}/chamada`,
+                    (msg: IMessage) => {
+                        console.log('Chamada recebida:', msg.body);
+                        this.chamadas$.next(JSON.parse(msg.body));
+                    }
+                );
 
 
                 this.stompClient.subscribe(
-    `/topic/usuario/${usuario.id}/resposta-chamada`,
-    (msg: IMessage) => this.respostas$.next(JSON.parse(msg.body))
-);
+                    `/topic/usuario/${usuario.id}/resposta-chamada`,
+                    (msg: IMessage) => {
+                        console.log('resposta da chamada recebida:', msg.body);
+                        this.respostas$.next(JSON.parse(msg.body));
+                    }
+                );
             },
 
             onDisconnect: () => this.conectado$.next(false),
@@ -78,15 +81,15 @@ export class ChatService {
     }
 
     buscarChat(chatId: number): Observable<Chats> {
-    return this.http.get<Chats>(`${this.API_URL}/${chatId}`);
-}
+        return this.http.get<Chats>(`${this.API_URL}/${chatId}`);
+    }
 
 
     iniciarChamada(dto: ChatsDTO): void {
         if (!this.stompClient?.connected) {
             console.warn('WebSocket não conectado, tentando reconectar...');
             this.conectar();
-            
+
             const sub = this.conectado$.subscribe(conectado => {
                 if (conectado) {
                     this.stompClient.publish({
