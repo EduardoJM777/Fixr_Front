@@ -1,19 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { HeadrFixrPrestador } from "../../../components/headr-fixr-prestador/headr-fixr-prestador";
 import { SubHeaderPrestador } from "../../../components/sub-header-prestador/sub-header-prestador";
 
-export interface Favorito {
+export interface ClienteFavorito {
   id: number;
   nome: string;
-  foto: string;
+  foto?: string;
   online: boolean;
   tempo?: string;
 }
 
 @Component({
-  selector: 'app-favoritos',
+  selector: 'app-favoritos-prestador',
   standalone: true,
   imports: [NgFor, NgIf, FormsModule, HeadrFixrPrestador, SubHeaderPrestador],
   templateUrl: './favoritos-prestador.html',
@@ -22,26 +24,22 @@ export interface Favorito {
 export class FavoritosPrestador implements OnInit {
   termoBusca = '';
 
-  favoritos: Favorito[] = [
-    {
-      id: 1,
-      nome: 'Cleber',
-      foto: 'https://randomuser.me/api/portraits/men/32.jpg',
-      online: true,
-      tempo: '5h',
-    },
-    {
-      id: 2,
-      nome: 'Rômulo',
-      foto: 'https://randomuser.me/api/portraits/men/44.jpg',
-      online: false,
-    },
-  ];
+  favoritos: ClienteFavorito[] = [];
+  favoritosFiltrados: ClienteFavorito[] = [];
 
-  favoritosFiltrados: Favorito[] = [];
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
-    this.favoritosFiltrados = [...this.favoritos];
+    const usuario = JSON.parse(sessionStorage.getItem('usuario') || '{}');
+
+    this.http.get<ClienteFavorito[]>(`http://localhost:8080/favorito/prestador/${usuario.id}`)
+      .subscribe({
+        next: (dados) => {
+          this.favoritos = dados;
+          this.favoritosFiltrados = dados;
+        },
+        error: () => alert('Erro ao carregar favoritos.')
+      });
   }
 
   filtrar(): void {
@@ -51,7 +49,7 @@ export class FavoritosPrestador implements OnInit {
       : [...this.favoritos];
   }
 
-  avaliar(fav: Favorito): void {
-    alert(`Avaliar prestador: ${fav.nome}`);
+  avaliar(fav: ClienteFavorito): void {
+    this.router.navigate(['/avaliar-cliente', fav.id]);
   }
 }
