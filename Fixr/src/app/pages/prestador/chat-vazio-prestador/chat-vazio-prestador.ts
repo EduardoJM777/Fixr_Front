@@ -37,15 +37,26 @@ export class ChatVazioPrestadorComponent implements OnInit, OnDestroy, AfterView
   ) {
     const nav = this.router.getCurrentNavigation();
     const state = nav?.extras?.state as { chatId: number };
+    console.log('nav:', nav);
+    console.log('state:', state);
     if (state?.chatId) {
       this.chatIdInicial = state.chatId;
+      console.log('chatIdInicial definido:', this.chatIdInicial);
     }
   }
 
   ngOnInit(): void {
+    console.log('ngOnInit, chatIdInicial:', this.chatIdInicial);
     if (this.chatIdInicial) {
       this.entrarNoChat(this.chatIdInicial);
     }
+
+    this.subs.push(
+        this.chatService.chatIniciado$.subscribe(chatId => {
+            console.log('chatIniciado$ recebido:', chatId);
+            this.entrarNoChat(chatId);
+        })
+    );
 
     this.subs.push(
       this.chatService.mensagens$.subscribe(msg => {

@@ -56,10 +56,10 @@
                     </ul>
                 </div>
 
-                <ng-container *ngIf="chatAtivo">
+                <ng-container *ngIf="chatAtivo as chat">
 
                     <div class="chat-header-bar">
-                        <span class="chat-header-nome">{{ chatAtivo.cliente.nome }}</span>
+                        <span class="chat-header-nome">{{ chat.cliente.nome }}</span>
                         <button class="btn-encerrar" (click)="encerrar()" *ngIf="!chatEncerrado">
                         Encerrar
                         </button>

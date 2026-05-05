@@ -20,6 +20,7 @@ export class ChatService {
     chamadas$ = new Subject<CallNotification>();
     respostas$ = new Subject<{ chatId: number; aceito: boolean }>();
     conectado$ = new BehaviorSubject<boolean>(false);
+    chatIniciado$ = new Subject<number>();
 
     constructor(
         private http: HttpClient,

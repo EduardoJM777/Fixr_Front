@@ -48,6 +48,13 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked {
     }
 
     this.subs.push(
+        this.chatService.chatIniciado$.subscribe(chatId => {
+            console.log('chatIniciado$ recebido:', chatId);
+            this.entrarNoChat(chatId);
+        })
+    );
+
+    this.subs.push(
       this.chatService.mensagens$.subscribe(msg => {
         if (this.chatAtivo && msg.chat?.id === this.chatAtivo.id) {
           if (msg.tipo === 'LEAVE') {
