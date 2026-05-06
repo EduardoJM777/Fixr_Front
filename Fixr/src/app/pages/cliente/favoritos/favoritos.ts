@@ -36,8 +36,8 @@ export class FavoritosComponent implements OnInit {
   ngOnInit(): void {
     const usuario = JSON.parse(sessionStorage.getItem('usuario') || '{}');
 
-    // Ajuste o endpoint conforme sua API
-    this.http.get<PrestadorFavorito[]>(`http://localhost:8080/favorito/cliente/${usuario.id}`)
+    
+    this.http.get<PrestadorFavorito[]>(`http://localhost:8080/favoritos?usuarioId=${usuario.id}`)
       .subscribe({
         next: (dados) => {
           this.prestadores = dados;
@@ -55,6 +55,19 @@ export class FavoritosComponent implements OnInit {
       return nomeOk && profissaoOk;
     });
   }
+
+  desfavoritar(prestador: PrestadorFavorito): void {
+  const usuario = JSON.parse(sessionStorage.getItem('usuario') || '{}');
+
+  this.http.delete(`http://localhost:8080/favoritos/${prestador.id}?usuarioId=${usuario.id}`)
+    .subscribe({
+      next: () => {
+        this.prestadores = this.prestadores.filter(p => p.id !== prestador.id);
+        this.filtrar();
+      },
+      error: () => alert('Erro ao desfavoritar.')
+    });
+}
 
   avaliar(prestador: PrestadorFavorito): void {
     this.router.navigate(['/avaliar', prestador.id]);
