@@ -1,5 +1,5 @@
 // anunciar-problema.component.ts
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HeaderFixrCliente } from "../../../components/header-fixr-cliente/header-fixr-cliente";
@@ -29,6 +29,7 @@ export class AnunciarProblemaComponent {
     this.anuncioService.getProfissoes().subscribe({
         next: (data) => this.profissoes = data,
         error: (err) => console.error('Erro ao carregar profissões', err)
+        
       });
   }
 
@@ -40,6 +41,7 @@ export class AnunciarProblemaComponent {
       const reader = new FileReader();
       reader.onload = () => this.previewUrl = reader.result as string;
       reader.readAsDataURL(this.imagemSelecionada);
+      
     }
   }
 
@@ -56,6 +58,7 @@ export class AnunciarProblemaComponent {
       profissaoId: this.profissaoId,
       clienteId: 1
     };
+    
 
     this.anuncioService.cadastrar(dados, this.imagemSelecionada).subscribe({
         next: (response) => { alert('Anúncio publicado!');
@@ -65,6 +68,7 @@ export class AnunciarProblemaComponent {
         this.previewUrl = null;
       },
         error: (err) => alert('Erro ao publicar')
+        
       });
   }
   

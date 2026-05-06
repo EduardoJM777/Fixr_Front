@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -16,7 +16,8 @@ export class CadastroComponent {
 
   constructor(private authService: AuthService, 
               private router: Router, 
-              private chatService: ChatService){}
+              private chatService: ChatService,
+              ){}
 
   email = '';
   senha = '';
@@ -46,6 +47,7 @@ export class CadastroComponent {
           this.erro = 'Sua conta está inativa. Entre em contato com o suporte.';
         } else {
           this.erro = 'Email ou senha inválidos.';
+          
         }
       }
     });

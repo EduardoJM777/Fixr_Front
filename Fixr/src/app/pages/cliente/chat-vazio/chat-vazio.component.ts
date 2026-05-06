@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { HeaderFixrCliente } from '../../../components/header-fixr-cliente/header-fixr-cliente';
 import { SubHeaderCliente } from '../../../components/sub-header-cliente/sub-header-cliente';
 import { CommonModule } from '@angular/common';
@@ -33,7 +33,8 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked {
   constructor(
     private router: Router,
     private chatService: ChatService,
-    private authService: AuthService
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef
   ) {
     const nav = this.router.getCurrentNavigation();
     const state = nav?.extras?.state as { chatId: number };
@@ -55,7 +56,7 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked {
           }
           this.mensagens.push(msg);
           this.deveRolar = true;
-        }
+        }this.cdr.detectChanges();
       })
     );
   }
@@ -80,8 +81,8 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.mensagens = msgs;
       this.deveRolar = true;
     });
-
     this.chatService.entrarNoChat(chatId);
+    this.cdr.detectChanges();
   }
 
   enviar(): void {
@@ -103,26 +104,31 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked {
 
     this.chatService.enviarMensagem(dto);
     this.novaMensagem = '';
+    this.cdr.detectChanges();
   }
 
   encerrar(): void {
     if (!this.chatAtivo) return;
     this.chatService.encerrarChat(this.chatAtivo.id);
+    this.cdr.detectChanges();
   }
 
   onKeyDown(event: KeyboardEvent): void {
     if (event.key === 'Enter' && !event.shiftKey) {
       event.preventDefault();
       this.enviar();
+      this.cdr.detectChanges();
     }
   }
 
   isMinha(msg: Mensagens): boolean {
     return msg.papelRemetente === 'CLIENTE';
+    this.cdr.detectChanges();
   }
 
   isSistema(msg: Mensagens): boolean {
     return msg.tipo === 'JOIN' || msg.tipo === 'LEAVE';
+    this.cdr.detectChanges();
   }
 
   private rolarParaBaixo(): void {
