@@ -49,12 +49,50 @@
 
             <!-- Área do chat -->
             <div class="chat-area">
-                <div class="chat-placeholder">
-                    <p>Inicie uma conversa com um prestador</p>
+                <div class="chat-placeholder" *ngIf="!chatAtivo">
+                    <p>Inicie uma conversa com um cliente</p>
                     <ul>
-                        <li>Selecione "buscar prestador"</li>
+                        <li>Selecione "buscar anúncio"</li>
                     </ul>
                 </div>
+
+                <ng-container *ngIf="chatAtivo">
+
+                    <div class="chat-header-bar">
+                        <span class="chat-header-nome">{{ chatAtivo.cliente.nome }}</span>
+                        <button class="btn-encerrar" (click)="encerrar()" *ngIf="!chatEncerrado">
+                        Encerrar
+                        </button>
+                        <span class="chat-encerrado-badge" *ngIf="chatEncerrado">Encerrado</span>
+                    </div>
+
+                    <div class="mensagens-lista" #mensagensContainer>
+
+                        <div *ngFor="let msg of mensagens"
+                            class="msg-wrapper"
+                            [class.minha]="isMinha(msg)"
+                            [class.sistema]="isSistema(msg)">
+
+                        <div *ngIf="isSistema(msg)" class="msg msg--sistema">
+                            {{ msg.texto }}
+                        </div>
+
+                        <div *ngIf="!isSistema(msg)" class="msg"
+                            [class.msg--minha]="isMinha(msg)"
+                            [class.msg--outra]="!isMinha(msg)">
+                            <p class="msg-texto">{{ msg.texto }}</p>
+                            <span class="msg-hora">{{ msg.enviadoEm | date:'HH:mm' }}</span>
+                        </div>
+
+                        </div>
+
+                        <div class="chat-encerrado-aviso" *ngIf="chatEncerrado">
+                        Chat encerrado
+                        </div>
+
+                    </div>
+
+                </ng-container>
 
                 <div class="chat-input-bar">
                     <!-- Emoji -->
@@ -67,10 +105,14 @@
                         </svg>
                     </button>
 
-                    <input type="text" placeholder="" />
+                    <input type="text" 
+                           [(ngModel)]="novaMensagem"
+                           (keydown)="onKeyDown($event)"
+                           [disabled]="!chatAtivo || chatEncerrado"
+                           placeholder="{{ chatEncerrado ? 'Chat encerrado' : 'Digite uma mensagem...' }}" />
 
                     <!-- Enviar -->
-                    <button class="send-btn">
+                    <button class="send-btn" (click)="enviar()" [disabled]="!novaMensagem.trim() || chatEncerrado">
                         <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5">
                             <line x1="22" y1="2" x2="11" y2="13" />
                             <polygon points="22 2 15 22 11 13 2 9 22 2" fill="#fff" />
@@ -98,7 +140,7 @@
                 <div class="ads-card-inner">
                     <p>Selecione um anúncio</p>
                     <ul>
-                        <li> clique em "Pesquisar"</li>
+                        <li>Clique em "Buscar Anúncio"</li>
                         <li>Ou clique <a href="#">aqui</a></li>
                     </ul>
                 </div>

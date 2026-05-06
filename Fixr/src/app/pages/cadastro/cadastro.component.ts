@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth-service';
+import { ChatService } from '../../services/chat-service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,9 @@ import { AuthService } from '../../services/auth-service';
 })
 export class CadastroComponent {
 
-  constructor(private authService: AuthService, private router: Router){}
+  constructor(private authService: AuthService, 
+              private router: Router, 
+              private chatService: ChatService){}
 
   email = '';
   senha = '';
@@ -29,6 +32,7 @@ export class CadastroComponent {
     .subscribe({
       next: (usuario) => {
         this.authService.salvarUsuario(usuario);
+        this.chatService.conectar();
 
         if (usuario.tipo === 'CLIENTE') {
           this.router.navigate(['/chatVazio']);

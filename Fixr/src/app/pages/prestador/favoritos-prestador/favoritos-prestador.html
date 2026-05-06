@@ -1,7 +1,6 @@
 <app-headr-fixr-prestador></app-headr-fixr-prestador>
 <app-sub-header-prestador></app-sub-header-prestador>
 
-
 <div class="page">
 
   <div class="toolbar">
@@ -24,8 +23,10 @@
   <!-- Lista de favoritos -->
   <div class="favoritos-list">
     <div class="favorito-item" *ngFor="let fav of favoritosFiltrados">
+
       <div class="avatar-wrapper">
-        <img [src]="fav.foto" [alt]="fav.nome" class="avatar" />
+        <img *ngIf="fav.foto" [src]="fav.foto" [alt]="fav.nome" class="avatar" />
+        <div *ngIf="!fav.foto" class="avatar-placeholder">{{ fav.nome.charAt(0) }}</div>
       </div>
 
       <div class="info-card">
@@ -39,6 +40,7 @@
           [class.offline]="!fav.online"
         ></span>
       </div>
+
     </div>
 
     <div class="empty" *ngIf="favoritosFiltrados.length === 0">
