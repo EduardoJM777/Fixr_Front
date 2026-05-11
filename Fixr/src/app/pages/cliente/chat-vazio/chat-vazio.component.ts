@@ -50,7 +50,7 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked {
 
     this.subs.push(
         this.chatService.chatIniciado$.subscribe(chatId => {
-            console.log('chatIniciado$ recebido:', chatId);
+            // console.log('chatIniciado$ recebido:', chatId);
             this.entrarNoChat(chatId);
         })
     );
@@ -82,7 +82,7 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked {
   entrarNoChat(chatId: number): void {
     this.chatService.buscarChat(chatId).subscribe({
       next: (chat) => {
-        console.log('chat carregado:', chat);
+        // console.log('chat carregado:', chat);
         this.chatAtivo = chat;
       },
       error: (err) => {
@@ -121,6 +121,7 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   encerrar(): void {
+    console.log('encerrar chamado, chatAtivo:', this.chatAtivo);
     if (!this.chatAtivo) return;
     this.chatService.encerrarChat(this.chatAtivo.id);
     this.cdr.detectChanges();

@@ -37,13 +37,13 @@ export class ChatService {
 
             onConnect: () => {
                 this.conectado$.next(true);
-                console.log('WebSocket conectado, userId:', usuario.id);
+                // console.log('WebSocket conectado, userId:', usuario.id);
 
 
                 this.stompClient.subscribe(
                     `/topic/usuario/${usuario.id}/chamada`,
                     (msg: IMessage) => {
-                        console.log('Chamada recebida:', msg.body);
+                        // console.log('Chamada recebida:', msg.body);
                         this.chamadas$.next(JSON.parse(msg.body));
                     }
                 );
@@ -52,7 +52,7 @@ export class ChatService {
                 this.stompClient.subscribe(
                     `/topic/usuario/${usuario.id}/resposta-chamada`,
                     (msg: IMessage) => {
-                        console.log('resposta da chamada recebida:', msg.body);
+                        // console.log('resposta da chamada recebida:', msg.body);
                         this.respostas$.next(JSON.parse(msg.body));
                     }
                 );

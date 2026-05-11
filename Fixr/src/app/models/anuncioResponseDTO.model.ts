@@ -2,7 +2,9 @@ export interface AnuncioResponseDTO {
     id: number;
     descricao: string;
     imagemTipo: string;
-    prestadorId: number;
+    profissaoId: number;
+    profissaoNome: string;
     clienteId: number;
+    clienteNome: string;
     imagemUrl: string;
 }

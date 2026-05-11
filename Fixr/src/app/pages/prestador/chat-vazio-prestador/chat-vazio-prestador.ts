@@ -37,23 +37,23 @@ export class ChatVazioPrestadorComponent implements OnInit, OnDestroy, AfterView
   ) {
     const nav = this.router.getCurrentNavigation();
     const state = nav?.extras?.state as { chatId: number };
-    console.log('nav:', nav);
-    console.log('state:', state);
+    // console.log('nav:', nav);
+    // console.log('state:', state);
     if (state?.chatId) {
       this.chatIdInicial = state.chatId;
-      console.log('chatIdInicial definido:', this.chatIdInicial);
+      // console.log('chatIdInicial definido:', this.chatIdInicial);
     }
   }
 
   ngOnInit(): void {
-    console.log('ngOnInit, chatIdInicial:', this.chatIdInicial);
+    // console.log('ngOnInit, chatIdInicial:', this.chatIdInicial);
     if (this.chatIdInicial) {
       this.entrarNoChat(this.chatIdInicial);
     }
 
     this.subs.push(
         this.chatService.chatIniciado$.subscribe(chatId => {
-            console.log('chatIniciado$ recebido:', chatId);
+            // console.log('chatIniciado$ recebido:', chatId);
             this.entrarNoChat(chatId);
         })
     );
@@ -85,7 +85,7 @@ export class ChatVazioPrestadorComponent implements OnInit, OnDestroy, AfterView
   entrarNoChat(chatId: number): void {
     this.chatService.buscarChat(chatId).subscribe({
       next: (chat) => {
-        console.log('chat carregado:', chat);
+        // console.log('chat carregado:', chat);
         this.chatAtivo = chat;
       },
       error: (err) => {
@@ -123,6 +123,7 @@ export class ChatVazioPrestadorComponent implements OnInit, OnDestroy, AfterView
   }
 
   encerrar(): void {
+    console.log('encerrar chamado, chatAtivo:', this.chatAtivo);
     if (!this.chatAtivo) return;
     this.chatService.encerrarChat(this.chatAtivo.id);
   }

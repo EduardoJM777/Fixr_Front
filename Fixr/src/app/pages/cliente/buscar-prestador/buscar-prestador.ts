@@ -39,12 +39,12 @@ export class BuscarPrestadorComponent implements OnInit {
     this.http.get<PrestadorResponse[]>(this.baseUrl)
       .subscribe({
         next: (dados) => {
-    console.log('dados recebidos:', dados);
+    // console.log('dados recebidos:', dados);
     this.ngZone.run(() => {
         this.prestadores = dados;
         this.prestadoresFiltrados = dados;
         this.profissoes = [...new Map(dados.map(p => [p.profissao.id, p.profissao])).values()];
-        console.log('prestadoresFiltrados:', this.prestadoresFiltrados);
+        // console.log('prestadoresFiltrados:', this.prestadoresFiltrados);
     });
 },
         error: () => alert('Erro ao carregar prestadores.')
