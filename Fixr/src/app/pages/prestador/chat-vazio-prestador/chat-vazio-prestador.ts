@@ -123,7 +123,7 @@ export class ChatVazioPrestadorComponent implements OnInit, OnDestroy, AfterView
   }
 
   encerrar(): void {
-    console.log('encerrar chamado, chatAtivo:', this.chatAtivo);
+    // console.log('encerrar chamado, chatAtivo:', this.chatAtivo);
     if (!this.chatAtivo) return;
     this.chatService.encerrarChat(this.chatAtivo.id);
   }

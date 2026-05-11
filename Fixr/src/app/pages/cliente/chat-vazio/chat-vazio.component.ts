@@ -121,7 +121,7 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   encerrar(): void {
-    console.log('encerrar chamado, chatAtivo:', this.chatAtivo);
+    // console.log('encerrar chamado, chatAtivo:', this.chatAtivo);
     if (!this.chatAtivo) return;
     this.chatService.encerrarChat(this.chatAtivo.id);
     this.cdr.detectChanges();
