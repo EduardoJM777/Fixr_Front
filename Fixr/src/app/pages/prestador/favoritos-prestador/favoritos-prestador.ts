@@ -5,8 +5,6 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { HeadrFixrPrestador } from "../../../components/headr-fixr-prestador/headr-fixr-prestador";
 import { SubHeaderPrestador } from "../../../components/sub-header-prestador/sub-header-prestador";
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 
 export interface ClienteFavorito {
   id: number;
@@ -31,8 +29,6 @@ export class FavoritosPrestador implements OnInit {
 
   favoritos: ClienteFavorito[] = [];
   favoritosFiltrados: ClienteFavorito[] = [];
-
-  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
     const usuario = JSON.parse(sessionStorage.getItem('usuario') || '{}');
