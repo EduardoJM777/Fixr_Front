@@ -38,18 +38,11 @@ export class CallNotificationComponent implements OnInit, OnDestroy {
 
   aceitar(): void {
     if (!this.chamadaPendente) return;
-    this.chatService.responderChamada(this.chamadaPendente.chatId, true);
     const chatId = this.chamadaPendente.chatId;
     this.chatService.responderChamada(chatId, true);
-
-    const usuario = this.authService.getUsuario();
-    const rota = usuario?.tipo === 'CLIENTE' ? '/chatVazio' : '/chatVazioPrestador';
-    
-    this.chatService.chatIniciado$.next(chatId);
-    
-    this.router.navigate([rota]);
+    this.chatService.iniciarChatNaSidebar(chatId);
     this.chamadaPendente = null;
-  }
+}
 
   recusar(): void {
     if (!this.chamadaPendente) return;
