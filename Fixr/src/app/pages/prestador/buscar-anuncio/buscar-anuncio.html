@@ -24,7 +24,10 @@
   <div class="cards-grid">
     <div class="anuncio-card" *ngFor="let a of anunciosFiltrados">
       <div class="card-img-wrapper">
-        <img *ngIf="a.imagemUrl" [src]="a.imagemUrl" alt="Foto do problema" class="card-img" />
+        <img *ngIf="a.imagemUrl" 
+             [src]="'http://localhost:8080' + a.imagemUrl" 
+             alt="Foto do problema" 
+             class="card-img" />
         <div *ngIf="!a.imagemUrl" class="card-img-placeholder">Sem foto</div>
       </div>
       <div class="card-body">
