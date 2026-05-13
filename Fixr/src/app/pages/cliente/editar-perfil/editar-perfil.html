@@ -1,0 +1,120 @@
+<app-header-fixr-cliente></app-header-fixr-cliente>
+<app-sub-header-cliente></app-sub-header-cliente>
+
+  <div class="page-wrapper">
+
+    <div class="top-icons">
+      <button title="Notificações" onclick="showToast('Sem novas notificações')">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+        </svg>
+      </button>
+      <button title="Configurações" onclick="showToast('Configurações em breve')">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </button>
+    </div>
+
+    <div id="profile-content">
+      <div class="state-overlay">
+        <div class="spinner"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const API = 'http://localhost:8080';
+    let currentAvatarFile = null;
+
+    async function carregarPerfil() {
+      const container = document.getElementById('profile-content');
+      try {
+        const res = await fetch(`${API}/cliente/perfil`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        renderPerfil(data);
+      } catch (err) {
+        container.innerHTML = `
+          <div class="state-overlay">
+            <div class="error-msg">
+              Não foi possível carregar o perfil.<br>
+              <small>Verifique se o backend está rodando. (${err.message})</small>
+            </div>
+          </div>`;
+      }
+    }
+
+    function renderPerfil(data) {
+      const container = document.getElementById('profile-content');
+      const fotoSrc = data.foto || data.imagem || data.avatar || '';
+
+      container.innerHTML = `
+        <div class="profile-layout">
+
+          <div class="avatar-col">
+            <span class="avatar-label">Imagem de perfil</span>
+            <div class="avatar-frame" onclick="document.getElementById('avatar-input').click()" title="Clique para trocar">
+              <img id="avatar-img" src="${fotoSrc}" alt="Foto de perfil"
+                onerror="this.src='https://via.placeholder.com/200x145/cccccc/888888?text=Sem+Foto'" />
+              <div class="avatar-overlay"><span>Trocar foto</span></div>
+            </div>
+            <input type="file" id="avatar-input" accept="image/*" onchange="previewAvatar(event)" />
+            <button class="btn-salvar" onclick="salvarPerfil()">Salvar</button>
+          </div>
+
+          <div class="info-section">
+            <div class="info-labels">
+              <div class="info-row-label"><span class="info-label">Nome:</span></div>
+              <div class="info-row-label"><span class="info-label">Sobrenome:</span></div>
+              <div class="info-row-label"><span class="info-label">Telefone:</span></div>
+              <div class="info-row-label"><span class="info-label">Email:</span></div>
+            </div>
+            <div class="info-values">
+              <div class="info-row-value"><span class="info-value">${data.nome || '—'}</span></div>
+              <div class="info-row-value"><span class="info-value">${data.sobrenome || '—'}</span></div>
+              <div class="info-row-value"><span class="info-value">${data.telefone || '—'}</span></div>
+              <div class="info-row-value"><span class="info-value">${data.email || '—'}</span></div>
+            </div>
+          </div>
+
+        </div>`;
+    }
+
+    function previewAvatar(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      currentAvatarFile = file;
+      const reader = new FileReader();
+      reader.onload = e => {
+        const img = document.getElementById('avatar-img');
+        if (img) img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    async function salvarPerfil() {
+      if (currentAvatarFile) {
+        try {
+          const formData = new FormData();
+          formData.append('foto', currentAvatarFile);
+          await fetch(`${API}/cliente/perfil/foto`, { method: 'POST', body: formData });
+        } catch (_) {}
+      }
+      showToast('Perfil salvo com sucesso!');
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2800);
+    }
+
+    carregarPerfil();
+  </script>

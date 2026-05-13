@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { CadastroComponent } from './pages/cadastro/cadastro.component';
 import { RecuSenhaComponent } from './pages/recu-senha/recu-senha.component';
 import { CriarContaClienteComponent } from './pages/criarConta/criar-conta-cliente/criar-conta-cliente.component';
+import { EditarPerfil } from './pages/cliente/editar-perfil/editar-perfil';
 import { CriarContaPrestador } from './pages/criarConta/criar-conta-prestador/criar-conta-prestador';
 import { CriarProfissaoComponent } from './pages/criarConta/criar-conta-prestador/criar-profissao/criar-profissao.component';
 import { ChatVazioComponent } from './pages/cliente/chat-vazio/chat-vazio.component';
@@ -33,6 +34,7 @@ export const routes: Routes = [
     {path: 'chatVazioPrestador', component: ChatVazioPrestadorComponent, canActivate: [AuthGuard]},
     {path: 'favoritosPrestador', component: FavoritosPrestador},
     {path: 'estatisticaPrestador', component: EstatisticasPrestador},
+    {path: 'editarPerfil', component: EditarPerfil},
     {path: '', redirectTo: 'cadastro', pathMatch: 'full'}
     
 ];

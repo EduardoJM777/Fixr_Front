@@ -1,0 +1,140 @@
+.page-wrapper {
+  background: #4a9fc4;
+  min-height: 100vh;
+  padding: 32px 24px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.conteudo {
+  display: flex;
+  gap: 24px;
+  width: 100%;
+  max-width: 780px;
+  align-items: flex-start;
+}
+
+/* ── Coluna esquerda ── */
+.coluna-esquerda {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  min-width: 160px;
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #fff;
+}
+
+.avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  color: #4a9fc4;
+  font-size: 48px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nome {
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.badge-prof {
+  font-size: 11px;
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  padding: 3px 12px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.select-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 13px;
+  color: #1e293b;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+/* ── Coluna direita ── */
+.coluna-direita {
+  flex: 1;
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.stats-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 14px;
+  color: #1e293b;
+}
+
+.stat-item:last-child { border-bottom: none; }
+
+.stat-item span:first-child { color: #475569; }
+.stat-item span:last-child  { font-weight: 600; }
+
+.btn-chamar {
+  width: 160px;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #1a56db;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  align-self: center;
+  transition: background 0.15s;
+}
+
+.btn-chamar:hover:not(:disabled) { background: #1e40af; }
+.btn-chamar:disabled { background: #93c5fd; cursor: not-allowed; }
+
+.aviso-recusada {
+  text-align: center;
+  font-size: 13px;
+  color: #dc2626;
+  background: #fef2f2;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.carregando {
+  text-align: center;
+  color: #94a3b8;
+  padding: 20px;
+}

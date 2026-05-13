@@ -18,5 +18,8 @@ export class ClienteService {
     return this.http.post<ClienteDTO>(this.baseUrl, clienteDTO)
   }
 
+  getPerfil(): Observable<ClienteDTO> {
+    return this.http.get<ClienteDTO>(this.baseUrl);
+  }
 
 }

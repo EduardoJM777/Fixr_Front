@@ -76,6 +76,6 @@ export class EstatisticasClienteComponent implements OnInit, OnDestroy {
   }
 
   editarPerfil(): void {
-    this.router.navigate(['/editar-perfil']);
+    this.router.navigate(['/editarPerfil']);
   }
 }
