@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, NgZone, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -9,7 +9,6 @@ import { Profissao } from '../../../models/profissao.model';
 import { AnuncioService } from '../../../services/anuncio-service';
 import { PrestadorResponse } from '../../../models/prestadorDTO.model';
 
-
 @Component({
   selector: 'app-buscar-prestador',
   standalone: true,
@@ -17,11 +16,9 @@ import { PrestadorResponse } from '../../../models/prestadorDTO.model';
   templateUrl: './buscar-prestador.html',
   styleUrls: ['./buscar-prestador.css']
 })
-
 export class BuscarPrestadorComponent implements OnInit {
 
   private baseUrl = "http://localhost:8080/prestador";
-  
 
   prestadores: PrestadorResponse[] = [];
   prestadoresFiltrados: PrestadorResponse[] = [];
@@ -30,18 +27,26 @@ export class BuscarPrestadorComponent implements OnInit {
   termoBusca: string = '';
   profissaoSelecionada: number | null = null;
 
-  constructor(private http: HttpClient, private router: Router, 
-    private anuncioService: AnuncioService) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private anuncioService: AnuncioService,
+    private ngZone: NgZone
+    
+  ) {}
 
   ngOnInit(): void {
     this.http.get<PrestadorResponse[]>(this.baseUrl)
       .subscribe({
         next: (dados) => {
-          this.prestadores = dados;
-          this.prestadoresFiltrados = dados;
-
-          this.profissoes = [...new Map(dados.map(p => [p.profissao.id, p.profissao])).values()];
-        },
+    // console.log('dados recebidos:', dados);
+    this.ngZone.run(() => {
+        this.prestadores = dados;
+        this.prestadoresFiltrados = dados;
+        this.profissoes = [...new Map(dados.map(p => [p.profissao.id, p.profissao])).values()];
+        // console.log('prestadoresFiltrados:', this.prestadoresFiltrados);
+    });
+},
         error: () => alert('Erro ao carregar prestadores.')
       });
   }
@@ -53,7 +58,6 @@ export class BuscarPrestadorComponent implements OnInit {
       return nomeOk && profissaoOk;
     });
   }
-
 
   getEstrelas(nota: number): string[] {
     return Array.from({ length: 5 }, (_, i) => {
@@ -68,7 +72,4 @@ export class BuscarPrestadorComponent implements OnInit {
       state: { prestador }
     });
   }
-
-
-
 }

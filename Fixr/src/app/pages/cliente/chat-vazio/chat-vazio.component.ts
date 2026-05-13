@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { HeaderFixrCliente } from '../../../components/header-fixr-cliente/header-fixr-cliente';
 import { SubHeaderCliente } from '../../../components/sub-header-cliente/sub-header-cliente';
 import { CommonModule } from '@angular/common';
@@ -9,6 +9,8 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { ChatService } from '../../../services/chat-service';
 import { AuthService } from '../../../services/auth-service';
+import { AnuncioResponseDTO } from '../../../models/anuncioResponseDTO.model';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-chat-vazio',
@@ -21,19 +23,24 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   @ViewChild('mensagensContainer') mensagensContainer!: ElementRef;
 
-  chatAtivo: Chats | null = null;
+  chatSelecionado: Chats | null = null;
+  chatsAtivos: Chats[] = [];
+  mensagensPorChat: Map<number, Mensagens[]> = new Map();
   mensagens: Mensagens[] = [];
   novaMensagem = '';
   chatEncerrado = false;
   deveRolar = false;
+  meusAnuncios: AnuncioResponseDTO[] = [];
   private chatIdInicial: number | null = null;
-
+  private chatsSubscritos: Set<number> = new Set();
   private subs: Subscription[] = [];
 
   constructor(
     private router: Router,
     private chatService: ChatService,
-    private authService: AuthService
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef,
+    private http: HttpClient
   ) {
     const nav = this.router.getCurrentNavigation();
     const state = nav?.extras?.state as { chatId: number };
@@ -43,21 +50,60 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   ngOnInit(): void {
-    if (this.chatIdInicial) {
-      this.entrarNoChat(this.chatIdInicial);
-    }
-
+    // Ouve lista de chats ativos
     this.subs.push(
-      this.chatService.mensagens$.subscribe(msg => {
-        if (this.chatAtivo && msg.chat?.id === this.chatAtivo.id) {
-          if (msg.tipo === 'LEAVE') {
-            this.chatEncerrado = true;
-          }
-          this.mensagens.push(msg);
-          this.deveRolar = true;
-        }
+      this.chatService.chatsAtivos$.subscribe(chats => {
+        this.chatsAtivos = chats;
+        this.cdr.detectChanges();
       })
     );
+
+    // Quando um novo chat é iniciado, entra nele e seleciona
+    this.subs.push(
+      this.chatService.chatIniciado$.subscribe(chatId => {
+        this.entrarNoChat(chatId);
+        this.chatService.buscarChat(chatId).subscribe(chat => {
+          this.selecionarChat(chat);
+        });
+      })
+    );
+
+    // Ouve mensagens em tempo real
+    this.subs.push(
+      this.chatService.mensagens$.subscribe(msg => {
+        if (!msg.chat?.id) return;
+        const msgs = this.mensagensPorChat.get(msg.chat.id) || [];
+        msgs.push(msg);
+        this.mensagensPorChat.set(msg.chat.id, msgs);
+
+        if (this.chatSelecionado?.id === msg.chat.id) {
+          this.mensagens = [...msgs];
+          if (msg.tipo === 'LEAVE') this.chatEncerrado = true;
+          this.deveRolar = true;
+        }
+        this.cdr.detectChanges();
+      })
+    );
+
+    // Se veio com chatId inicial (chamada aceita pelo cliente)
+    if (this.chatIdInicial) {
+      this.chatService.iniciarChatNaSidebar(this.chatIdInicial);
+    }
+
+    const usuario = this.authService.getUsuario();
+    if (usuario) {
+      this.chatService.carregarChatsAtivos('CLIENTE', usuario.id);
+      this.http.get<AnuncioResponseDTO[]>(`http://localhost:8080/anuncio/cliente/${usuario.id}`)
+        .subscribe({
+          next: (anuncios) => {
+            console.log('meus anuncios:', anuncios);
+            this.meusAnuncios = anuncios;
+            this.cdr.detectChanges();
+          },
+          error: (err) => console.error('erro:', err)
+        });
+    }
+
   }
 
   ngAfterViewChecked(): void {
@@ -72,29 +118,48 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   entrarNoChat(chatId: number): void {
-    this.chatService.buscarChat(chatId).subscribe(chat => {
-      this.chatAtivo = chat;
-    });
+    if (this.chatsSubscritos.has(chatId)) return;
+    this.chatsSubscritos.add(chatId);
 
-    this.chatService.buscarHistorico(chatId).subscribe(msgs => {
-      this.mensagens = msgs;
-      this.deveRolar = true;
-    });
+    // Só carrega histórico se ainda não tiver mensagens
+    if (!this.mensagensPorChat.has(chatId)) {
+      this.chatService.buscarHistorico(chatId).subscribe(msgs => {
+        this.mensagensPorChat.set(chatId, msgs);
+        if (this.chatSelecionado?.id === chatId) {
+          this.mensagens = [...msgs];
+          this.deveRolar = true;
+        }
+        this.cdr.detectChanges();
+      });
+    }
 
     this.chatService.entrarNoChat(chatId);
   }
 
+  selecionarChat(chat: Chats): void {
+    this.chatSelecionado = chat;
+    this.chatEncerrado = chat.status === 'ENCERRADO';
+    this.mensagens = [...(this.mensagensPorChat.get(chat.id) || [])];
+    this.deveRolar = true;
+    this.entrarNoChat(chat.id);
+    this.cdr.detectChanges();
+  }
+
+  nomeOutroLado(chat: Chats): string {
+    return chat.prestador.nome;
+  }
+
   enviar(): void {
     const texto = this.novaMensagem.trim();
-    if (!texto || !this.chatAtivo || this.chatEncerrado) return;
+    if (!texto || !this.chatSelecionado || this.chatEncerrado) return;
 
     const usuario = this.authService.getUsuario();
     if (!usuario) return;
 
     const dto: MensagensDTO = {
       texto,
-      idChat: this.chatAtivo.id,
-      chatId: this.chatAtivo.id,
+      idChat: this.chatSelecionado.id,
+      chatId: this.chatSelecionado.id,
       remetenteId: usuario.id,
       remetenteNome: usuario.nome,
       papelRemetente: 'CLIENTE',
@@ -106,8 +171,8 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   encerrar(): void {
-    if (!this.chatAtivo) return;
-    this.chatService.encerrarChat(this.chatAtivo.id);
+    if (!this.chatSelecionado) return;
+    this.chatService.encerrarChat(this.chatSelecionado.id);
   }
 
   onKeyDown(event: KeyboardEvent): void {
@@ -129,6 +194,10 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked {
     try {
       const el = this.mensagensContainer?.nativeElement;
       if (el) el.scrollTop = el.scrollHeight;
-    } catch {}
+    } catch { }
+  }
+
+  irAnuncio(){
+    this.router.navigate(['/criarAnuncio'])
   }
 }

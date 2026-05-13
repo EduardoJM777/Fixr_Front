@@ -24,22 +24,33 @@
   <div class="cards-grid">
     <div class="anuncio-card" *ngFor="let a of anunciosFiltrados">
       <div class="card-img-wrapper">
-        <img *ngIf="a.imagem" [src]="a.imagem" alt="Foto do problema" class="card-img" />
-        <div *ngIf="!a.imagem" class="card-img-placeholder">Sem foto</div>
+        <img *ngIf="a.imagemUrl" 
+             [src]="'http://localhost:8080' + a.imagemUrl" 
+             alt="Foto do problema" 
+             class="card-img" />
+        <div *ngIf="!a.imagemUrl" class="card-img-placeholder">Sem foto</div>
       </div>
       <div class="card-body">
         <p class="card-descricao">{{ a.descricao }}</p>
         <div class="card-divider"></div>
-        <p class="card-info">Anunciante: {{ a.nomeCliente }}</p>
+        <p class="card-info">Anunciante: {{ a.clienteNome }}</p>
         <div class="card-divider"></div>
-        <p class="card-info">{{ a.distancia }}</p>
-        <button class="btn-chamar" (click)="chamar(a)">Chamar</button>
+        <button 
+          class="btn-chamar" 
+          (click)="chamar(a)"
+          [disabled]="chamandoAnuncioId !== null">
+          {{ chamandoAnuncioId === a.id ? 'Aguardando...' : 'Chamar' }}
+        </button>
       </div>
     </div>
 
     <div class="sem-resultados" *ngIf="anunciosFiltrados.length === 0">
       Nenhum anúncio encontrado.
     </div>
+  </div>
+
+  <div class="aviso-recusada" *ngIf="chamadaRecusada">
+    Cliente não está disponível no momento.
   </div>
 
 </div>

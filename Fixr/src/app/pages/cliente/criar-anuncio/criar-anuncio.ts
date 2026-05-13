@@ -1,10 +1,11 @@
 // anunciar-problema.component.ts
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HeaderFixrCliente } from "../../../components/header-fixr-cliente/header-fixr-cliente";
 import { SubHeaderCliente } from "../../../components/sub-header-cliente/sub-header-cliente";
 import { AnuncioService } from '../../../services/anuncio-service';
+import { AuthService } from '../../../services/auth-service';
 
 @Component({
   selector: 'app-anunciar-problema',
@@ -19,17 +20,21 @@ export class AnunciarProblemaComponent {
   descricao: string = '';
   profissaoId: number | null = null;
   profissoes: any[] = [];
-  
+
   imagemSelecionada: File | null = null;
   previewUrl: string | null = null;
 
-  constructor(private anuncioService: AnuncioService) {}
+  constructor(
+    private anuncioService: AnuncioService,
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
     this.anuncioService.getProfissoes().subscribe({
-        next: (data) => this.profissoes = data,
-        error: (err) => console.error('Erro ao carregar profissões', err)
-      });
+      next: (data) => this.profissoes = data,
+      error: (err) => console.error('Erro ao carregar profissões', err)
+
+    });
   }
 
   onImagemSelecionada(event: Event): void {
@@ -40,6 +45,7 @@ export class AnunciarProblemaComponent {
       const reader = new FileReader();
       reader.onload = () => this.previewUrl = reader.result as string;
       reader.readAsDataURL(this.imagemSelecionada);
+
     }
   }
 
@@ -50,22 +56,27 @@ export class AnunciarProblemaComponent {
 
   publicar(): void {
     if (!this.descricao || !this.profissaoId || !this.imagemSelecionada) return;
-    
+
+    const usuario = this.authService.getUsuario();
+    if (!usuario) return;
+
     const dados = {
       descricao: this.descricao,
       profissaoId: this.profissaoId,
-      clienteId: 1
+      clienteId: usuario.id
     };
 
+
     this.anuncioService.cadastrar(dados, this.imagemSelecionada).subscribe({
-        next: (response) => { alert('Anúncio publicado!');
+      next: () => {
+        alert('Anúncio publicado!');
         this.descricao = '';
         this.profissaoId = null;
         this.imagemSelecionada = null;
         this.previewUrl = null;
       },
-        error: (err) => alert('Erro ao publicar')
-      });
+      error: (err) => alert('Erro ao publicar')
+    });
   }
-  
+
 }

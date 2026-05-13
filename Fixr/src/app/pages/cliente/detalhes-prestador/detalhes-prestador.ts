@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { EstatisticasPrestadorDTO, PrestadorResponse } from '../../../models/prestadorDTO.model';
 import { Router } from '@angular/router';
 import { ChatService } from '../../../services/chat-service';
@@ -36,6 +36,7 @@ export class DetalhesPrestador implements OnInit {
     const state = nav?.extras?.state as { prestador: PrestadorResponse };
     if (state?.prestador) {
       this.prestador = state.prestador;
+      
     }
   }
 
@@ -44,7 +45,7 @@ export class DetalhesPrestador implements OnInit {
       this.carregarEstatisticas();
     } else {
       this.router.navigate(['/buscarPrestador']);
-    }
+    } 
   }
 
   carregarEstatisticas(): void {

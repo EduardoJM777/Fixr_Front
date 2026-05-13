@@ -27,7 +27,7 @@ export class CallNotificationComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.sub = this.chatService.chamadas$.subscribe(chamada => {
-      console.log('chamada recebida no componente:', chamada);
+      // console.log('chamada recebida no componente:', chamada);
       this.chamadaPendente = chamada;
     });
   }
@@ -38,14 +38,11 @@ export class CallNotificationComponent implements OnInit, OnDestroy {
 
   aceitar(): void {
     if (!this.chamadaPendente) return;
-    this.chatService.responderChamada(this.chamadaPendente.chatId, true);
-    const usuario = this.authService.getUsuario();
-    const rota = usuario?.tipo === 'CLIENTE' ? '/chatVazio' : '/chatVazioPrestador';
-    this.router.navigate([rota], {
-      state: { chatId: this.chamadaPendente.chatId }
-    });
+    const chatId = this.chamadaPendente.chatId;
+    this.chatService.responderChamada(chatId, true);
+    this.chatService.iniciarChatNaSidebar(chatId);
     this.chamadaPendente = null;
-  }
+}
 
   recusar(): void {
     if (!this.chamadaPendente) return;

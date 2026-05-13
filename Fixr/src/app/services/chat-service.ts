@@ -20,6 +20,7 @@ export class ChatService {
     chamadas$ = new Subject<CallNotification>();
     respostas$ = new Subject<{ chatId: number; aceito: boolean }>();
     conectado$ = new BehaviorSubject<boolean>(false);
+    chatIniciado$ = new Subject<number>();
 
     constructor(
         private http: HttpClient,
@@ -36,22 +37,25 @@ export class ChatService {
 
             onConnect: () => {
                 this.conectado$.next(true);
-                console.log('WebSocket conectado, userId:', usuario.id);
-
-
-               this.stompClient.subscribe(
-    `/topic/usuario/${usuario.id}/chamada`,
-    (msg: IMessage) => {
-        console.log('Chamada recebida:', msg.body);
-        this.chamadas$.next(JSON.parse(msg.body));
-    }
-);
+                // console.log('WebSocket conectado, userId:', usuario.id);
 
 
                 this.stompClient.subscribe(
-    `/topic/usuario/${usuario.id}/resposta-chamada`,
-    (msg: IMessage) => this.respostas$.next(JSON.parse(msg.body))
-);
+                    `/topic/usuario/${usuario.id}/chamada`,
+                    (msg: IMessage) => {
+                        // console.log('Chamada recebida:', msg.body);
+                        this.chamadas$.next(JSON.parse(msg.body));
+                    }
+                );
+
+
+                this.stompClient.subscribe(
+                    `/topic/usuario/${usuario.id}/resposta-chamada`,
+                    (msg: IMessage) => {
+                        // console.log('resposta da chamada recebida:', msg.body);
+                        this.respostas$.next(JSON.parse(msg.body));
+                    }
+                );
             },
 
             onDisconnect: () => this.conectado$.next(false),
@@ -78,15 +82,15 @@ export class ChatService {
     }
 
     buscarChat(chatId: number): Observable<Chats> {
-    return this.http.get<Chats>(`${this.API_URL}/${chatId}`);
-}
+        return this.http.get<Chats>(`${this.API_URL}/${chatId}`);
+    }
 
 
     iniciarChamada(dto: ChatsDTO): void {
         if (!this.stompClient?.connected) {
             console.warn('WebSocket não conectado, tentando reconectar...');
             this.conectar();
-            
+
             const sub = this.conectado$.subscribe(conectado => {
                 if (conectado) {
                     this.stompClient.publish({
@@ -117,6 +121,13 @@ export class ChatService {
         });
     }
 
+    iniciarChatNaSidebar(chatId: number): void {
+    this.http.get<Chats>(`${this.API_URL}/${chatId}`).subscribe(chat => {
+        this.adicionarChatAtivo(chat);
+        this.chatIniciado$.next(chatId);
+    });
+}
+
     enviarMensagem(dto: MensagensDTO): void {
         this.stompClient.publish({
             destination: '/app/chat.enviar',
@@ -131,6 +142,16 @@ export class ChatService {
         });
     }
 
+    carregarChatsAtivos(papel: 'CLIENTE' | 'PRESTADOR', userId: number): void {
+    const url = papel === 'CLIENTE'
+        ? `${this.API_URL}/cliente/${userId}`
+        : `${this.API_URL}/prestador/${userId}`;
+
+    this.http.get<Chats[]>(url).subscribe(chats => {
+        chats.forEach(chat => this.adicionarChatAtivo(chat));
+    });
+}
+
 
 
     buscarHistorico(chatId: number): Observable<Mensagens[]> {
@@ -140,4 +161,14 @@ export class ChatService {
     listarChats(): Observable<Chats[]> {
         return this.http.get<Chats[]>(this.API_URL);
     }
+
+    chatsAtivos$ = new BehaviorSubject<Chats[]>([]);
+
+adicionarChatAtivo(chat: Chats): void {
+    const atual = this.chatsAtivos$.getValue();
+    const jaExiste = atual.find(c => c.id === chat.id);
+    if (!jaExiste) {
+        this.chatsAtivos$.next([...atual, chat]);
+    }
+}
 }
