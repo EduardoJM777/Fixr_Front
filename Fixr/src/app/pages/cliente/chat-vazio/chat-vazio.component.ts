@@ -9,6 +9,8 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { ChatService } from '../../../services/chat-service';
 import { AuthService } from '../../../services/auth-service';
+import { AnuncioResponseDTO } from '../../../models/anuncioResponseDTO.model';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-chat-vazio',
@@ -28,16 +30,17 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked {
   novaMensagem = '';
   chatEncerrado = false;
   deveRolar = false;
+  meusAnuncios: AnuncioResponseDTO[] = [];
   private chatIdInicial: number | null = null;
   private chatsSubscritos: Set<number> = new Set();
-
   private subs: Subscription[] = [];
 
   constructor(
     private router: Router,
     private chatService: ChatService,
     private authService: AuthService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private http: HttpClient
   ) {
     const nav = this.router.getCurrentNavigation();
     const state = nav?.extras?.state as { chatId: number };
@@ -88,9 +91,19 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked {
     }
 
     const usuario = this.authService.getUsuario();
-if (usuario) {
-    this.chatService.carregarChatsAtivos('CLIENTE', usuario.id);
-}
+    if (usuario) {
+      this.chatService.carregarChatsAtivos('CLIENTE', usuario.id);
+      this.http.get<AnuncioResponseDTO[]>(`http://localhost:8080/anuncio/cliente/${usuario.id}`)
+        .subscribe({
+          next: (anuncios) => {
+            console.log('meus anuncios:', anuncios);
+            this.meusAnuncios = anuncios;
+            this.cdr.detectChanges();
+          },
+          error: (err) => console.error('erro:', err)
+        });
+    }
+
   }
 
   ngAfterViewChecked(): void {
@@ -110,18 +123,18 @@ if (usuario) {
 
     // Só carrega histórico se ainda não tiver mensagens
     if (!this.mensagensPorChat.has(chatId)) {
-        this.chatService.buscarHistorico(chatId).subscribe(msgs => {
-            this.mensagensPorChat.set(chatId, msgs);
-            if (this.chatSelecionado?.id === chatId) {
-                this.mensagens = [...msgs];
-                this.deveRolar = true;
-            }
-            this.cdr.detectChanges();
-        });
+      this.chatService.buscarHistorico(chatId).subscribe(msgs => {
+        this.mensagensPorChat.set(chatId, msgs);
+        if (this.chatSelecionado?.id === chatId) {
+          this.mensagens = [...msgs];
+          this.deveRolar = true;
+        }
+        this.cdr.detectChanges();
+      });
     }
 
     this.chatService.entrarNoChat(chatId);
-}
+  }
 
   selecionarChat(chat: Chats): void {
     this.chatSelecionado = chat;
@@ -130,7 +143,7 @@ if (usuario) {
     this.deveRolar = true;
     this.entrarNoChat(chat.id);
     this.cdr.detectChanges();
-}
+  }
 
   nomeOutroLado(chat: Chats): string {
     return chat.prestador.nome;
@@ -181,6 +194,10 @@ if (usuario) {
     try {
       const el = this.mensagensContainer?.nativeElement;
       if (el) el.scrollTop = el.scrollHeight;
-    } catch {}
+    } catch { }
+  }
+
+  irAnuncio(){
+    this.router.navigate(['/criarAnuncio'])
   }
 }
