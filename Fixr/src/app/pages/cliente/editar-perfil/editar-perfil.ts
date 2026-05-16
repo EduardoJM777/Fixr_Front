@@ -5,11 +5,13 @@ import { SubHeaderCliente } from '../../../components/sub-header-cliente/sub-hea
 import { HeaderFixrCliente } from '../../../components/header-fixr-cliente/header-fixr-cliente';
 import { ClienteService } from '../../../services/cliente-service';
 import { ClienteDTO } from '../../../models/clienteDTO.model';
+import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../../services/auth-service';
 
 @Component({
   selector: 'app-editar-perfil',
   standalone: true,
-  imports: [SubHeaderCliente, HeaderFixrCliente, CommonModule],
+  imports: [SubHeaderCliente, HeaderFixrCliente, CommonModule, FormsModule],
   templateUrl: './editar-perfil.html',
   styleUrl: './editar-perfil.css',
 })
@@ -17,7 +19,14 @@ export class EditarPerfil implements OnInit {
 
   cliente: ClienteDTO | null = null;
   loading = true;
+  salvando = false;
   erro = '';
+
+  editNome: string = '';
+  editSobrenome: string = '';
+  editTelefone: string = '';
+  editEmail: string = '';
+  editSenha: string = '';
 
   fotoPreview: string | null = null;
   fotoArquivo: File | null = null;
@@ -28,10 +37,15 @@ export class EditarPerfil implements OnInit {
 
   constructor(
     private router: Router,
-    private clienteService: ClienteService
+    private clienteService: ClienteService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
+    if (!this.authService.isLogado()) {
+      this.router.navigate(['/cadastro']);
+      return;
+    }
     this.carregarPerfil();
   }
 
@@ -39,14 +53,57 @@ export class EditarPerfil implements OnInit {
     this.loading = true;
     this.erro = '';
 
-    this.clienteService.getPerfil().subscribe({
+    const usuario = this.authService.getUsuario()!;
+
+    this.clienteService.getPerfil(usuario.id).subscribe({
       next: (data) => {
         this.cliente = data;
+        this.preencherCampos(data);
         this.loading = false;
       },
       error: (err) => {
         this.erro = `Não foi possível carregar o perfil. (${err.status || err.message})`;
         this.loading = false;
+      }
+    });
+  }
+
+   private preencherCampos(data: ClienteDTO): void {
+    const partes = data.nome?.split(' ') ?? [];
+    this.editNome = partes[0] ?? '';
+    this.editSobrenome = partes.length > 1 ? partes.slice(1).join(' ') : '';
+    this.editTelefone = data.telefone ?? '';
+    this.editEmail = data.email ?? '';
+    this.editSenha = '';
+  }
+
+  salvar(): void {
+    if (!this.cliente) return;
+ 
+    const usuario = this.authService.getUsuario()!;
+    const nomeCompleto = [this.editNome, this.editSobrenome].filter(Boolean).join(' ');
+ 
+    const payload: ClienteDTO = {
+      id: usuario.id,
+      nome: nomeCompleto,
+      email: this.editEmail,
+      telefone: this.editTelefone,
+      dataNascimento: this.cliente.dataNascimento,
+      senha: this.editSenha || undefined,
+    };
+ 
+    this.salvando = true;
+ 
+    this.clienteService.atualizar(usuario.id, payload).subscribe({
+      next: (atualizado) => {
+        this.cliente = atualizado;
+        this.preencherCampos(atualizado);
+        this.salvando = false;
+        this.showToast('Perfil atualizado com sucesso!');
+      },
+      error: (err) => {
+        this.salvando = false;
+        this.showToast(`Erro ao salvar. (${err.status || err.message})`);
       }
     });
   }
@@ -63,15 +120,6 @@ export class EditarPerfil implements OnInit {
     reader.readAsDataURL(this.fotoArquivo);
   }
 
-  salvar(): void {
-    if (this.fotoArquivo) {
-      // Quando o backend suportar upload de foto, chamar o método aqui
-      this.showToast('Perfil salvo com sucesso!');
-    } else {
-      this.showToast('Nenhuma alteração para salvar.');
-    }
-  }
-
   /** URL da foto: preview local → foto do backend → vazio (CSS mostra inicial) */
   get fotoSrc(): string {
     if (this.fotoPreview) return this.fotoPreview;
@@ -79,15 +127,8 @@ export class EditarPerfil implements OnInit {
     return '';
   }
 
-  /** "Suzana Moreira" → "Suzana" */
-  get primeiroNome(): string {
-    return this.cliente?.nome?.split(' ')[0] ?? '—';
-  }
-
-  /** "Suzana Moreira" → "Moreira" */
-  get sobrenome(): string {
-    const partes = this.cliente?.nome?.split(' ') ?? [];
-    return partes.length > 1 ? partes.slice(1).join(' ') : '—';
+  get inicial(): string {
+    return this.editNome?.charAt(0)?.toUpperCase() ?? '?';
   }
 
   showToast(msg: string): void {
