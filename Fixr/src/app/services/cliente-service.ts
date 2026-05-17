@@ -17,9 +17,12 @@ export class ClienteService {
   salvar(clienteDTO: ClienteDTO): Observable<ClienteDTO> {
     return this.http.post<ClienteDTO>(this.baseUrl, clienteDTO)
   }
+  atualizar(id:Number, clienteDTO: ClienteDTO): Observable<ClienteDTO>{
+    return this.http.put<ClienteDTO>(`${this.baseUrl}/${id}`, clienteDTO)
+  }
 
-  getPerfil(): Observable<ClienteDTO> {
-    return this.http.get<ClienteDTO>(this.baseUrl);
+  getPerfil(id: Number): Observable<ClienteDTO> {
+    return this.http.get<ClienteDTO>(`${this.baseUrl}/${id}`);
   }
 
 }
