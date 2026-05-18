@@ -63,7 +63,7 @@
         <img *ngIf="fotoSrc; else semFoto" [src]="fotoSrc" alt="Foto de perfil" />
         <ng-template #semFoto>
           <div class="avatar-placeholder">
-            {{ primeiroNome.charAt(0).toUpperCase() }}
+            {{ editNome.charAt(0).toUpperCase() }}
           </div>
         </ng-template>
         <div class="avatar-overlay"><span>Trocar foto</span></div>
@@ -83,10 +83,18 @@
         <div class="info-row-label"><span class="info-label">Email:</span></div>
       </div>
       <div class="info-values">
-        <div class="info-row-value"><span class="info-value">{{ primeiroNome }}</span></div>
-        <div class="info-row-value"><span class="info-value">{{ sobrenome }}</span></div>
-        <div class="info-row-value"><span class="info-value">{{ cliente.telefone || '—' }}</span></div>
-        <div class="info-row-value"><span class="info-value">{{ cliente.email || '—' }}</span></div>
+        <div class="info-row-value">
+          <input class="info-input" [(ngModel)]="editNome" placeholder="Nome" />
+        </div>
+        <div class="info-row-value">
+          <input class="info-input" [(ngModel)]="editSobrenome" placeholder="Sobrenome" />
+        </div>
+        <div class="info-row-value">
+          <input class="info-input" [(ngModel)]="editTelefone" placeholder="Telefone" />
+        </div>
+        <div class="info-row-value">
+          <input class="info-input" [(ngModel)]="editEmail" placeholder="Email" type="email" />
+        </div>
       </div>
     </div>
 

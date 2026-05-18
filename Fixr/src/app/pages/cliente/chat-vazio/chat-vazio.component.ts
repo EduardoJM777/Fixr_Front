@@ -96,7 +96,7 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.http.get<AnuncioResponseDTO[]>(`http://localhost:8080/anuncio/cliente/${usuario.id}`)
         .subscribe({
           next: (anuncios) => {
-            console.log('meus anuncios:', anuncios);
+            // console.log('meus anuncios:', anuncios);
             this.meusAnuncios = anuncios;
             this.cdr.detectChanges();
           },

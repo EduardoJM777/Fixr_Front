@@ -171,6 +171,17 @@
   font-size: 15px;
   color: #111;
 }
+
+.info-input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  outline: none;
+  font-size: 1rem;
+  color: inherit;
+  width: 100%;
+  padding: 2px 4px;
+}
  
 /* ── Loading / Erro ── */
 .state-overlay {

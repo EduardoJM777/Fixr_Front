@@ -26,7 +26,6 @@ export class EditarPerfil implements OnInit {
   editSobrenome: string = '';
   editTelefone: string = '';
   editEmail: string = '';
-  editSenha: string = '';
 
   fotoPreview: string | null = null;
   fotoArquivo: File | null = null;
@@ -74,7 +73,6 @@ export class EditarPerfil implements OnInit {
     this.editSobrenome = partes.length > 1 ? partes.slice(1).join(' ') : '';
     this.editTelefone = data.telefone ?? '';
     this.editEmail = data.email ?? '';
-    this.editSenha = '';
   }
 
   salvar(): void {
@@ -88,8 +86,7 @@ export class EditarPerfil implements OnInit {
       nome: nomeCompleto,
       email: this.editEmail,
       telefone: this.editTelefone,
-      dataNascimento: this.cliente.dataNascimento,
-      senha: this.editSenha || undefined,
+      dataNascimento: this.cliente.dataNascimento
     };
  
     this.salvando = true;
