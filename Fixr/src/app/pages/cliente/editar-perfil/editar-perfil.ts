@@ -38,7 +38,7 @@ export class EditarPerfil implements OnInit {
     private router: Router,
     private clienteService: ClienteService,
     private authService: AuthService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     if (!this.authService.isLogado()) {
@@ -67,7 +67,7 @@ export class EditarPerfil implements OnInit {
     });
   }
 
-   private preencherCampos(data: ClienteDTO): void {
+  private preencherCampos(data: ClienteDTO): void {
     const partes = data.nome?.split(' ') ?? [];
     this.editNome = partes[0] ?? '';
     this.editSobrenome = partes.length > 1 ? partes.slice(1).join(' ') : '';
@@ -77,10 +77,10 @@ export class EditarPerfil implements OnInit {
 
   salvar(): void {
     if (!this.cliente) return;
- 
+
     const usuario = this.authService.getUsuario()!;
     const nomeCompleto = [this.editNome, this.editSobrenome].filter(Boolean).join(' ');
- 
+
     const payload: ClienteDTO = {
       id: usuario.id,
       nome: nomeCompleto,
@@ -88,14 +88,19 @@ export class EditarPerfil implements OnInit {
       telefone: this.editTelefone,
       dataNascimento: this.cliente.dataNascimento
     };
- 
+
     this.salvando = true;
- 
+
     this.clienteService.atualizar(usuario.id, payload).subscribe({
       next: (atualizado) => {
         this.cliente = atualizado;
         this.preencherCampos(atualizado);
         this.salvando = false;
+
+        const usuarioAtual = this.authService.getUsuario()!;
+        const usuarioAtualizado = { ...usuarioAtual, nome: atualizado.nome };
+        sessionStorage.setItem('usuario', JSON.stringify(usuarioAtualizado));
+
         this.showToast('Perfil atualizado com sucesso!');
       },
       error: (err) => {
