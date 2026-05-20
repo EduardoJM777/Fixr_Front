@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { SubHeaderPrestador } from "../../../components/sub-header-prestador/sub-header-prestador";
 import { HeadrFixrPrestador } from "../../../components/headr-fixr-prestador/headr-fixr-prestador";
 import { EstatisticasPrestadorDTO, PrestadorResponse } from '../../../models/prestadorDTO.model';
-import { Subject, takeUntil } from 'rxjs';
+import { filter, Subject, takeUntil } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 
@@ -17,8 +17,8 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./estatisticas-prestador.css'],
 })
 
-export class EstatisticasPrestador implements OnInit, OnDestroy{
-  
+export class EstatisticasPrestador implements OnInit, OnDestroy {
+
   prestador: PrestadorResponse | null = null;
   stats: EstatisticasPrestadorDTO | null = null;
   carregando = true;
@@ -29,9 +29,18 @@ export class EstatisticasPrestador implements OnInit, OnDestroy{
 
   private destroy$ = new Subject<void>();
 
-  constructor(private http: HttpClient, private router: Router){}
+  constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
+    this.carregarDados();
+
+    this.router.events.pipe(
+      filter(e => e instanceof NavigationEnd),
+      takeUntil(this.destroy$)
+    ).subscribe(() => this.carregarDados());
+  }
+
+  private carregarDados(): void {
     const dados = sessionStorage.getItem('usuario');
 
     if (!dados) {
@@ -96,29 +105,26 @@ export class EstatisticasPrestador implements OnInit, OnDestroy{
 
 
     this.http.patch(`http://localhost:8080/prestador/${this.prestador.id}/stats/experiencia`, {
-      experienciaTrabalho: this.experienciaTemp})
-    .pipe(takeUntil(this.destroy$))
-    .subscribe({
-      next: (res) => {
-        if (this.stats) this.stats.experienciaTrabalho = this.experienciaTemp;
-        this.editandoExperiencia = false;
-      },
-      error: (err) => {
-        console.error('Erro completo:', err);
-      }
-    });
+      experienciaTrabalho: this.experienciaTemp
+    })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (res) => {
+          if (this.stats) this.stats.experienciaTrabalho = this.experienciaTemp;
+          this.editandoExperiencia = false;
+        },
+        error: (err) => {
+          console.error('Erro completo:', err);
+        }
+      });
   }
 
   cancelarEdicao(): void {
     this.editandoExperiencia = false;
   }
 
-  irParaPerfil(): void {
-    this.router.navigate(['/perfil-prestador']);
-  }
-
   editarPerfil(): void {
-    this.router.navigate(['/editar-perfil-prestador']);
+    this.router.navigate(['/editarPerfilPrestador']);
   }
 
 }

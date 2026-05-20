@@ -1,0 +1,72 @@
+<app-headr-fixr-prestador></app-headr-fixr-prestador>
+<app-sub-header-prestador></app-sub-header-prestador>
+
+<!-- Loading -->
+<div class="page-wrapper" *ngIf="loading">
+  <div class="state-overlay">
+    <div class="spinner"></div>
+  </div>
+</div>
+
+<!-- Erro -->
+<div class="page-wrapper" *ngIf="!loading && erro">
+  <div class="state-overlay">
+    <div class="error-msg">{{ erro }}</div>
+  </div>
+</div>
+
+<!-- Perfil carregado -->
+<div class="page-wrapper" *ngIf="!loading && !erro && prestador">
+
+  <div class="profile-layout">
+
+    <!-- Foto -->
+    <div class="avatar-col">
+      <span class="avatar-label">Imagem de perfil</span>
+
+      <div class="avatar-frame" (click)="fotoInput.click()" title="Clique para trocar">
+        <img *ngIf="fotoSrc; else semFoto" [src]="fotoSrc" alt="Foto de perfil" />
+        <ng-template #semFoto>
+          <div class="avatar-placeholder">
+            {{ editNome.charAt(0).toUpperCase() }}
+          </div>
+        </ng-template>
+        <div class="avatar-overlay"><span>Trocar foto</span></div>
+      </div>
+
+      <input #fotoInput type="file" accept="image/*" style="display:none" (change)="onFotoSelecionada($event)" />
+
+      <button class="btn-salvar" (click)="salvar()" [disabled]="salvando">
+        {{ salvando ? 'Salvando...' : 'Salvar' }}
+      </button>
+    </div>
+
+    <!-- Dados -->
+    <div class="info-section">
+      <div class="info-labels">
+        <div class="info-row-label"><span class="info-label">Nome:</span></div>
+        <div class="info-row-label"><span class="info-label">Sobrenome:</span></div>
+        <div class="info-row-label"><span class="info-label">Telefone:</span></div>
+        <div class="info-row-label"><span class="info-label">Email:</span></div>
+      </div>
+      <div class="info-values">
+        <div class="info-row-value">
+          <input class="info-input" [(ngModel)]="editNome" placeholder="Nome" />
+        </div>
+        <div class="info-row-value">
+          <input class="info-input" [(ngModel)]="editSobrenome" placeholder="Sobrenome" />
+        </div>
+        <div class="info-row-value">
+          <input class="info-input" [(ngModel)]="editTelefone" placeholder="Telefone" />
+        </div>
+        <div class="info-row-value">
+          <input class="info-input" [(ngModel)]="editEmail" placeholder="Email" type="email" />
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" [class.show]="toastVisible">{{ toastMsg }}</div>

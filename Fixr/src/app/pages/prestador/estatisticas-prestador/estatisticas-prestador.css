@@ -51,7 +51,6 @@
     font-size: 13px;
     font-weight: 700;
     color: var(--fixr-text);
-    cursor: pointer;
     letter-spacing: 0.5px;
     transition: background 0.2s;
 

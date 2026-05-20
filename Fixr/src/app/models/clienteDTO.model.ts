@@ -5,4 +5,5 @@ export interface ClienteDTO {
     email: string;
     telefone: string;
     foto?: string;
+    senha?: string;
 }

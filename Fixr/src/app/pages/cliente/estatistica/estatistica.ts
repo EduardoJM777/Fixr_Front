@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { SubHeaderCliente } from "../../../components/sub-header-cliente/sub-header-cliente";
 import { HeaderFixrCliente } from "../../../components/header-fixr-cliente/header-fixr-cliente";
 import { ClienteDTO } from '../../../models/clienteDTO.model';
-import { Subject, takeUntil } from 'rxjs';
+import { filter, Subject, takeUntil } from 'rxjs';
 
 
 export interface EstatisticasDTO {
@@ -32,9 +32,18 @@ export class EstatisticasClienteComponent implements OnInit, OnDestroy {
 
   private destroy$ = new Subject<void>();
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
-   ngOnInit(): void {
+  ngOnInit(): void {
+    this.carregarDados();
+
+    this.router.events.pipe(
+      filter(e => e instanceof NavigationEnd),
+      takeUntil(this.destroy$)
+    ).subscribe(() => this.carregarDados());
+  }
+
+  private carregarDados(): void {
     const dados = sessionStorage.getItem('usuario');
 
     if (!dados) {
@@ -42,7 +51,7 @@ export class EstatisticasClienteComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.cliente = JSON.parse(dados)
+    this.cliente = JSON.parse(dados);
 
     if (this.cliente?.id) {
       this.http.get<EstatisticasDTO>(`http://localhost:8080/cliente/${this.cliente.id}/stats`)
@@ -71,11 +80,7 @@ export class EstatisticasClienteComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  irParaPerfil(): void {
-    this.router.navigate(['/perfil']);
-  }
-
   editarPerfil(): void {
-    this.router.navigate(['/editar-perfil']);
+    this.router.navigate(['/editarPerfil']);
   }
 }
