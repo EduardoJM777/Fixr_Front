@@ -12,6 +12,67 @@ body {
     overflow: hidden;
 }
 
+/* Header bar */
+.chat-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  gap: 12px;
+}
+
+.chat-header-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.chat-header-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+
+/* Botão favorito */
+.btn-favorito {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1.5px solid rgba(255,255,255,0.5);
+  border-radius: 6px;
+  background: transparent;
+  color: #fff;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-favorito:hover:not(:disabled) {
+  background: rgba(255,255,255,0.15);
+  border-color: #fff;
+}
+
+.btn-favorito.favoritado {
+  background: rgba(255,215,0,0.2);
+  border-color: gold;
+  color: gold;
+  cursor: default;
+}
+
+.btn-favorito:disabled {
+  opacity: 0.7;
+}
+
 .contato-item {
   display: flex;
   align-items: center;
