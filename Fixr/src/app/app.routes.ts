@@ -16,6 +16,7 @@ import { FavoritosPrestador } from './pages/prestador/favoritos-prestador/favori
 import { EstatisticasPrestador } from './pages/prestador/estatisticas-prestador/estatisticas-prestador';
 import { AuthGuard } from './guards/auth.guard';
 import { DetalhesPrestador } from './pages/cliente/detalhes-prestador/detalhes-prestador';
+import { EditarPerfilPrestador } from './pages/prestador/editar-perfil-prestador/editar-perfil-prestador';
 
 export const routes: Routes = [
 
@@ -35,6 +36,7 @@ export const routes: Routes = [
     {path: 'favoritosPrestador', component: FavoritosPrestador},
     {path: 'estatisticaPrestador', component: EstatisticasPrestador},
     {path: 'editarPerfil', component: EditarPerfil},
+    {path: 'editarPerfilPrestador', component: EditarPerfilPrestador},
     {path: '', redirectTo: 'cadastro', pathMatch: 'full'}
     
 ];

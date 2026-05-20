@@ -80,10 +80,6 @@ export class EstatisticasClienteComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  irParaPerfil(): void {
-    this.router.navigate(['/perfil']);
-  }
-
   editarPerfil(): void {
     this.router.navigate(['/editarPerfil']);
   }
