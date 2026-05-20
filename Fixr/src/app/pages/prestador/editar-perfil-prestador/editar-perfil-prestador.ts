@@ -15,9 +15,10 @@ import { AuthService } from '../../../services/auth-service';
   templateUrl: './editar-perfil-prestador.html',
   styleUrl: './editar-perfil-prestador.css',
 })
-export class EditarPerfilPrestador implements OnInit{
+export class EditarPerfilPrestador implements OnInit {
 
-  prestador: PrestadorDTO | null = null;
+  prestador: PrestadorResponse | null = null;
+  prestadorDTO: PrestadorDTO | null = null;
   loading = true;
   salvando = false;
   erro = '';
@@ -38,7 +39,7 @@ export class EditarPerfilPrestador implements OnInit{
     private router: Router,
     private prestadorService: PrestadorService,
     private authService: AuthService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     if (!this.authService.isLogado()) {
@@ -57,7 +58,6 @@ export class EditarPerfilPrestador implements OnInit{
     this.prestadorService.getPerfil(usuario.id).subscribe({
       next: (data) => {
         this.prestador = data;
-        this.preencherCampos(data);
         this.loading = false;
       },
       error: (err) => {
@@ -65,6 +65,14 @@ export class EditarPerfilPrestador implements OnInit{
         this.loading = false;
       }
     });
+
+    this.prestadorService.getPerfilDTO(usuario.id).subscribe({
+      next: (data) => {
+        this.prestadorDTO = data;
+        this.preencherCampos(data);
+      }
+    });
+
   }
 
   private preencherCampos(data: PrestadorDTO): void {
@@ -76,7 +84,7 @@ export class EditarPerfilPrestador implements OnInit{
   }
 
   salvar(): void {
-    if (!this.prestador) return;
+    if (!this.prestador || !this.prestadorDTO) return;
 
     const usuario = this.authService.getUsuario()!;
     const nomeCompleto = [this.editNome, this.editSobrenome].filter(Boolean).join(' ');
@@ -85,8 +93,8 @@ export class EditarPerfilPrestador implements OnInit{
       nome: nomeCompleto,
       email: this.editEmail,
       telefone: this.editTelefone,
-      dataNascimento: '', // mantém o existente se o backend suportar
-      profissaoId: this.prestador.profissao?.id,
+      dataNascimento: this.prestadorDTO.dataNascimento, // mantém o existente se o backend suportar
+      profissaoId: this.prestador.profissao?.id
     };
 
     this.salvando = true;
@@ -94,12 +102,20 @@ export class EditarPerfilPrestador implements OnInit{
     this.prestadorService.atualizar(usuario.id, payload).subscribe({
       next: (atualizado) => {
         this.prestador = atualizado;
-        this.preencherCampos(atualizado);
+
+        if (this.prestadorDTO) {
+          this.prestadorDTO = {
+            ...this.prestadorDTO,
+            nome: atualizado.nome,
+            email: this.editEmail,
+            telefone: this.editTelefone,
+          };
+        }
+
         this.salvando = false;
 
         const usuarioAtual = this.authService.getUsuario()!;
-        const usuarioAtualizado = { ...usuarioAtual, nome: atualizado.nome };
-        sessionStorage.setItem('usuario', JSON.stringify(usuarioAtualizado));
+        sessionStorage.setItem('usuario', JSON.stringify({ ...usuarioAtual, nome: atualizado.nome }));
 
         this.showToast('Perfil atualizado com sucesso!');
       },

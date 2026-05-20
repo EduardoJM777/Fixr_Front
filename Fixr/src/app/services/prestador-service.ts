@@ -11,13 +11,17 @@ export class PrestadorService {
 
   private baseUrl = "http://localhost:8080/prestador";
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   salvar(prestadorDTO: PrestadorDTO): Observable<PrestadorDTO> {
     return this.http.post<PrestadorDTO>(this.baseUrl, prestadorDTO);
   }
 
-  getPerfil(id: number): Observable<PrestadorDTO> {
+  getPerfil(id: number): Observable<PrestadorResponse> {
+    return this.http.get<PrestadorResponse>(`${this.baseUrl}/${id}`);
+  }
+
+  getPerfilDTO(id: number): Observable<PrestadorDTO> {
     return this.http.get<PrestadorDTO>(`${this.baseUrl}/${id}`);
   }
 
