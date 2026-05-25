@@ -5,6 +5,11 @@ export interface Chats {
     status: 'PENDENTE' | 'ATIVO' | 'ENCERRADO';
     cliente: { id: number; nome: string; };
     prestador: { id: number; nome: string; };
+    anuncio?: {
+        id: number;
+        descricao: string;
+        imagemTipo?: string;
+    };
 }
 
 

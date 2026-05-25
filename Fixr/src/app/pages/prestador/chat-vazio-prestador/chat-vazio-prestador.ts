@@ -31,6 +31,7 @@ export class ChatVazioPrestadorComponent implements OnInit, OnDestroy, AfterView
   deveRolar = false;
   private chatIdInicial: number | null = null;
   private subs: Subscription[] = [];
+  anunciosChamados: { id: number; descricao: string; imagemUrl?: string; chatId: number }[] = [];
 
   constructor(
     private router: Router,
@@ -46,17 +47,24 @@ export class ChatVazioPrestadorComponent implements OnInit, OnDestroy, AfterView
   }
 
   ngOnInit(): void {
-    // Ouve lista de chats ativos para popular a sidebar
     this.subs.push(
       this.chatService.chatsAtivos$.subscribe(chats => {
         this.chatsAtivos = chats;
+
+        this.anunciosChamados = chats
+          .filter(c => c.anuncio)
+          .map(c => ({
+            id: c.anuncio!.id,
+            descricao: c.anuncio!.descricao,
+            imagemUrl: c.anuncio!.id
+              ? `http://localhost:8080/anuncio/${c.anuncio!.id}/imagem`
+              : undefined,
+            chatId: c.id
+          }));
+
         this.cdr.detectChanges();
       })
     );
-
-    
-
-    
 
     // Quando um novo chat é iniciado, entra nele e seleciona
     this.subs.push(
@@ -90,9 +98,9 @@ export class ChatVazioPrestadorComponent implements OnInit, OnDestroy, AfterView
       this.chatService.iniciarChatNaSidebar(this.chatIdInicial);
     }
     const usuario = this.authService.getUsuario();
-if (usuario) {
-    this.chatService.carregarChatsAtivos('PRESTADOR', usuario.id);
-}
+    if (usuario) {
+      this.chatService.carregarChatsAtivos('PRESTADOR', usuario.id);
+    }
   }
 
   ngAfterViewChecked(): void {
@@ -129,6 +137,11 @@ if (usuario) {
     this.deveRolar = true;
     this.entrarNoChat(chat.id);
     this.cdr.detectChanges();
+  }
+
+  selecionarChatPorAnuncio(chatId: number): void {
+    const chat = this.chatsAtivos.find(c => c.id === chatId);
+    if (chat) this.selecionarChat(chat);
   }
 
   enviar(): void {
@@ -176,6 +189,6 @@ if (usuario) {
     try {
       const el = this.mensagensContainer?.nativeElement;
       if (el) el.scrollTop = el.scrollHeight;
-    } catch {}
+    } catch { }
   }
 }
