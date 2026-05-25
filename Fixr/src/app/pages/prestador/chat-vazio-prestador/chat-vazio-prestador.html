@@ -21,10 +21,8 @@
           Sem contatos<br>para exibir.
         </div>
 
-        <div *ngFor="let chat of chatsAtivos"
-             class="contato-item"
-             [class.ativo]="chatSelecionado?.id === chat.id"
-             (click)="selecionarChat(chat)">
+        <div *ngFor="let chat of chatsAtivos" class="contato-item" [class.ativo]="chatSelecionado?.id === chat.id"
+          (click)="selecionarChat(chat)">
           <div class="contato-avatar">{{ chat.cliente.nome.charAt(0) }}</div>
           <span class="contato-nome">{{ chat.cliente.nome }}</span>
         </div>
@@ -51,18 +49,15 @@
           </div>
 
           <div class="mensagens-lista" #mensagensContainer>
-            <div *ngFor="let msg of mensagens"
-                 class="msg-wrapper"
-                 [class.minha]="isMinha(msg)"
-                 [class.sistema]="isSistema(msg)">
+            <div *ngFor="let msg of mensagens" class="msg-wrapper" [class.minha]="isMinha(msg)"
+              [class.sistema]="isSistema(msg)">
 
               <div *ngIf="isSistema(msg)" class="msg msg--sistema">
                 {{ msg.texto }}
               </div>
 
-              <div *ngIf="!isSistema(msg)" class="msg"
-                   [class.msg--minha]="isMinha(msg)"
-                   [class.msg--outra]="!isMinha(msg)">
+              <div *ngIf="!isSistema(msg)" class="msg" [class.msg--minha]="isMinha(msg)"
+                [class.msg--outra]="!isMinha(msg)">
                 <p class="msg-texto">{{ msg.texto }}</p>
                 <span class="msg-hora">{{ msg.enviadoEm | date:'HH:mm' }}</span>
               </div>
@@ -86,11 +81,9 @@
             </svg>
           </button>
 
-          <input type="text"
-                 [(ngModel)]="novaMensagem"
-                 (keydown)="onKeyDown($event)"
-                 [disabled]="!chatSelecionado || chatEncerrado"
-                 placeholder="{{ chatEncerrado ? 'Chat encerrado' : 'Digite uma mensagem...' }}" />
+          <input type="text" [(ngModel)]="novaMensagem" (keydown)="onKeyDown($event)"
+            [disabled]="!chatSelecionado || chatEncerrado"
+            placeholder="{{ chatEncerrado ? 'Chat encerrado' : 'Digite uma mensagem...' }}" />
 
           <button class="send-btn" (click)="enviar()" [disabled]="!novaMensagem.trim() || chatEncerrado">
             <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5">
@@ -115,13 +108,32 @@
     <div class="right-panel">
       <div class="ads-card">
         <p class="ads-card-title">Anúncios chamados</p>
-        <div class="ads-card-inner">
-          <p>Selecione um anúncio</p>
+
+        <div *ngFor="let anuncio of anunciosChamados" class="anuncio-resumo">
+          <div class="anuncio-resumo__img">
+            <img *ngIf="anuncio.imagemUrl" 
+                 [src]="anuncio.imagemUrl"
+                 [alt]="anuncio.descricao" />
+            <div *ngIf="!anuncio.imagemUrl" class="anuncio-resumo__img-placeholder">
+              Sem foto
+            </div>
+          </div>
+          <div class="anuncio-resumo__info">
+            <p class="anuncio-resumo__descricao">{{ anuncio.descricao }}</p>
+            <button class="btn-editar" (click)="selecionarChatPorAnuncio(anuncio.chatId)">
+              Ver chat
+            </button>
+          </div>
+        </div>
+
+        <!-- Vazio -->
+        <div *ngIf="anunciosChamados.length === 0" class="ads-card-inner">
+          <p>Nenhum anúncio chamado ainda.</p>
           <ul>
             <li>Clique em "Buscar Anúncio"</li>
-            <li>Ou clique <a href="#">aqui</a></li>
           </ul>
         </div>
+
       </div>
     </div>
 
