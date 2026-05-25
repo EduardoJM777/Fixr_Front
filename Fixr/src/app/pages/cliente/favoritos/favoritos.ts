@@ -17,7 +17,8 @@ interface PrestadorFavorito {
   };
   ativo: boolean;
   foto?: string;
-  tempoFavorito?: string; 
+  tempoFavorito?: string;
+  online?: boolean;
 }
 
 @Component({

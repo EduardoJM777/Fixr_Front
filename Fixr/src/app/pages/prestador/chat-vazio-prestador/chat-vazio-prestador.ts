@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { ChatService } from '../../../services/chat-service';
 import { AuthService } from '../../../services/auth-service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-chat-vazio-prestador',
@@ -29,6 +30,8 @@ export class ChatVazioPrestadorComponent implements OnInit, OnDestroy, AfterView
   novaMensagem = '';
   chatEncerrado = false;
   deveRolar = false;
+  isFavorito: boolean = false;
+  carregandoFavorito: boolean = false;
   private chatIdInicial: number | null = null;
   private subs: Subscription[] = [];
 
@@ -36,7 +39,8 @@ export class ChatVazioPrestadorComponent implements OnInit, OnDestroy, AfterView
     private router: Router,
     private chatService: ChatService,
     private authService: AuthService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private http: HttpClient
   ) {
     const nav = this.router.getCurrentNavigation();
     const state = nav?.extras?.state as { chatId: number };
@@ -54,9 +58,6 @@ export class ChatVazioPrestadorComponent implements OnInit, OnDestroy, AfterView
       })
     );
 
-    
-
-    
 
     // Quando um novo chat é iniciado, entra nele e seleciona
     this.subs.push(
@@ -90,9 +91,9 @@ export class ChatVazioPrestadorComponent implements OnInit, OnDestroy, AfterView
       this.chatService.iniciarChatNaSidebar(this.chatIdInicial);
     }
     const usuario = this.authService.getUsuario();
-if (usuario) {
-    this.chatService.carregarChatsAtivos('PRESTADOR', usuario.id);
-}
+    if (usuario) {
+      this.chatService.carregarChatsAtivos('PRESTADOR', usuario.id);
+    }
   }
 
   ngAfterViewChecked(): void {
@@ -127,7 +128,9 @@ if (usuario) {
     this.chatEncerrado = chat.status === 'ENCERRADO';
     this.mensagens = this.mensagensPorChat.get(chat.id) || [];
     this.deveRolar = true;
+    this.isFavorito = false;
     this.entrarNoChat(chat.id);
+    this.verificarFavorito(chat.cliente.id);
     this.cdr.detectChanges();
   }
 
@@ -176,6 +179,46 @@ if (usuario) {
     try {
       const el = this.mensagensContainer?.nativeElement;
       if (el) el.scrollTop = el.scrollHeight;
-    } catch {}
+    } catch { }
+  }
+
+  adicionarFavorito(): void {
+    if (!this.chatSelecionado || this.isFavorito || this.carregandoFavorito) return;
+
+    const usuario = this.authService.getUsuario();
+    if (!usuario) return;
+
+    this.carregandoFavorito = true;
+    const clienteId = this.chatSelecionado.cliente.id;
+
+    this.http.post(
+      `http://localhost:8080/favorito/${clienteId}?usuarioId=${usuario.id}`,
+      {}
+    ).subscribe({
+      next: () => {
+        this.isFavorito = true;
+        this.carregandoFavorito = false;
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        this.carregandoFavorito = false;
+        alert('Erro ao adicionar favorito.');
+      }
+    });
+  }
+
+  private verificarFavorito(clienteId: number): void {
+    const usuario = this.authService.getUsuario();
+    if (!usuario) return;
+
+    this.http.get<any[]>(
+      `http://localhost:8080/favorito?usuarioId=${usuario.id}`
+    ).subscribe({
+      next: (favoritos) => {
+        this.isFavorito = favoritos.some(f => f.id === clienteId);
+        this.cdr.detectChanges();
+      },
+      error: () => { }
+    });
   }
 }

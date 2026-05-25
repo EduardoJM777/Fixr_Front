@@ -10,7 +10,9 @@ export interface ClienteFavorito {
   id: number;
   nome: string;
   foto?: string;
-  online: boolean;
+  online?: boolean;
+  dataCadastro?: string;
+  email?: string;
   tempo?: string;
 }
 
@@ -32,7 +34,7 @@ export class FavoritosPrestador implements OnInit {
   ngOnInit(): void {
     const usuario = JSON.parse(sessionStorage.getItem('usuario') || '{}');
 
-    this.http.get<ClienteFavorito[]>(`http://localhost:8080/favorito/prestador/${usuario.id}`)
+    this.http.get<ClienteFavorito[]>(`http://localhost:8080/favorito?usuarioId=${usuario.id}`)
       .subscribe({
         next: (dados) => {
           this.favoritos = dados;
