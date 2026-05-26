@@ -128,13 +128,32 @@
     <div class="right-panel">
       <div class="ads-card">
         <p class="ads-card-title">Anúncios chamados</p>
-        <div class="ads-card-inner">
-          <p>Selecione um anúncio</p>
+
+        <div *ngFor="let anuncio of anunciosChamados" class="anuncio-resumo">
+          <div class="anuncio-resumo__img">
+            <img *ngIf="anuncio.imagemUrl" 
+                 [src]="anuncio.imagemUrl"
+                 [alt]="anuncio.descricao" />
+            <div *ngIf="!anuncio.imagemUrl" class="anuncio-resumo__img-placeholder">
+              Sem foto
+            </div>
+          </div>
+          <div class="anuncio-resumo__info">
+            <p class="anuncio-resumo__descricao">{{ anuncio.descricao }}</p>
+            <button class="btn-editar" (click)="selecionarChatPorAnuncio(anuncio.chatId)">
+              Ver chat
+            </button>
+          </div>
+        </div>
+
+        <!-- Vazio -->
+        <div *ngIf="anunciosChamados.length === 0" class="ads-card-inner">
+          <p>Nenhum anúncio chamado ainda.</p>
           <ul>
             <li>Clique em "Buscar Anúncio"</li>
-            <li>Ou clique <a href="#">aqui</a></li>
           </ul>
         </div>
+
       </div>
     </div>
 

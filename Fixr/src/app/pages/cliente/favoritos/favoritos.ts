@@ -74,6 +74,19 @@ export class FavoritosComponent implements OnInit {
   });
 }
 
+  desfavoritar(prestador: PrestadorFavorito): void {
+  const usuario = JSON.parse(sessionStorage.getItem('usuario') || '{}');
+
+  this.http.delete(`http://localhost:8080/favoritos/${prestador.id}?usuarioId=${usuario.id}`)
+    .subscribe({
+      next: () => {
+        this.prestadores = this.prestadores.filter(p => p.id !== prestador.id);
+        this.filtrar();
+      },
+      error: () => alert('Erro ao desfavoritar.')
+    });
+}
+
   avaliar(prestador: PrestadorFavorito): void {
     this.router.navigate(['/avaliar', prestador.id]);
   }

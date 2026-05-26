@@ -24,12 +24,13 @@ export interface ClienteFavorito {
   styleUrls: ['./favoritos-prestador.css'],
 })
 export class FavoritosPrestador implements OnInit {
+
+  constructor(private http: HttpClient, private router: Router){}
+
   termoBusca = '';
 
   favoritos: ClienteFavorito[] = [];
   favoritosFiltrados: ClienteFavorito[] = [];
-
-  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
     const usuario = JSON.parse(sessionStorage.getItem('usuario') || '{}');

@@ -264,6 +264,72 @@ body {
     text-decoration: underline;
 }
 
+.anuncio-resumo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.anuncio-resumo__img {
+  width: 64px;
+  height: 64px;
+  border-radius: 6px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #eee;
+}
+
+.anuncio-resumo__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.anuncio-resumo__img-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: #999;
+}
+
+.anuncio-resumo__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.anuncio-resumo__descricao {
+  font-size: 13px;
+  color: #333;
+  margin: 0;
+}
+
+.btn-editar {
+  align-self: flex-end;
+  padding: 5px 14px;
+  background: #1a5fa8;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.btn-editar:hover {
+  background: #154d8a;
+}
+
+
+
 .chat-header-bar {
   display: flex;
   align-items: center;
