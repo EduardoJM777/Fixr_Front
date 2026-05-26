@@ -193,7 +193,8 @@ export class ChatVazioPrestadorComponent implements OnInit, OnDestroy, AfterView
 
     this.http.post(
       `http://localhost:8080/favorito/${clienteId}?usuarioId=${usuario.id}`,
-      {}
+      {},
+      { responseType: 'text' }
     ).subscribe({
       next: () => {
         this.isFavorito = true;

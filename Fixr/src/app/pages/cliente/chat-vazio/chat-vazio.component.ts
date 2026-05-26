@@ -52,7 +52,7 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   ngOnInit(): void {
-   
+
     this.subs.push(
       this.chatService.chatsAtivos$.subscribe(chats => {
         this.chatsAtivos = chats;
@@ -60,7 +60,7 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked {
       })
     );
 
-   
+
     this.subs.push(
       this.chatService.chatIniciado$.subscribe(chatId => {
         this.entrarNoChat(chatId);
@@ -70,7 +70,7 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked {
       })
     );
 
-    
+
     this.subs.push(
       this.chatService.mensagens$.subscribe(msg => {
         if (!msg.chat?.id) return;
@@ -87,7 +87,7 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked {
       })
     );
 
-    
+
     if (this.chatIdInicial) {
       this.chatService.iniciarChatNaSidebar(this.chatIdInicial);
     }
@@ -123,7 +123,7 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked {
     if (this.chatsSubscritos.has(chatId)) return;
     this.chatsSubscritos.add(chatId);
 
-    
+
     if (!this.mensagensPorChat.has(chatId)) {
       this.chatService.buscarHistorico(chatId).subscribe(msgs => {
         this.mensagensPorChat.set(chatId, msgs);
@@ -139,53 +139,54 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   adicionarFavorito(): void {
-  if (!this.chatSelecionado || this.isFavorito || this.carregandoFavorito) return;
+    if (!this.chatSelecionado || this.isFavorito || this.carregandoFavorito) return;
 
-  const usuario = this.authService.getUsuario();
-  console.log('usuario logado:', usuario);
-  if (!usuario) return;
+    const usuario = this.authService.getUsuario();
+    // console.log('usuario logado:', usuario);
+    if (!usuario) return;
 
-  this.carregandoFavorito = true;
-  const prestadorId = this.chatSelecionado.prestador.id;
+    this.carregandoFavorito = true;
+    const prestadorId = this.chatSelecionado.prestador.id;
 
-  this.http.post(
-    `http://localhost:8080/favorito/${prestadorId}?usuarioId=${usuario.id}`,
-    {}
-  ).subscribe({
-    next: () => {
-      this.isFavorito = true;
-      this.carregandoFavorito = false;
-      this.cdr.detectChanges();
-    },
-    error: () => {
-      this.carregandoFavorito = false;
-      alert('Erro ao adicionar favorito.');
-    }
-  });
-}
+    this.http.post(
+      `http://localhost:8080/favorito/${prestadorId}?usuarioId=${usuario.id}`,
+      {},
+      { responseType: 'text' }
+    ).subscribe({
+      next: () => {
+        this.isFavorito = true;
+        this.carregandoFavorito = false;
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        this.carregandoFavorito = false;
+        alert('Erro ao adicionar favorito.');
+      }
+    });
+  }
 
-private verificarFavorito(prestadorId: number): void {
-  const usuario = this.authService.getUsuario();
-  console.log('verificarFavorito - usuario:', usuario);
-  if (!usuario) return;
+  private verificarFavorito(prestadorId: number): void {
+    const usuario = this.authService.getUsuario();
+    console.log('verificarFavorito - usuario:', usuario);
+    if (!usuario) return;
 
-  this.http.get<any[]>(
-    `http://localhost:8080/favorito?usuarioId=${usuario.id}`
-  ).subscribe({
-    next: (favoritos) => {
-      this.isFavorito = favoritos.some(f => f.id === prestadorId);
-      this.cdr.detectChanges();
-    },
-    error: () => {}
-  });
-}
+    this.http.get<any[]>(
+      `http://localhost:8080/favorito?usuarioId=${usuario.id}`
+    ).subscribe({
+      next: (favoritos) => {
+        this.isFavorito = favoritos.some(f => f.id === prestadorId);
+        this.cdr.detectChanges();
+      },
+      error: () => { }
+    });
+  }
 
   selecionarChat(chat: Chats): void {
     this.chatSelecionado = chat;
     this.chatEncerrado = chat.status === 'ENCERRADO';
     this.mensagens = [...(this.mensagensPorChat.get(chat.id) || [])];
     this.deveRolar = true;
-     this.isFavorito = false;
+    this.isFavorito = false;
     this.entrarNoChat(chat.id);
     this.verificarFavorito(chat.prestador.id);
     this.cdr.detectChanges();
@@ -243,7 +244,7 @@ private verificarFavorito(prestadorId: number): void {
     } catch { }
   }
 
-  irAnuncio(){
+  irAnuncio() {
     this.router.navigate(['/criarAnuncio'])
   }
 }
