@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ChatService } from './services/chat-service';
 import { AuthService } from './services/auth-service';
@@ -29,4 +29,15 @@ export class App implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.chatService.desconectar();
   }
+
+  @HostListener('window:beforeunload')
+  onBeforeUnload(): void {
+    const usuario = JSON.parse(sessionStorage.getItem('usuario') || '{}');
+    if (!usuario?.id) return;
+
+    navigator.sendBeacon(
+      `http://localhost:8080/auth/logout/${usuario.id}?tipo=${usuario.tipo}`
+    );
+  }
+
 }

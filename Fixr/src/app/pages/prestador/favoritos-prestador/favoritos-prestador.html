@@ -36,8 +36,8 @@
         <span class="tempo" *ngIf="fav.tempo">{{ fav.tempo }}</span>
         <span
           class="status-dot"
-          [class.online]="fav.online"
-          [class.offline]="!fav.online"
+          [class.ativo]="fav.online"
+          [class.inativo]="!fav.online"
         ></span>
       </div>
 

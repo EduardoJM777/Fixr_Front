@@ -42,17 +42,19 @@
     <div class="card-favorito" *ngFor="let p of prestadoresFiltrados">
 
       <div class="avatar">
-        <img *ngIf="p.foto" [src]="p.foto" [alt]="p.nome" />
+        <img *ngIf="p.foto" [src]="'http://localhost:8080' + p.foto" [alt]="p.nome" />
         <div *ngIf="!p.foto" class="avatar-placeholder">{{ p.nome.charAt(0) }}</div>
       </div>
 
       <div class="card-info">
         <span class="nome">{{ p.nome }}</span>
-        <span class="badge-prof">{{ p.profissao }}</span>
+        <span class="badge-prof">{{ p.profissao.nome }}</span>
         <button class="btn-avaliar" (click)="avaliar(p)">Avaliar</button>
         <span class="tempo" *ngIf="p.tempoFavorito">{{ p.tempoFavorito }}</span>
-        <div class="status-dot" [class.ativo]="p.ativo" [class.inativo]="!p.ativo"></div>
-        <button class="btn-desfavoritar" (click)="desfavoritar(p)">✕</button>
+        <div class="status-dot" 
+             [class.ativo]="p.online" 
+             [class.inativo]="!p.online">
+        </div>
       </div>
 
     </div>
