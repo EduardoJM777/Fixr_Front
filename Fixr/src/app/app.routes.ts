@@ -17,6 +17,7 @@ import { EstatisticasPrestador } from './pages/prestador/estatisticas-prestador/
 import { AuthGuard } from './guards/auth.guard';
 import { DetalhesPrestador } from './pages/cliente/detalhes-prestador/detalhes-prestador';
 import { EditarPerfilPrestador } from './pages/prestador/editar-perfil-prestador/editar-perfil-prestador';
+import { Avaliacao } from './pages/cliente/avaliacao/avaliacao';
 
 export const routes: Routes = [
 
@@ -37,6 +38,7 @@ export const routes: Routes = [
     {path: 'estatisticaPrestador', component: EstatisticasPrestador},
     {path: 'editarPerfil', component: EditarPerfil},
     {path: 'editarPerfilPrestador', component: EditarPerfilPrestador},
+    {path: 'avaliacao', component: Avaliacao},
     {path: '', redirectTo: 'cadastro', pathMatch: 'full'}
     
 ];

@@ -1,0 +1,243 @@
+/* ── Wrapper geral ── */
+.page-wrapper {
+  min-height: 100vh;
+  background-color: #1a7a9a;
+  padding: 20px 32px 40px;
+  box-sizing: border-box;
+}
+ 
+/* ── Botão pular ── */
+.topo-acoes {
+  margin-bottom: 24px;
+}
+ 
+.btn-pular {
+  background-color: #14607a;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+ 
+.btn-pular:hover {
+  background-color: #0f4e65;
+}
+ 
+/* ── Layout principal ── */
+.avaliacao-layout {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+ 
+/* ── Coluna esquerda ── */
+.coluna-esquerda {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 180px;
+}
+ 
+.prestador-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+ 
+.prestador-nome {
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+}
+ 
+.prestador-foto-wrap {
+  width: 160px;
+  height: 180px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.15);
+}
+ 
+.prestador-foto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+ 
+.prestador-foto-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  font-weight: 700;
+  color: #fff;
+}
+ 
+/* ── Info combinado ── */
+.info-combinado {
+  background: #fff;
+  border-radius: 8px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  box-sizing: border-box;
+}
+ 
+.info-linha {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 13px;
+  color: #333;
+  border-bottom: 1px solid #e5e5e5;
+  padding-bottom: 5px;
+}
+ 
+.info-linha:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+ 
+.info-linha span:first-child {
+  font-weight: 500;
+  color: #555;
+}
+ 
+/* ── Coluna direita ── */
+.coluna-direita {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+ 
+/* ── Card de nota ── */
+.nota-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+ 
+.nota-titulo {
+  font-size: 18px;
+  font-weight: 700;
+  color: #222;
+  margin: 0;
+}
+ 
+.estrelas-row {
+  display: flex;
+  gap: 6px;
+  cursor: pointer;
+}
+ 
+.estrela {
+  font-size: 42px;
+  color: #ccc;
+  transition: color 0.15s, transform 0.15s;
+  user-select: none;
+  line-height: 1;
+}
+ 
+.estrela.ativa {
+  color: #f5c518;
+}
+ 
+.estrela:hover {
+  transform: scale(1.15);
+}
+ 
+/* ── Comentários ── */
+.comentarios-row {
+  display: flex;
+  gap: 16px;
+}
+ 
+.campo-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+ 
+.campo-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+}
+ 
+.campo-textarea {
+  width: 100%;
+  height: 120px;
+  border-radius: 8px;
+  border: none;
+  padding: 12px;
+  font-size: 14px;
+  color: #333;
+  resize: none;
+  box-sizing: border-box;
+  font-family: inherit;
+  outline: none;
+  transition: box-shadow 0.2s;
+}
+ 
+.campo-textarea:focus {
+  box-shadow: 0 0 0 2px #14607a;
+}
+ 
+/* ── Botão continuar ── */
+.btn-row {
+  display: flex;
+  justify-content: center;
+}
+ 
+.btn-continuar {
+  background-color: #14607a;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 48px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+  letter-spacing: 0.5px;
+}
+ 
+.btn-continuar:hover:not(:disabled) {
+  background-color: #0f4e65;
+}
+ 
+.btn-continuar:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+ 
+/* ── Responsivo ── */
+@media (max-width: 700px) {
+  .avaliacao-layout {
+    flex-direction: column;
+  }
+ 
+  .comentarios-row {
+    flex-direction: column;
+  }
+ 
+  .prestador-foto-wrap {
+    width: 100%;
+    height: 200px;
+  }
+}

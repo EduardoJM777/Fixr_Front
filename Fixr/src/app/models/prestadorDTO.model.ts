@@ -1,11 +1,11 @@
 import { Profissao } from "./profissao.model";
 
 export interface PrestadorDTO {
-    nome: string;
-    dataNascimento: string;
-    email: string;
-    profissaoId: number;
-    telefone: string;
+  nome: string;
+  dataNascimento: string;
+  email: string;
+  profissaoId: number;
+  telefone: string;
 }
 
 export interface PrestadorResponse {
@@ -23,4 +23,5 @@ export interface EstatisticasPrestadorDTO {
   rankingPosicao: number;
   precoMedio: number;
   experienciaTrabalho: string | null;
+  ultimaNota: number | null;
 }

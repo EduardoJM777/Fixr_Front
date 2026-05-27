@@ -37,57 +37,64 @@ export class FavoritosComponent implements OnInit {
   termoBusca: string = '';
   profissaoSelecionada: string = '';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
-  const raw = sessionStorage.getItem('usuario');
-  console.log('raw sessionStorage:', raw);
-  
-  const usuario = JSON.parse(raw || '{}');
-  console.log('id do usuario:', usuario.id);
+    const raw = sessionStorage.getItem('usuario');
+    console.log('raw sessionStorage:', raw);
 
-  if (!usuario.id) {
-    alert('ID do usuário não encontrado no sessionStorage!');
-    return;
-  }
+    const usuario = JSON.parse(raw || '{}');
+    console.log('id do usuario:', usuario.id);
 
-  this.http.get<PrestadorFavorito[]>(
-    `http://localhost:8080/favorito?usuarioId=${usuario.id}`
-  ).subscribe({
-    next: (dados) => {
-      this.prestadores = dados;
-      this.prestadoresFiltrados = dados;
-     this.profissoes = [...new Set(dados.map(p => p.profissao.nome))]; 
-    },
-    error: (err) => {
-      console.error('erro favoritos:', err);
-      alert('Erro ao carregar favoritos.');
+    if (!usuario.id) {
+      alert('ID do usuário não encontrado no sessionStorage!');
+      return;
     }
-  });
-}
+
+    this.http.get<PrestadorFavorito[]>(
+      `http://localhost:8080/favorito?usuarioId=${usuario.id}`
+    ).subscribe({
+      next: (dados) => {
+        this.prestadores = dados;
+        this.prestadoresFiltrados = dados;
+        this.profissoes = [...new Set(dados.map(p => p.profissao.nome))];
+      },
+      error: (err) => {
+        console.error('erro favoritos:', err);
+        alert('Erro ao carregar favoritos.');
+      }
+    });
+  }
 
   filtrar(): void {
-  this.prestadoresFiltrados = this.prestadores.filter(p => {
-    const nomeOk = p.nome.toLowerCase().includes(this.termoBusca.toLowerCase());
-    const profissaoOk = !this.profissaoSelecionada || p.profissao.nome === this.profissaoSelecionada; // ← muda aqui
-    return nomeOk && profissaoOk;
-  });
-}
+    this.prestadoresFiltrados = this.prestadores.filter(p => {
+      const nomeOk = p.nome.toLowerCase().includes(this.termoBusca.toLowerCase());
+      const profissaoOk = !this.profissaoSelecionada || p.profissao.nome === this.profissaoSelecionada; // ← muda aqui
+      return nomeOk && profissaoOk;
+    });
+  }
 
   desfavoritar(prestador: PrestadorFavorito): void {
-  const usuario = JSON.parse(sessionStorage.getItem('usuario') || '{}');
+    const usuario = JSON.parse(sessionStorage.getItem('usuario') || '{}');
 
-  this.http.delete(`http://localhost:8080/favoritos/${prestador.id}?usuarioId=${usuario.id}`)
-    .subscribe({
-      next: () => {
-        this.prestadores = this.prestadores.filter(p => p.id !== prestador.id);
-        this.filtrar();
-      },
-      error: () => alert('Erro ao desfavoritar.')
-    });
-}
+    this.http.delete(`http://localhost:8080/favoritos/${prestador.id}?usuarioId=${usuario.id}`)
+      .subscribe({
+        next: () => {
+          this.prestadores = this.prestadores.filter(p => p.id !== prestador.id);
+          this.filtrar();
+        },
+        error: () => alert('Erro ao desfavoritar.')
+      });
+  }
 
   avaliar(prestador: PrestadorFavorito): void {
-    this.router.navigate(['/avaliar', prestador.id]);
+    this.router.navigate(['/avaliacao'], {
+      state: {
+        prestadorId: prestador.id,
+        prestadorNome: prestador.nome,
+        prestadorFoto: prestador.foto
+      }
+    });
   }
+  
 }
