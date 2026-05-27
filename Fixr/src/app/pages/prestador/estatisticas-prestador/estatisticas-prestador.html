@@ -61,7 +61,7 @@
       <ng-container *ngIf="!carregando">
 
         <div class="stat-item">
-          <span>Avaliações recebidas: <strong>{{ stats?.avaliacoesRecebidas ?? '-' }}</strong></span>
+          <span (click)="avaliacoesRecebidas()">Avaliações recebidas: <strong>{{ stats?.avaliacoesRecebidas ?? '-' }}</strong></span>
           <hr />
         </div>
       
