@@ -15,6 +15,8 @@
   align-items: flex-start;
 }
 
+
+
 /* ── Coluna esquerda ── */
 .coluna-esquerda {
   display: flex;
@@ -75,6 +77,8 @@
   margin-top: 8px;
 }
 
+
+
 /* ── Coluna direita ── */
 .coluna-direita {
   flex: 1;
@@ -106,6 +110,15 @@
 
 .stat-item span:first-child { color: #475569; }
 .stat-item span:last-child  { font-weight: 600; }
+
+.estrelas-mini {
+  font-size: 16px;
+  letter-spacing: 2px;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+
 
 .btn-chamar {
   width: 160px;

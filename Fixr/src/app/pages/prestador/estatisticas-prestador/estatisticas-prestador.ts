@@ -76,7 +76,8 @@ export class EstatisticasPrestador implements OnInit, OnDestroy {
               tempoNoApp: '-',
               rankingPosicao: 0,
               precoMedio: 0,
-              experienciaTrabalho: null
+              experienciaTrabalho: null,
+              ultimaNota: 0
             };
             this.carregando = false;
           }

@@ -18,6 +18,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { DetalhesPrestador } from './pages/cliente/detalhes-prestador/detalhes-prestador';
 import { EditarPerfilPrestador } from './pages/prestador/editar-perfil-prestador/editar-perfil-prestador';
 import { Avaliacao } from './pages/cliente/avaliacao/avaliacao';
+import { AvaliacoesRecebidas } from './pages/prestador/avaliacoes-recebidas/avaliacoes-recebidas';
 
 export const routes: Routes = [
 
@@ -39,6 +40,7 @@ export const routes: Routes = [
     {path: 'editarPerfil', component: EditarPerfil},
     {path: 'editarPerfilPrestador', component: EditarPerfilPrestador},
     {path: 'avaliacao', component: Avaliacao},
+    {path: 'avaliacoesRecebidasPrestador', component: AvaliacoesRecebidas},
     {path: '', redirectTo: 'cadastro', pathMatch: 'full'}
     
 ];
