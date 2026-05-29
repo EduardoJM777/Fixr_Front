@@ -126,6 +126,7 @@ export class Avaliacao {
     this.http.post('http://localhost:8080/avaliacoes', body).subscribe({
       next: () => {
         this.enviando = false;
+        alert('Avaliação enviada com sucesso! Obrigado pelo seu feedback.');
         this.router.navigate(['/chatVazio']);
       },
       error: () => {
