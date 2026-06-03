@@ -21,6 +21,7 @@ export class ChatService {
     respostas$ = new Subject<{ chatId: number; aceito: boolean }>();
     conectado$ = new BehaviorSubject<boolean>(false);
     chatIniciado$ = new Subject<number>();
+    acordos$ = new Subject<any>();
 
     constructor(
         private http: HttpClient,
@@ -37,7 +38,13 @@ export class ChatService {
 
             onConnect: () => {
                 this.conectado$.next(true);
-                // console.log('WebSocket conectado, userId:', usuario.id);
+                this.stompClient.subscribe(
+    `/topic/usuario/${usuario.id}/acordo`,
+    (msg: IMessage) => {
+        this.acordos$.next(JSON.parse(msg.body));
+    }
+);
+                
 
 
                 this.stompClient.subscribe(
@@ -170,5 +177,46 @@ adicionarChatAtivo(chat: Chats): void {
     if (!jaExiste) {
         this.chatsAtivos$.next([...atual, chat]);
     }
+}
+
+iniciarAcordo(chatId: number, valor: number, papel: string): void {
+    const usuario = this.authService.getUsuario();
+    this.stompClient.publish({
+        destination: '/app/acordo.iniciar',
+        body: JSON.stringify({
+            chatId,
+            valor,
+            iniciadorId: usuario?.id,
+            iniciadorNome: usuario?.nome,
+            papel
+        })
+    });
+}
+
+enviarContraproposta(acordoId: number, valor: number): void {
+    const usuario = this.authService.getUsuario();
+    this.stompClient.publish({
+        destination: '/app/acordo.contraproposta',
+        body: JSON.stringify({ acordoId, valor, usuarioId: usuario?.id })
+    });
+}
+
+aceitarAcordo(acordoId: number): void {
+    const usuario = this.authService.getUsuario();
+    this.stompClient.publish({
+        destination: '/app/acordo.aceitar',
+        body: JSON.stringify({ acordoId, usuarioId: usuario?.id })
+    });
+}
+
+cancelarAcordo(acordoId: number): void {
+    this.stompClient.publish({
+        destination: '/app/acordo.cancelar',
+        body: JSON.stringify({ acordoId })
+    });
+}
+
+buscarAcordoAtivo(chatId: number): Observable<any> {
+    return this.http.get(`http://localhost:8080/chats/acordos/chat/${chatId}`);
 }
 }

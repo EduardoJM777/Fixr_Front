@@ -1,0 +1,109 @@
+<app-header-fixr-cliente *ngIf="papel === 'CLIENTE'"></app-header-fixr-cliente>
+<app-sub-header-cliente *ngIf="papel === 'CLIENTE'"></app-sub-header-cliente>
+
+<div class="page-wrapper">
+
+  <div class="topo">
+    <h2 class="titulo">FECHAR ACORDO</h2>
+  </div>
+
+  <button class="btn-cancelar" (click)="cancelar()">Cancelar Acordo</button>
+
+  <!-- Sucesso -->
+  <div class="aviso-sucesso" *ngIf="aceito">
+    ✓ Acordo fechado com sucesso!
+  </div>
+
+  <!-- Cancelado -->
+  <div class="aviso-cancelado" *ngIf="cancelado">
+    Acordo cancelado.
+  </div>
+
+  <div class="negociacao-card" *ngIf="!aceito && !cancelado">
+
+    <!-- Proposta (quem iniciou) -->
+    <div class="lado proposta">
+      <div class="avatar-wrap">
+        <img *ngIf="minhaFoto" [src]="getFotoUrl(minhaFoto)" class="avatar-img" />
+        <div *ngIf="!minhaFoto" class="avatar-placeholder">{{ meuNome.charAt(0) }}</div>
+      </div>
+      <h3 class="lado-titulo">PROPOSTA</h3>
+
+      <div class="campo-valor">
+        <label>Preço a pagar:</label>
+        <div class="input-wrap">
+          <span class="prefix">R$</span>
+          <input
+            type="number"
+            [(ngModel)]="meuValor"
+            [disabled]="enviado"
+            placeholder="0,00"
+            min="0" />
+        </div>
+      </div>
+
+      <button
+        class="btn-enviar"
+        (click)="abrirModalEnvio()"
+        [disabled]="enviado || !meuValor">
+        {{ enviado ? 'Proposta enviada' : 'Enviar proposta' }}
+      </button>
+    </div>
+
+    <div class="divisor"></div>
+
+    <!-- Contraproposta -->
+    <div class="lado contraproposta">
+      <h3 class="lado-titulo">CONTRA PROPOSTA</h3>
+      <div class="avatar-wrap direita">
+        <img *ngIf="outroFoto" [src]="getFotoUrl(outroFoto)" class="avatar-img" />
+        <div *ngIf="!outroFoto" class="avatar-placeholder">{{ outroNome?.charAt(0) }}</div>
+      </div>
+
+      <div class="campo-valor">
+        <label>Preço a receber:</label>
+        <div class="input-wrap">
+          <span class="prefix">R$</span>
+          <input
+            type="number"
+            [value]="valorOutro || ''"
+            disabled
+            placeholder="Aguardando..." />
+        </div>
+      </div>
+
+      <button
+        class="btn-aceitar"
+        (click)="abrirModalAceite()"
+        [disabled]="!valorOutro">
+        Aceitar contra proposta
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Modal confirmar envio -->
+  <div class="modal-overlay" *ngIf="modal === 'confirmar_envio'" (click)="fecharModal()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <p>Deseja realmente enviar a proposta de:</p>
+      <strong>R$ {{ meuValor | number:'1.2-2' }} ?</strong>
+      <div class="modal-btns">
+        <button class="btn-sim" (click)="confirmarEnvio()">Sim</button>
+        <button class="btn-nao" (click)="fecharModal()">Não</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal confirmar aceite -->
+  <div class="modal-overlay" *ngIf="modal === 'confirmar_aceite'" (click)="fecharModal()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <p>Deseja realmente aceitar a proposta de:</p>
+      <strong>R$ {{ valorAceite | number:'1.2-2' }} ?</strong>
+      <div class="modal-btns">
+        <button class="btn-sim" (click)="confirmarAceite()">Sim</button>
+        <button class="btn-nao" (click)="fecharModal()">Não</button>
+      </div>
+    </div>
+  </div>
+
+</div>

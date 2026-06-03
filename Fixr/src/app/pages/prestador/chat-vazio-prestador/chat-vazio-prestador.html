@@ -62,9 +62,9 @@
               <span class="chat-header-nome">{{ chat.cliente.nome }}</span>
             </div>
 
-            <button class="btn-encerrar" (click)="encerrar()" *ngIf="!chatEncerrado">
-              Acordo Fechado
-            </button>
+            <button class="btn-encerrar" (click)="fecharAcordo()" *ngIf="!chatEncerrado">
+  Acordo Fechado
+</button>
             <span class="chat-encerrado-badge" *ngIf="chatEncerrado">Acordo Fechado</span>
           </div>
 

@@ -247,4 +247,15 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked {
   irAnuncio() {
     this.router.navigate(['/criarAnuncio'])
   }
+
+  fecharAcordo(): void {
+  if (!this.chatSelecionado) return;
+  this.router.navigate(['/fecharAcordo'], {
+    state: {
+      chatId: this.chatSelecionado.id,
+      outroNome: this.chatSelecionado.prestador.nome,
+      papel: 'CLIENTE'
+    }
+  });
+}
 }
