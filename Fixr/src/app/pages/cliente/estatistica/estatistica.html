@@ -70,7 +70,9 @@
         </div>
 
         <div class="stat-item">
-          <span class="stat-link">Anúncios publicados: {{ stats?.anunciosPublicados ?? '-' }}</span>
+          <span class="stat-link pub"
+                (click)="anunciosPublicados()"
+          >Anúncios publicados: {{ stats?.anunciosPublicados ?? '-' }}</span>
           <div class="stat-divider"></div>
         </div>
 

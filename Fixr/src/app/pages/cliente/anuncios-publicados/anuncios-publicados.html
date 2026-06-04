@@ -1,0 +1,58 @@
+<app-header-fixr-cliente></app-header-fixr-cliente>
+<app-sub-header-cliente></app-sub-header-cliente>
+
+<div class="anuncios-container">
+
+    <!-- Estado de carregamento -->
+    <div class="estado-loading" *ngIf="carregando">
+        <div class="spinner"></div>
+        <p>Carregando anúncios...</p>
+    </div>
+
+    <!-- Estado de erro -->
+    <div class="estado-erro" *ngIf="!carregando && erro">
+        <span class="icone-erro">⚠</span>
+        <p>{{ erro }}</p>
+    </div>
+
+    <!-- Estado vazio -->
+    <div class="estado-vazio" *ngIf="!carregando && !erro && anuncios.length === 0">
+        <span class="icone-vazio">📋</span>
+        <p>Você ainda não possui nenhum anúncio.</p>
+    </div>
+
+    <!-- Grid de anúncios -->
+    <div class="anuncios-grid" *ngIf="!carregando && !erro && anuncios.length > 0">
+
+        <div class="card-anuncio" *ngFor="let anuncio of anuncios">
+
+            <!-- Imagem -->
+            <div class="card-imagem-wrapper">
+                <img [src]="getImagemUrl(anuncio)" [alt]="anuncio.descricao" class="card-imagem"
+                    (error)="$any($event.target).src = 'assets/imagem-placeholder.png'" />
+            </div>
+
+            <!-- Conteúdo -->
+            <div class="card-conteudo">
+
+                <p class="card-descricao">{{ anuncio.descricao }}</p>
+
+                <div class="card-info">
+                    <span class="info-label">Profissional Necessário:</span>
+                    <span class="info-profissao">{{ anuncio.profissaoNome }}</span>
+                </div>
+
+                <div class="card-rodape">
+                    <span class="status-label">Status:</span>
+                    <span class="status-badge" [ngClass]="getStatusClasse(anuncio.statusAnuncio)">
+                        {{ getStatusLabel(anuncio.statusAnuncio) }}
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
