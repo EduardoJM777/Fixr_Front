@@ -167,7 +167,7 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   private verificarFavorito(prestadorId: number): void {
     const usuario = this.authService.getUsuario();
-    console.log('verificarFavorito - usuario:', usuario);
+    // console.log('verificarFavorito - usuario:', usuario);
     if (!usuario) return;
 
     this.http.get<any[]>(

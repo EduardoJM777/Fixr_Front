@@ -1,3 +1,5 @@
+import { StatusAnuncio } from "./enums/statusAnuncio.enum";
+
 export interface AnuncioResponseDTO {
     id: number;
     descricao: string;
@@ -7,4 +9,5 @@ export interface AnuncioResponseDTO {
     clienteId: number;
     clienteNome: string;
     imagemUrl: string;
+    statusAnuncio: StatusAnuncio;
 }

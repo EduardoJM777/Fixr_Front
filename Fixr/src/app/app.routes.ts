@@ -21,6 +21,7 @@ import { Avaliacao } from './pages/cliente/avaliacao/avaliacao';
 import { AvaliacoesRecebidas } from './pages/prestador/avaliacoes-recebidas/avaliacoes-recebidas';
 import { AvaliacaoPrestador } from './pages/prestador/avaliacao/avaliacao';
 import { AvaliacoesRecebidasCliente } from './pages/cliente/avaliacoes-recebidas-cliente/avaliacoes-recebidas-cliente';
+import { AnunciosPublicados } from './pages/cliente/anuncios-publicados/anuncios-publicados';
 
 export const routes: Routes = [
 
@@ -45,6 +46,7 @@ export const routes: Routes = [
     {path: 'avaliacoesRecebidasPrestador', component: AvaliacoesRecebidas},
     {path: 'avaliacaoPrestador', component: AvaliacaoPrestador},
     {path: 'avaliacoesRecebidasCliente', component: AvaliacoesRecebidasCliente},
+    {path: 'anunciosPublicados', component: AnunciosPublicados},
     {path: '', redirectTo: 'cadastro', pathMatch: 'full'}
     
 ];
