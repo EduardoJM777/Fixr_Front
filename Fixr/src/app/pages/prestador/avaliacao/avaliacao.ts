@@ -82,7 +82,7 @@ export class AvaliacaoPrestador implements OnInit {
   }
 
   pular(): void {
-    this.router.navigate(['/chatPrestador']);
+    this.router.navigate(['/chatVazioPrestador']);
   }
 
   enviar(): void {
@@ -103,13 +103,14 @@ export class AvaliacaoPrestador implements OnInit {
 
   this.http.post('http://localhost:8080/avaliacoes', body).subscribe({
   next: (res) => {
-    console.log('SUCCESS:', res); // ← adicione
+    // console.log('SUCCESS:', res);
     this.enviando = false;
+    alert('Avaliação enviada com sucesso! Obrigado pelo seu feedback.');
     this.router.navigate(['/chatVazioPrestador']);
   },
   error: (err) => {
-    console.log('ERROR status:', err.status); // ← adicione
-    console.log('ERROR body:', err.error);    // ← adicione
+    // console.log('ERROR status:', err.status);
+    // console.log('ERROR body:', err.error);
 
     if (err.error?.id || err.status === 200 || err.status === 201) {
       this.enviando = false;

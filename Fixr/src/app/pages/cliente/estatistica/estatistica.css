@@ -14,6 +14,8 @@
   position: relative;
 }
 
+
+
 /* ─── Ícones topo direito ─── */
 .top-icons {
   display: flex;
@@ -30,6 +32,8 @@
 .top-icons svg:hover {
   opacity: 1;
 }
+
+
 
 /* ─── Botão Meu Perfil ─── */
 .meu-perfil-row {
@@ -51,12 +55,16 @@
   background: #f0f0f0;
 }
 
+
+
 /* ─── Divider ─── */
 .divider {
   height: 2px;
   background: rgba(0,0,0,0.15);
   margin: 12px 0 20px;
 }
+
+
 
 /* ─── Conteúdo ─── */
 .content {
@@ -65,6 +73,8 @@
   gap: 40px;
   flex-wrap: wrap;
 }
+
+
 
 /* ─── Coluna esquerda ─── */
 .perfil-col {
@@ -127,6 +137,8 @@
   background: #122b52;
 }
 
+
+
 /* ─── Card de estatísticas ─── */
 .stats-card {
   background: #fff;
@@ -148,6 +160,10 @@
   font-size: 16px;
   color: #3a6fd8;
   font-weight: 400;
+}
+
+.ava {
+  cursor: pointer;
 }
 
 .stat-text {

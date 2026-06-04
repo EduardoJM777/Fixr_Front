@@ -52,7 +52,7 @@ export class Avaliacao {
       horarioCombinado?: string;
     };
 
-    console.log('state recebido:', state);
+    // console.log('state recebido:', state);
 
     if (state?.prestadorId) {
       this.prestador = {

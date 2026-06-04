@@ -20,6 +20,7 @@ import { EditarPerfilPrestador } from './pages/prestador/editar-perfil-prestador
 import { Avaliacao } from './pages/cliente/avaliacao/avaliacao';
 import { AvaliacoesRecebidas } from './pages/prestador/avaliacoes-recebidas/avaliacoes-recebidas';
 import { AvaliacaoPrestador } from './pages/prestador/avaliacao/avaliacao';
+import { AvaliacoesRecebidasCliente } from './pages/cliente/avaliacoes-recebidas-cliente/avaliacoes-recebidas-cliente';
 
 export const routes: Routes = [
 
@@ -42,7 +43,8 @@ export const routes: Routes = [
     {path: 'editarPerfilPrestador', component: EditarPerfilPrestador},
     {path: 'avaliacao', component: Avaliacao},
     {path: 'avaliacoesRecebidasPrestador', component: AvaliacoesRecebidas},
-    { path: 'avaliacaoPrestador', component: AvaliacaoPrestador },
+    {path: 'avaliacaoPrestador', component: AvaliacaoPrestador},
+    {path: 'avaliacoesRecebidasCliente', component: AvaliacoesRecebidasCliente},
     {path: '', redirectTo: 'cadastro', pathMatch: 'full'}
     
 ];

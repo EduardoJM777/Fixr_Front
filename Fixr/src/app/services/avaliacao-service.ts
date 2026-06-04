@@ -24,4 +24,8 @@ export class AvaliacaoService {
     return this.http.get<AvaliacoesDTO[]>(`${this.apiUrl}/prestador/${idPrestador}`);
   }
 
+  listarPorCliente(idCliente: number): Observable<AvaliacoesDTO[]> {
+    return this.http.get<AvaliacoesDTO[]>(`${this.apiUrl}/cliente/${idCliente}`);
+  }
+
 }
