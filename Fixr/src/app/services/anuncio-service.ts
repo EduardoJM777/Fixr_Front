@@ -14,9 +14,9 @@ export class AnuncioService {
   private baseUrl = "http://localhost:8080/anuncio";
   private profissaoUrl = "http://localhost:8080/profissao";
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  cadastrar(dados: AnuncioRequestDTO, imagem: File): Observable<AnuncioResponseDTO>{
+  cadastrar(dados: AnuncioRequestDTO, imagem: File): Observable<AnuncioResponseDTO> {
     const formData = new FormData();
 
     formData.append('dados', new Blob([JSON.stringify(dados)], {

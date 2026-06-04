@@ -76,7 +76,8 @@ export class EstatisticasPrestador implements OnInit, OnDestroy {
               tempoNoApp: '-',
               rankingPosicao: 0,
               precoMedio: 0,
-              experienciaTrabalho: null
+              experienciaTrabalho: null,
+              ultimaNota: 0
             };
             this.carregando = false;
           }
@@ -103,7 +104,6 @@ export class EstatisticasPrestador implements OnInit, OnDestroy {
       return;
     }
 
-
     this.http.patch(`http://localhost:8080/prestador/${this.prestador.id}/stats/experiencia`, {
       experienciaTrabalho: this.experienciaTemp
     })
@@ -125,6 +125,10 @@ export class EstatisticasPrestador implements OnInit, OnDestroy {
 
   editarPerfil(): void {
     this.router.navigate(['/editarPerfilPrestador']);
+  }
+
+  avaliacoesRecebidas(): void {
+    this.router.navigate(['/avaliacoesRecebidasPrestador']);
   }
 
 }

@@ -1,0 +1,65 @@
+<app-headr-fixr-prestador></app-headr-fixr-prestador>
+<app-sub-header-prestador></app-sub-header-prestador>
+
+<div class="page-wrapper">
+
+  <div class="topo-acoes">
+    <button class="btn-pular" (click)="pular()">Pular avaliação</button>
+  </div>
+
+  <div class="avaliacao-layout" *ngIf="cliente">
+
+    <div class="coluna-esquerda">
+      <div class="prestador-card">
+        <span class="prestador-nome">{{ cliente.nome }}</span>
+        <div class="prestador-foto-wrap">
+          <img *ngIf="cliente.foto" [src]="getFotoUrl()" [alt]="cliente.nome" class="prestador-foto" />
+          <div *ngIf="!cliente.foto" class="prestador-foto-placeholder">
+            {{ cliente.nome.charAt(0) }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="coluna-direita">
+
+      <div class="nota-card">
+        <p class="nota-titulo">Dê uma nota (opcional)</p>
+        <div class="estrelas-row" (mouseleave)="clearHover()">
+          <span
+            *ngFor="let i of estrelas()"
+            class="estrela"
+            [class.ativa]="estrellaAtiva(i)"
+            (mouseenter)="setHover(i)"
+            (click)="setNota(i)">
+            ★
+          </span>
+        </div>
+      </div>
+
+      <div class="comentarios-row">
+        <div class="campo-wrap">
+          <label class="campo-label">Insira um comentário (opcional):</label>
+          <textarea class="campo-textarea" [(ngModel)]="comentario"
+            maxlength="100" placeholder="Conte como foi a experiência...">
+          </textarea>
+        </div>
+        <div class="campo-wrap">
+          <label class="campo-label">O que pode melhorar (opcional):</label>
+          <textarea class="campo-textarea" [(ngModel)]="sugestaoMelhoria"
+            maxlength="100" placeholder="Sugestões de melhoria...">
+          </textarea>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-continuar" (click)="enviar()" [disabled]="enviando">
+          {{ enviando ? 'Enviando...' : 'Continuar' }}
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

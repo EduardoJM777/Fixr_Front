@@ -53,6 +53,12 @@ export class FavoritosPrestador implements OnInit {
   }
 
   avaliar(fav: ClienteFavorito): void {
-    this.router.navigate(['/avaliar-cliente', fav.id]);
-  }
+  this.router.navigate(['/avaliacaoPrestador'], {
+    state: {
+      clienteId: fav.id,
+      clienteNome: fav.nome,
+      clienteFoto: fav.foto
+    }
+  });
+}
 }

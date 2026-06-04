@@ -1,0 +1,84 @@
+<app-header-fixr-cliente></app-header-fixr-cliente>
+<app-sub-header-solid></app-sub-header-solid>
+
+<div class="page-wrapper">
+
+    <div class="topo-acoes">
+        <button class="btn-pular" (click)="pular()">Pular avaliação</button>
+    </div>
+
+    <div class="avaliacao-layout" *ngIf="prestador">
+
+        <!-- Coluna esquerda: info do prestador -->
+        <div class="coluna-esquerda">
+
+            <div class="prestador-card">
+                <span class="prestador-nome">{{ prestador.nome }}</span>
+                <div class="prestador-foto-wrap">
+                    <img *ngIf="prestador.foto" [src]="getFotoUrl()" [alt]="prestador.nome" class="prestador-foto" />
+                    <div *ngIf="!prestador.foto" class="prestador-foto-placeholder">
+                        {{ prestador.nome.charAt(0) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-combinado" *ngIf="valorCombinado || dataCombinada || horarioCombinado">
+                <div class="info-linha" *ngIf="valorCombinado">
+                    <span>Valor combinado:</span> <span>{{ valorCombinado }}</span>
+                </div>
+                <div class="info-linha" *ngIf="dataCombinada">
+                    <span>Data combinada:</span> <span>{{ dataCombinada }}</span>
+                </div>
+                <div class="info-linha" *ngIf="horarioCombinado">
+                    <span>Horário combinado:</span> <span>{{ horarioCombinado }}</span>
+                </div>
+                <div class="info-linha" *ngIf="prestador.trabalhosRealizados !== undefined">
+                    <span>Trabalhos realizados:</span> <span>{{ prestador.trabalhosRealizados }}</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Coluna direita: formulário -->
+        <div class="coluna-direita">
+
+            <!-- Estrelas -->
+            <div class="nota-card">
+                <p class="nota-titulo">Dê uma nota (opcional)</p>
+                <div class="estrelas-row" (mouseleave)="clearHover()">
+                    <span *ngFor="let i of estrelas()" class="estrela" [class.ativa]="estrelaAtiva(i)"
+                        (mouseenter)="setHover(i)" (click)="setNota(i)">
+                        ★
+                    </span>
+                </div>
+            </div>
+
+            <!-- Comentários -->
+            <div class="comentarios-row">
+                <div class="campo-wrap">
+                    <label class="campo-label">Insira um comentário (opcional):</label>
+                    <textarea class="campo-textarea" [(ngModel)]="comentario" maxlength="100"
+                        placeholder="Conte como foi a experiência...">
+          </textarea>
+                </div>
+
+                <div class="campo-wrap">
+                    <label class="campo-label">O que pode melhorar (opcional):</label>
+                    <textarea class="campo-textarea" [(ngModel)]="sugestaoMelhoria" maxlength="100"
+                        placeholder="Sugestões de melhoria...">
+          </textarea>
+                </div>
+            </div>
+
+            <!-- Botão continuar -->
+            <div class="btn-row">
+                <button class="btn-continuar" (click)="enviar()" [disabled]="enviando">
+                    {{ enviando ? 'Enviando...' : 'Continuar' }}
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

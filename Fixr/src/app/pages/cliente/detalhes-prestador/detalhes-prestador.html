@@ -20,7 +20,7 @@
       <div class="select-wrapper">
         <span>Profissões:</span>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <polyline points="6 9 12 15 18 9"/>
+          <polyline points="6 9 12 15 18 9" />
         </svg>
       </div>
     </div>
@@ -33,7 +33,16 @@
       <div *ngIf="!carregando && stats" class="stats-lista">
         <div class="stat-item">
           <span>Última nota recebida:</span>
-          <span>{{ prestador.nota | number:'1.1-1' }}</span>
+          <span *ngIf="stats.ultimaNota !== null && stats.ultimaNota !== undefined">
+            <span class="estrelas-mini">
+              <span *ngFor="let i of [1,2,3,4,5]" 
+                    [style.color]="i <= stats.ultimaNota ? '#f5c518' : '#ccc'">★</span>
+            </span>
+            {{ stats.ultimaNota }}/5
+          </span>
+          <span *ngIf="stats.ultimaNota === null || stats.ultimaNota === undefined">
+            Sem avaliações
+          </span>
         </div>
         <div class="stat-item">
           <span>Trabalhos realizados:</span>
@@ -57,10 +66,7 @@
         </div>
       </div>
 
-      <button
-        class="btn-chamar"
-        (click)="chamar()"
-        [disabled]="chamando">
+      <button class="btn-chamar" (click)="chamar()" [disabled]="chamando">
         {{ chamando ? 'Aguardando...' : 'Chamar' }}
       </button>
 

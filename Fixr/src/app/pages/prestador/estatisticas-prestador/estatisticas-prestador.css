@@ -192,3 +192,8 @@
     }
   }
 }
+
+.avaliacoesRecebidas {
+  color: #1500FF;
+  cursor: pointer;
+}

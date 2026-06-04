@@ -9,7 +9,7 @@ export class ProfissaoService {
 
   private baseUrl = "http://localhost:8080/profissao";
 
-  constructor(private http: HttpClient){}
+  constructor(private http: HttpClient) { }
 
   cadastrar(nome: string, descricao: string): Observable<any> {
     return this.http.post(this.baseUrl, { nome, descricao });

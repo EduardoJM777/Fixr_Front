@@ -17,6 +17,10 @@ import { EstatisticasPrestador } from './pages/prestador/estatisticas-prestador/
 import { AuthGuard } from './guards/auth.guard';
 import { DetalhesPrestador } from './pages/cliente/detalhes-prestador/detalhes-prestador';
 import { EditarPerfilPrestador } from './pages/prestador/editar-perfil-prestador/editar-perfil-prestador';
+import { Avaliacao } from './pages/cliente/avaliacao/avaliacao';
+import { AvaliacoesRecebidas } from './pages/prestador/avaliacoes-recebidas/avaliacoes-recebidas';
+import { AvaliacaoPrestador } from './pages/prestador/avaliacao/avaliacao';
+import { AvaliacoesRecebidasCliente } from './pages/cliente/avaliacoes-recebidas-cliente/avaliacoes-recebidas-cliente';
 
 export const routes: Routes = [
 
@@ -37,6 +41,10 @@ export const routes: Routes = [
     {path: 'estatisticaPrestador', component: EstatisticasPrestador},
     {path: 'editarPerfil', component: EditarPerfil},
     {path: 'editarPerfilPrestador', component: EditarPerfilPrestador},
+    {path: 'avaliacao', component: Avaliacao},
+    {path: 'avaliacoesRecebidasPrestador', component: AvaliacoesRecebidas},
+    {path: 'avaliacaoPrestador', component: AvaliacaoPrestador},
+    {path: 'avaliacoesRecebidasCliente', component: AvaliacoesRecebidasCliente},
     {path: '', redirectTo: 'cadastro', pathMatch: 'full'}
     
 ];

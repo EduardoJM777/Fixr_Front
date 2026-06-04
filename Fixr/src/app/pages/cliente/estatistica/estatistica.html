@@ -63,7 +63,9 @@
       <div *ngIf="!carregando">
         
         <div class="stat-item">
-          <span class="stat-link">Avaliações recebidas: {{ stats?.avaliacoesRecebidas ?? '-' }}</span>
+          <span class="stat-link ava"
+                (click)="avaliacoesRecebidasCliente()"
+          >Avaliações recebidas: {{ stats?.avaliacoesRecebidas ?? '-' }}</span>
           <div class="stat-divider"></div>
         </div>
 
