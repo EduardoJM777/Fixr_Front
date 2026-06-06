@@ -247,4 +247,9 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked {
   irAnuncio() {
     this.router.navigate(['/criarAnuncio'])
   }
+
+  irEdicaoAnuncio(id: number): void{
+    this.router.navigate(['/edicaoAnuncio', id]);
+  }
+
 }

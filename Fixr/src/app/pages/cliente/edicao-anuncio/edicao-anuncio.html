@@ -1,1 +1,68 @@
 <app-header-fixr-cliente></app-header-fixr-cliente>
+<app-sub-header-cliente></app-sub-header-cliente>
+
+<div class="editar-container">
+
+    <!-- Carregando -->
+    <div class="estado-loading" *ngIf="carregando">
+        <div class="spinner"></div>
+        <p>Carregando...</p>
+    </div>
+
+    <!-- Erro -->
+    <div class="estado-erro" *ngIf="!carregando && erro">
+        <span>⚠</span>
+        <p>{{ erro }}</p>
+    </div>
+
+    <!-- Conteúdo -->
+    <div class="editar-grid" *ngIf="!carregando && !erro && anuncio">
+
+        <!-- Coluna esquerda: imagem -->
+        <div class="coluna-imagem">
+            <img [src]="getImagemUrl()" [alt]="anuncio!.descricao" class="imagem-anuncio"
+                (error)="$any($event.target).src = 'assets/imagem-placeholder.png'" />
+        </div>
+
+        <!-- Coluna direita: formulário -->
+        <div class="coluna-form">
+
+            <!-- Descrição -->
+            <div class="campo">
+                <label class="campo-label">DESCRIÇÃO:</label>
+                <textarea class="campo-textarea" [(ngModel)]="descricao" maxlength="300" rows="7"
+                    placeholder="Descreva o serviço necessário...">
+        </textarea>
+            </div>
+
+            <!-- Profissional e Status -->
+            <div class="campos-linha">
+
+                <div class="campo">
+                    <label class="campo-label">PROFISSIONAL NECESSÁRIO:</label>
+                    <select class="campo-select" [(ngModel)]="profissaoSelecionadaId">
+                        <option *ngFor="let p of profissoes" [value]="p.id">{{ p.nome }}</option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label class="campo-label">STATUS:</label>
+                    <select class="campo-select" [(ngModel)]="statusSelecionado">
+                        <option *ngFor="let s of statusOpcoes" [value]="s">{{ getStatusLabel(s) }}</option>
+                    </select>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Botão atualizar -->
+    <div class="rodape" *ngIf="!carregando && !erro && anuncio">
+        <button class="btn-atualizar" (click)="atualizar()" [disabled]="salvando">
+            {{ salvando ? 'Salvando...' : 'Atualizar' }}
+        </button>
+    </div>
+
+</div>
