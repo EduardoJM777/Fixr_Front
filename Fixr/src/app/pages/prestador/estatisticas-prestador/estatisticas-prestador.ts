@@ -5,14 +5,14 @@ import { HeadrFixrPrestador } from "../../../components/headr-fixr-prestador/hea
 import { EstatisticasPrestadorDTO, PrestadorResponse } from '../../../models/prestadorDTO.model';
 import { filter, Subject, takeUntil } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-estatisticas',
   standalone: true,
-  imports: [SubHeaderPrestador, HeadrFixrPrestador, FormsModule, CommonModule],
+  imports: [SubHeaderPrestador, HeadrFixrPrestador, FormsModule, CommonModule, RouterModule],
   templateUrl: './estatisticas-prestador.html',
   styleUrls: ['./estatisticas-prestador.css'],
 })

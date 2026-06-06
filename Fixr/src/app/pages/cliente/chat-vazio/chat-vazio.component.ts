@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { Chats } from '../../../models/chats.models';
 import { Mensagens, MensagensDTO } from '../../../models/mensagens.model';
 import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ChatService } from '../../../services/chat-service';
 import { AuthService } from '../../../services/auth-service';
 import { AnuncioResponseDTO } from '../../../models/anuncioResponseDTO.model';
@@ -15,7 +15,7 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-chat-vazio',
   standalone: true,
-  imports: [CommonModule, FormsModule, HeaderFixrCliente, SubHeaderCliente],
+  imports: [CommonModule, FormsModule, RouterModule, HeaderFixrCliente, SubHeaderCliente],
   templateUrl: './chat-vazio.component.html',
   styleUrl: './chat-vazio.component.css'
 })

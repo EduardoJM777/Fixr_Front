@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { SubHeaderCliente } from "../../../components/sub-header-cliente/sub-header-cliente";
 import { HeaderFixrCliente } from "../../../components/header-fixr-cliente/header-fixr-cliente";
 import { ClienteDTO } from '../../../models/clienteDTO.model';
@@ -19,7 +19,7 @@ export interface EstatisticasDTO {
 @Component({
   selector: 'app-estatisticas',
   standalone: true,
-  imports: [CommonModule, SubHeaderCliente, HeaderFixrCliente],
+  imports: [CommonModule, RouterModule, SubHeaderCliente, HeaderFixrCliente],
   templateUrl: './estatistica.html',
   styleUrls: ['./estatistica.css']
 })

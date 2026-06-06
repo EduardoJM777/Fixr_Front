@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { EstatisticasPrestadorDTO, PrestadorResponse } from '../../../models/prestadorDTO.model';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ChatService } from '../../../services/chat-service';
 import { AuthService } from '../../../services/auth-service';
 import { HttpClient } from '@angular/common/http';
@@ -12,7 +12,7 @@ import { SubHeaderCliente } from '../../../components/sub-header-cliente/sub-hea
 @Component({
   selector: 'app-detalhes-prestador',
   standalone: true,
-  imports: [CommonModule, HeaderFixrCliente, SubHeaderCliente],
+  imports: [CommonModule, RouterModule, HeaderFixrCliente, SubHeaderCliente],
   templateUrl: './detalhes-prestador.html',
   styleUrl: './detalhes-prestador.css',
 })

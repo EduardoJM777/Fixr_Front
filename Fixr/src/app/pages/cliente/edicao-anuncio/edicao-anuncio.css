@@ -8,6 +8,13 @@
     gap: 24px;
 }
 
+.top-icons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 8px 16px;
+}
+
 /* ── ESTADOS ─────────────────────────────── */
 
 .estado-loading,

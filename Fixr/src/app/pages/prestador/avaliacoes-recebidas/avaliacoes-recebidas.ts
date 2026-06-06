@@ -5,11 +5,12 @@ import { AvaliacoesDTO } from '../../../models/avaliacoesDTO.model';
 import { AvaliacaoService } from '../../../services/avaliacao-service';
 import { AuthService } from '../../../services/auth-service';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-avaliacoes-recebidas',
   standalone: true,
-  imports: [CommonModule, HeadrFixrPrestador, SubHeaderPrestador],
+  imports: [CommonModule, RouterModule, HeadrFixrPrestador, SubHeaderPrestador],
   templateUrl: './avaliacoes-recebidas.html',
   styleUrl: './avaliacoes-recebidas.css',
 })

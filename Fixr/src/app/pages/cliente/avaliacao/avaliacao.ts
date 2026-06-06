@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { HeaderFixrCliente } from '../../../components/header-fixr-cliente/header-fixr-cliente';
 import { SubHeaderSolid } from '../../../components/sub-header-solid/sub-header-solid';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -16,7 +16,7 @@ interface PrestadorInfo {
 @Component({
   selector: 'app-avaliacao',
   standalone: true,
-  imports: [CommonModule, FormsModule, HeaderFixrCliente, SubHeaderSolid],
+  imports: [CommonModule, FormsModule, RouterModule, HeaderFixrCliente, SubHeaderSolid],
   templateUrl: './avaliacao.html',
   styleUrl: './avaliacao.css',
 })

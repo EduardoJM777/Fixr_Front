@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { SubHeaderCliente } from "../../../components/sub-header-cliente/sub-header-cliente";
 import { HeaderFixrCliente } from "../../../components/header-fixr-cliente/header-fixr-cliente";
 
@@ -24,7 +24,7 @@ interface PrestadorFavorito {
 @Component({
   selector: 'app-favoritos',
   standalone: true,
-  imports: [CommonModule, FormsModule, SubHeaderCliente, HeaderFixrCliente],
+  imports: [CommonModule, FormsModule, RouterModule, SubHeaderCliente, HeaderFixrCliente],
   templateUrl: './favoritos.html',
   styleUrls: ['./favoritos.css']
 })

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { SubHeaderPrestador } from "../../../components/sub-header-prestador/sub-header-prestador";
 import { HeadrFixrPrestador } from "../../../components/headr-fixr-prestador/headr-fixr-prestador";
 import { Subscription } from 'rxjs';
@@ -15,7 +15,7 @@ import { AnuncioResponseDTO } from '../../../models/anuncioResponseDTO.model';
 @Component({
   selector: 'app-buscar-anuncio',
   standalone: true,
-  imports: [CommonModule, FormsModule, SubHeaderPrestador, HeadrFixrPrestador],
+  imports: [CommonModule, FormsModule, RouterModule, SubHeaderPrestador, HeadrFixrPrestador],
   templateUrl: './buscar-anuncio.html',
   styleUrls: ['./buscar-anuncio.css']
 })

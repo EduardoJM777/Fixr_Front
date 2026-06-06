@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { SubHeaderCliente } from '../../../components/sub-header-cliente/sub-header-cliente';
 import { HeaderFixrCliente } from '../../../components/header-fixr-cliente/header-fixr-cliente';
 import { ClienteService } from '../../../services/cliente-service';
@@ -11,7 +11,7 @@ import { AuthService } from '../../../services/auth-service';
 @Component({
   selector: 'app-editar-perfil',
   standalone: true,
-  imports: [SubHeaderCliente, HeaderFixrCliente, CommonModule, FormsModule],
+  imports: [SubHeaderCliente, HeaderFixrCliente, CommonModule, FormsModule, RouterModule],
   templateUrl: './editar-perfil.html',
   styleUrl: './editar-perfil.css',
 })

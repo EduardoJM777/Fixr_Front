@@ -6,11 +6,12 @@ import { HeaderFixrCliente } from "../../../components/header-fixr-cliente/heade
 import { SubHeaderCliente } from "../../../components/sub-header-cliente/sub-header-cliente";
 import { AnuncioService } from '../../../services/anuncio-service';
 import { AuthService } from '../../../services/auth-service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-anunciar-problema',
   standalone: true,
-  imports: [CommonModule, FormsModule, HeaderFixrCliente, SubHeaderCliente],
+  imports: [CommonModule, FormsModule, RouterModule, HeaderFixrCliente, SubHeaderCliente],
   templateUrl: './criar-anuncio.html',
   styleUrls: ['./criar-anuncio.css']
 })

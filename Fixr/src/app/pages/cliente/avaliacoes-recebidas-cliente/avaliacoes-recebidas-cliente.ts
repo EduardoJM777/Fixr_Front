@@ -6,10 +6,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HeaderFixrCliente } from '../../../components/header-fixr-cliente/header-fixr-cliente';
 import { SubHeaderCliente } from '../../../components/sub-header-cliente/sub-header-cliente';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-avaliacoes-recebidas-cliente',
-  imports: [CommonModule, FormsModule, HeaderFixrCliente, SubHeaderCliente],
+  imports: [CommonModule, FormsModule, RouterModule, HeaderFixrCliente, SubHeaderCliente],
   templateUrl: './avaliacoes-recebidas-cliente.html',
   styleUrl: './avaliacoes-recebidas-cliente.css',
 })

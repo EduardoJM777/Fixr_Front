@@ -24,6 +24,7 @@ import { AvaliacoesRecebidasCliente } from './pages/cliente/avaliacoes-recebidas
 import { AnunciosPublicados } from './pages/cliente/anuncios-publicados/anuncios-publicados';
 import { EstatisticasAnuncio } from './pages/cliente/estatisticas-anuncio/estatisticas-anuncio';
 import { EdicaoAnuncio } from './pages/cliente/edicao-anuncio/edicao-anuncio';
+import { TelaNotificacao } from './pages/outras/tela-notificacao/tela-notificacao';
 
 export const routes: Routes = [
 
@@ -51,6 +52,7 @@ export const routes: Routes = [
     {path: 'anunciosPublicados', component: AnunciosPublicados},
     {path: 'estatisticasAnuncio/:id', component: EstatisticasAnuncio},
     {path: 'edicaoAnuncio/:id', component: EdicaoAnuncio},
+    {path: 'notificacoes', component: TelaNotificacao},
     {path: '', redirectTo: 'cadastro', pathMatch: 'full'}
     
 ];

@@ -5,14 +5,14 @@ import { AnuncioResponseDTO } from '../../../models/anuncioResponseDTO.model';
 import { Profissao } from '../../../models/profissao.model';
 import { StatusAnuncio } from '../../../models/enums/statusAnuncio.enum';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-edicao-anuncio',
   standalone: true,
-  imports: [CommonModule, FormsModule, HeaderFixrCliente, SubHeaderCliente],
+  imports: [CommonModule, FormsModule, RouterModule, HeaderFixrCliente, SubHeaderCliente],
   templateUrl: './edicao-anuncio.html',
   styleUrl: './edicao-anuncio.css',
 })

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { HeadrFixrPrestador } from '../../../components/headr-fixr-prestador/headr-fixr-prestador';
 import { SubHeaderPrestador } from '../../../components/sub-header-prestador/sub-header-prestador';
 
@@ -15,7 +15,7 @@ interface ClienteInfo {
 @Component({
   selector: 'app-avaliacao',
   standalone: true,
-  imports: [CommonModule, FormsModule, HeadrFixrPrestador, SubHeaderPrestador],
+  imports: [CommonModule, FormsModule, RouterModule, HeadrFixrPrestador, SubHeaderPrestador],
   templateUrl: './avaliacao.html',
   styleUrls: ['./avaliacao.css']
 })

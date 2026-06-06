@@ -7,6 +7,13 @@
   align-items: flex-start;
 }
 
+.top-icons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 8px 16px;
+}
+
 .conteudo {
   display: flex;
   gap: 24px;

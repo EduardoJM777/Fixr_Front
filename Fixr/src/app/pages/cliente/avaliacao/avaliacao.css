@@ -26,6 +26,13 @@
 .btn-pular:hover {
   background-color: #0f4e65;
 }
+
+.top-icons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 8px 16px;
+}
  
 /* ── Layout principal ── */
 .avaliacao-layout {

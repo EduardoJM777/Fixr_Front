@@ -6,7 +6,7 @@ import { SubHeaderPrestador } from '../../../components/sub-header-prestador/sub
 import { Chats } from '../../../models/chats.models';
 import { Mensagens, MensagensDTO } from '../../../models/mensagens.model';
 import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ChatService } from '../../../services/chat-service';
 import { AuthService } from '../../../services/auth-service';
 import { HttpClient } from '@angular/common/http';
@@ -14,7 +14,7 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-chat-vazio-prestador',
   standalone: true,
-  imports: [CommonModule, FormsModule, HeadrFixrPrestador, SubHeaderPrestador],
+  imports: [CommonModule, FormsModule, RouterModule, HeadrFixrPrestador, SubHeaderPrestador],
   templateUrl: './chat-vazio-prestador.html',
   styleUrl: './chat-vazio-prestador.css'
 })

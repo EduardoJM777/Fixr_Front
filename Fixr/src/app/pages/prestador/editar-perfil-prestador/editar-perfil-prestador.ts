@@ -4,14 +4,14 @@ import { HeadrFixrPrestador } from '../../../components/headr-fixr-prestador/hea
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PrestadorDTO, PrestadorResponse } from '../../../models/prestadorDTO.model';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { PrestadorService } from '../../../services/prestador-service';
 import { AuthService } from '../../../services/auth-service';
 
 @Component({
   selector: 'app-editar-perfil-prestador',
   standalone: true,
-  imports: [SubHeaderPrestador, HeadrFixrPrestador, CommonModule, FormsModule],
+  imports: [SubHeaderPrestador, HeadrFixrPrestador, CommonModule, FormsModule, RouterModule],
   templateUrl: './editar-perfil-prestador.html',
   styleUrl: './editar-perfil-prestador.css',
 })

@@ -7,6 +7,13 @@
   min-height: 100%;
   box-sizing: border-box;
 }
+
+.top-icons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 8px 16px;
+}
  
 /* ── ESTADOS ─────────────────────────────── */
  

@@ -4,7 +4,7 @@ import { SubHeaderCliente } from '../../../components/sub-header-cliente/sub-hea
 import { CommonModule } from '@angular/common';
 import { AnuncioResponseDTO } from '../../../models/anuncioResponseDTO.model';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { StatusAnuncio } from '../../../models/enums/statusAnuncio.enum';
 
 export interface EstatisticasAnuncioDTO {
@@ -18,7 +18,7 @@ export interface EstatisticasAnuncioDTO {
 @Component({
   selector: 'app-estatisticas-anuncio',
   standalone: true,
-  imports: [CommonModule, HeaderFixrCliente, SubHeaderCliente],
+  imports: [CommonModule, RouterModule, HeaderFixrCliente, SubHeaderCliente],
   templateUrl: './estatisticas-anuncio.html',
   styleUrl: './estatisticas-anuncio.css',
 })
