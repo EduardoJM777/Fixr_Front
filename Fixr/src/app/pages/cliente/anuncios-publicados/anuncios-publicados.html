@@ -24,7 +24,9 @@
     <!-- Grid de anúncios -->
     <div class="anuncios-grid" *ngIf="!carregando && !erro && anuncios.length > 0">
 
-        <div class="card-anuncio" *ngFor="let anuncio of anuncios">
+        <div class="card-anuncio" *ngFor="let anuncio of anuncios"
+             [routerLink]="['/estatisticasAnuncio', anuncio.id]"
+             style="cursor: pointer">
 
             <!-- Imagem -->
             <div class="card-imagem-wrapper">

@@ -22,6 +22,7 @@ import { AvaliacoesRecebidas } from './pages/prestador/avaliacoes-recebidas/aval
 import { AvaliacaoPrestador } from './pages/prestador/avaliacao/avaliacao';
 import { AvaliacoesRecebidasCliente } from './pages/cliente/avaliacoes-recebidas-cliente/avaliacoes-recebidas-cliente';
 import { AnunciosPublicados } from './pages/cliente/anuncios-publicados/anuncios-publicados';
+import { EstatisticasAnuncio } from './pages/cliente/estatisticas-anuncio/estatisticas-anuncio';
 
 export const routes: Routes = [
 
@@ -47,6 +48,7 @@ export const routes: Routes = [
     {path: 'avaliacaoPrestador', component: AvaliacaoPrestador},
     {path: 'avaliacoesRecebidasCliente', component: AvaliacoesRecebidasCliente},
     {path: 'anunciosPublicados', component: AnunciosPublicados},
+    {path: 'estatisticasAnuncio/:id', component: EstatisticasAnuncio},
     {path: '', redirectTo: 'cadastro', pathMatch: 'full'}
     
 ];

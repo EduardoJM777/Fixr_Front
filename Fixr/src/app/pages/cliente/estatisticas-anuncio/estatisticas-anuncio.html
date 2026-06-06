@@ -1,0 +1,82 @@
+<app-header-fixr-cliente></app-header-fixr-cliente>
+<app-sub-header-cliente></app-sub-header-cliente>
+
+<div class="detalhe-container">
+ 
+  <!-- Carregando -->
+  <div class="estado-loading" *ngIf="carregando">
+    <div class="spinner"></div>
+    <p>Carregando...</p>
+  </div>
+ 
+  <!-- Erro -->
+  <div class="estado-erro" *ngIf="!carregando && erro">
+    <span>⚠</span>
+    <p>{{ erro }}</p>
+  </div>
+ 
+  <!-- Conteúdo -->
+  <div class="detalhe-grid" *ngIf="!carregando && !erro && anuncio">
+ 
+    <!-- Card do anúncio -->
+    <div class="card-anuncio">
+ 
+      <div class="card-imagem-wrapper">
+        <img
+          [src]="getImagemUrl()"
+          [alt]="anuncio!.descricao"
+          class="card-imagem"
+          (error)="$any($event.target).src = 'assets/imagem-placeholder.png'"
+        />
+      </div>
+ 
+      <div class="card-conteudo">
+        <p class="card-descricao">{{ anuncio!.descricao }}</p>
+ 
+        <div class="card-info">
+          <span class="info-label">Profissional Necessário:</span>
+          <span class="info-profissao">{{ anuncio!.profissaoNome }}</span>
+        </div>
+ 
+        <div class="card-rodape">
+          <span class="status-label">Status:</span>
+          <span class="status-badge" [ngClass]="getStatusClasse(anuncio!.statusAnuncio)">
+            {{ getStatusLabel(anuncio!.statusAnuncio) }}
+          </span>
+        </div>
+      </div>
+ 
+    </div>
+ 
+    <!-- Card de estatísticas -->
+    <div class="card-stats" *ngIf="stats">
+ 
+      <div class="stat-item">
+        <span class="stat-label">Taxa de clique (CTR)</span>
+        <span class="stat-valor">{{ stats.ctr | number:'1.1-1' }}%</span>
+        <hr />
+      </div>
+ 
+      <div class="stat-item">
+        <span class="stat-label">Visualizações únicas</span>
+        <span class="stat-valor">{{ stats.visualizacoesUnicas }}</span>
+        <hr />
+      </div>
+ 
+      <div class="stat-item">
+        <span class="stat-label">Visualizações totais</span>
+        <span class="stat-valor">{{ stats.visualizacoesTotais }}</span>
+        <hr />
+      </div>
+ 
+      <div class="stat-item">
+        <span class="stat-label">Ranking de posição</span>
+        <span class="stat-valor">{{ stats.rankingPosicao }}º</span>
+        <hr />
+      </div>
+ 
+    </div>
+ 
+  </div>
+ 
+</div>

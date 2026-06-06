@@ -1,24 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 import { HeaderFixrCliente } from '../../../components/header-fixr-cliente/header-fixr-cliente';
 import { SubHeaderCliente } from '../../../components/sub-header-cliente/sub-header-cliente';
+import { CommonModule } from '@angular/common';
 import { AnuncioResponseDTO } from '../../../models/anuncioResponseDTO.model';
 import { HttpClient } from '@angular/common/http';
-import { AuthService } from '../../../services/auth-service';
+import { ActivatedRoute } from '@angular/router';
 import { StatusAnuncio } from '../../../models/enums/statusAnuncio.enum';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+
+export interface EstatisticasAnuncioDTO {
+  anuncioId: number;
+  ctr: number;
+  visualizacoesUnicas: number;
+  visualizacoesTotais: number;
+  rankingPosicao: number;
+}
 
 @Component({
-  selector: 'app-anuncios-publicados',
+  selector: 'app-estatisticas-anuncio',
   standalone: true,
-  imports: [CommonModule, RouterModule, HeaderFixrCliente, SubHeaderCliente],
-  templateUrl: './anuncios-publicados.html',
-  styleUrl: './anuncios-publicados.css',
+  imports: [CommonModule, HeaderFixrCliente, SubHeaderCliente],
+  templateUrl: './estatisticas-anuncio.html',
+  styleUrl: './estatisticas-anuncio.css',
 })
 
-export class AnunciosPublicados implements OnInit {
+export class EstatisticasAnuncio implements OnInit {
 
-  anuncios: AnuncioResponseDTO[] = [];
+  anuncio: AnuncioResponseDTO | null = null;
+  stats: EstatisticasAnuncioDTO | null = null;
   carregando = true;
   erro: string | null = null;
 
@@ -26,37 +34,54 @@ export class AnunciosPublicados implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.carregarAnuncios();
-  }
-
-  carregarAnuncios(): void {
-    const usuario = this.authService.getUsuario();
-
-    if (!usuario?.id) {
-      this.erro = 'Usuário não autenticado.';
+    const id = this.route.snapshot.params['id'];
+    if (!id) {
+      this.erro = 'Anúncio não encontrado.';
       this.carregando = false;
       return;
     }
+    this.carregarDados(id);
+  }
 
-    this.http.get<AnuncioResponseDTO[]>(`${this.apiUrl}/anuncio/cliente/${usuario.id}`).subscribe({
-      next: (dados) => {
-        this.anuncios = dados;
-        this.carregando = false;
+  private carregarDados(id: number): void {
+    this.http.get<AnuncioResponseDTO>(`${this.apiUrl}/anuncio/${id}`).subscribe({
+      next: (anuncio) => {
+        this.anuncio = anuncio;
+        this.carregarEstatisticas(id);
       },
-      error: (err) => {
-        console.error('Erro ao carregar anúncios:', err);
-        this.erro = 'Não foi possível carregar os anúncios.';
+      error: () => {
+        this.erro = 'Não foi possível carregar o anúncio.';
         this.carregando = false;
       }
     });
   }
 
-  getImagemUrl(anuncio: AnuncioResponseDTO): string {
-    return `${this.apiUrl}${anuncio.imagemUrl}`;
+  private carregarEstatisticas(id: number): void {
+    this.http.get<EstatisticasAnuncioDTO>(`${this.apiUrl}/estatisticas/anuncio/${id}`).subscribe({
+      next: (stats) => {
+        this.stats = stats;
+        this.carregando = false;
+      },
+      error: () => {
+        // Estatísticas ainda não criadas — exibe zeros
+        this.stats = {
+          anuncioId: id,
+          ctr: 0,
+          visualizacoesUnicas: 0,
+          visualizacoesTotais: 0,
+          rankingPosicao: 0
+        };
+        this.carregando = false;
+      }
+    });
+  }
+
+  getImagemUrl(): string {
+    return this.anuncio ? `${this.apiUrl}${this.anuncio.imagemUrl}` : '';
   }
 
   getStatusLabel(status: StatusAnuncio): string {
