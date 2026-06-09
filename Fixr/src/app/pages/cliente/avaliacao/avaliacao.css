@@ -1,4 +1,4 @@
-/* ── Wrapper geral ── */
+
 .page-wrapper {
   min-height: 100vh;
   background-color: #1a7a9a;
@@ -6,7 +6,7 @@
   box-sizing: border-box;
 }
  
-/* ── Botão pular ── */
+
 .topo-acoes {
   margin-bottom: 24px;
 }
@@ -27,14 +27,14 @@
   background-color: #0f4e65;
 }
  
-/* ── Layout principal ── */
+
 .avaliacao-layout {
   display: flex;
   gap: 32px;
   align-items: flex-start;
 }
  
-/* ── Coluna esquerda ── */
+
 .coluna-esquerda {
   display: flex;
   flex-direction: column;
@@ -80,7 +80,7 @@
   color: #fff;
 }
  
-/* ── Info combinado ── */
+
 .info-combinado {
   background: #fff;
   border-radius: 8px;
@@ -112,7 +112,7 @@
   color: #555;
 }
  
-/* ── Coluna direita ── */
+
 .coluna-direita {
   flex: 1;
   display: flex;
@@ -120,7 +120,7 @@
   gap: 20px;
 }
  
-/* ── Card de nota ── */
+
 .nota-card {
   background: #fff;
   border-radius: 10px;
@@ -160,7 +160,7 @@
   transform: scale(1.15);
 }
  
-/* ── Comentários ── */
+
 .comentarios-row {
   display: flex;
   gap: 16px;
@@ -198,7 +198,7 @@
   box-shadow: 0 0 0 2px #14607a;
 }
  
-/* ── Botão continuar ── */
+
 .btn-row {
   display: flex;
   justify-content: center;
@@ -226,7 +226,7 @@
   cursor: default;
 }
  
-/* ── Responsivo ── */
+
 @media (max-width: 700px) {
   .avaliacao-layout {
     flex-direction: column;

@@ -41,10 +41,8 @@ export class FavoritosComponent implements OnInit {
 
   ngOnInit(): void {
     const raw = sessionStorage.getItem('usuario');
-    // console.log('raw sessionStorage:', raw);
 
     const usuario = JSON.parse(raw || '{}');
-    // console.log('id do usuario:', usuario.id);
 
     if (!usuario.id) {
       alert('ID do usuário não encontrado no sessionStorage!');

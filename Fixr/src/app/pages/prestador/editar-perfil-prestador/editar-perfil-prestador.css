@@ -13,7 +13,7 @@
   position: relative;
 }
  
-/* ── Top icons ── */
+
 .top-icons {
   display: flex;
   justify-content: flex-end;
@@ -33,7 +33,7 @@
  
 .top-icons button:hover { opacity: 1; }
  
-/* ── Profile layout ── */
+
 .profile-layout {
   display: flex;
   align-items: flex-start;
@@ -41,7 +41,7 @@
   max-width: 820px;
 }
  
-/* ── Avatar column ── */
+
 .avatar-col {
   display: flex;
   flex-direction: column;
@@ -125,7 +125,7 @@
 .btn-salvar:hover { background: #0f2a52; }
 .btn-salvar:active { transform: scale(0.97); }
  
-/* ── Info section ── */
+
 .info-section {
   display: flex;
   flex: 1;
@@ -183,7 +183,7 @@
   padding: 2px 4px;
 }
  
-/* ── Loading / Erro ── */
+
 .state-overlay {
   display: flex;
   align-items: center;
@@ -212,7 +212,7 @@
   line-height: 1.7;
 }
  
-/* ── Toast ── */
+
 .toast {
   position: fixed;
   bottom: 28px;

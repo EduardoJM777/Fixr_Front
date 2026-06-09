@@ -67,7 +67,6 @@ export class EstatisticasAnuncio implements OnInit {
         this.carregando = false;
       },
       error: () => {
-        // Estatísticas ainda não criadas — exibe zeros
         this.stats = {
           anuncioId: id,
           ctr: 0,

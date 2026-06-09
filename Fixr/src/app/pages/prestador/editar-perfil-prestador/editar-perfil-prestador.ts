@@ -93,7 +93,7 @@ export class EditarPerfilPrestador implements OnInit {
       nome: nomeCompleto,
       email: this.editEmail,
       telefone: this.editTelefone,
-      dataNascimento: this.prestadorDTO.dataNascimento, // mantém o existente se o backend suportar
+      dataNascimento: this.prestadorDTO.dataNascimento,
       profissaoId: this.prestador.profissao?.id
     };
 

@@ -8,7 +8,6 @@
     gap: 24px;
 }
 
-/* ── ESTADOS ─────────────────────────────── */
 
 .estado-loading,
 .estado-erro {
@@ -39,7 +38,6 @@
     }
 }
 
-/* ── GRID PRINCIPAL ──────────────────────── */
 
 .editar-grid {
     display: grid;
@@ -48,7 +46,6 @@
     align-items: start;
 }
 
-/* ── COLUNA IMAGEM ───────────────────────── */
 
 .coluna-imagem {
     border-radius: 14px;
@@ -65,7 +62,6 @@
     display: block;
 }
 
-/* ── COLUNA FORMULÁRIO ───────────────────── */
 
 .coluna-form {
     display: flex;
@@ -73,7 +69,6 @@
     gap: 20px;
 }
 
-/* ── CAMPOS ──────────────────────────────── */
 
 .campo {
     display: flex;
@@ -135,7 +130,6 @@
     box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
 }
 
-/* ── BOTÃO ATUALIZAR ─────────────────────── */
 
 .rodape {
     display: flex;
@@ -165,7 +159,6 @@
     cursor: not-allowed;
 }
 
-/* ── RESPONSIVO ──────────────────────────── */
 
 @media (max-width: 640px) {
     .editar-grid {

@@ -3,22 +3,18 @@
 
 <div class="detalhe-container">
  
-  <!-- Carregando -->
   <div class="estado-loading" *ngIf="carregando">
     <div class="spinner"></div>
     <p>Carregando...</p>
   </div>
  
-  <!-- Erro -->
   <div class="estado-erro" *ngIf="!carregando && erro">
     <span>⚠</span>
     <p>{{ erro }}</p>
   </div>
  
-  <!-- Conteúdo -->
   <div class="detalhe-grid" *ngIf="!carregando && !erro && anuncio">
  
-    <!-- Card do anúncio -->
     <div class="card-anuncio">
  
       <div class="card-imagem-wrapper">
@@ -48,7 +44,6 @@
  
     </div>
  
-    <!-- Card de estatísticas -->
     <div class="card-stats" *ngIf="stats">
  
       <div class="stat-item">

@@ -8,7 +8,7 @@
   box-sizing: border-box;
 }
  
-/* ── ESTADOS ─────────────────────────────── */
+
  
 .estado-loading,
 .estado-erro,
@@ -48,7 +48,7 @@
   color: #f5c518;
 }
  
-/* ── RESUMO ──────────────────────────────── */
+
  
 .resumo {
   display: flex;
@@ -92,7 +92,7 @@
   line-height: 1;
 }
  
-/* ── LISTA ───────────────────────────────── */
+
  
 .lista-avaliacoes {
   display: flex;
@@ -100,7 +100,7 @@
   gap: 14px;
 }
  
-/* ── CARD ────────────────────────────────── */
+
  
 .card-avaliacao {
   background: #ffffff;
@@ -124,7 +124,7 @@
   }
 }
  
-/* ── ESTRELAS ────────────────────────────── */
+
  
 .estrelas {
   display: flex;
@@ -153,8 +153,7 @@
   font-family: 'Segoe UI', sans-serif;
 }
  
-/* ── CONTEÚDO DO CARD ────────────────────── */
- 
+
 .card-conteudo {
   display: flex;
   flex-direction: row;
@@ -191,7 +190,7 @@
   margin: 0;
 }
  
-/* ── RESPONSIVO ──────────────────────────── */
+
  
 @media (max-width: 480px) {
   .card-conteudo {

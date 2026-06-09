@@ -71,7 +71,6 @@ export class ChatVazioPrestadorComponent implements OnInit, OnDestroy, AfterView
     );
 
 
-    // Quando um novo chat é iniciado, entra nele e seleciona
     this.subs.push(
       this.chatService.chatIniciado$.subscribe(chatId => {
         this.entrarNoChat(chatId);
@@ -81,7 +80,6 @@ export class ChatVazioPrestadorComponent implements OnInit, OnDestroy, AfterView
       })
     );
 
-    // Ouve mensagens em tempo real
     this.subs.push(
       this.chatService.mensagens$.subscribe(msg => {
         if (!msg.chat?.id) return;
@@ -98,7 +96,6 @@ export class ChatVazioPrestadorComponent implements OnInit, OnDestroy, AfterView
       })
     );
 
-    // Se veio com chatId inicial
     if (this.chatIdInicial) {
       this.chatService.iniciarChatNaSidebar(this.chatIdInicial);
     }

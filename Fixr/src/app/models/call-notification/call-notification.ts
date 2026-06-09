@@ -27,7 +27,6 @@ export class CallNotificationComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.sub = this.chatService.chamadas$.subscribe(chamada => {
-      // console.log('chamada recebida no componente:', chamada);
       this.chamadaPendente = chamada;
     });
   }

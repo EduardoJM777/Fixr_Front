@@ -40,7 +40,6 @@ export class BuscarAnuncioComponent implements OnInit {
     this.http.get<AnuncioResponseDTO[]>('http://localhost:8080/anuncio')
       .subscribe({
         next: (dados) => {
-          // console.log('anuncios:', dados);
           this.anuncios = dados;
           this.anunciosFiltrados = dados;
           this.profissoes = [...new Set(dados.map(a => a.profissaoNome))];
@@ -56,8 +55,6 @@ export class BuscarAnuncioComponent implements OnInit {
   }
 
   chamar(anuncio: AnuncioResponseDTO): void {
-    // console.log('anuncio:', anuncio);
-    // console.log('clienteId:', anuncio.clienteId);
 
     const usuario = this.authService.getUsuario();
     if (!usuario) return;

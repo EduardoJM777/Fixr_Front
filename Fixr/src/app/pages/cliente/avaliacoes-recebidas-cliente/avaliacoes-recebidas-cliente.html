@@ -3,25 +3,21 @@
 
 <div class="avaliacoes-container">
  
-  <!-- Estado de carregamento -->
   <div class="estado-loading" *ngIf="carregando">
     <div class="spinner"></div>
     <p>Carregando avaliações...</p>
   </div>
  
-  <!-- Estado de erro -->
   <div class="estado-erro" *ngIf="!carregando && erro">
     <span class="icone-erro">⚠</span>
     <p>{{ erro }}</p>
   </div>
  
-  <!-- Estado vazio -->
   <div class="estado-vazio" *ngIf="!carregando && !erro && avaliacoes.length === 0">
     <span class="icone-vazio">★</span>
     <p>Você ainda não recebeu nenhuma avaliação.</p>
   </div>
  
-  <!-- Resumo geral -->
   <div class="resumo" *ngIf="!carregando && !erro && avaliacoes.length > 0">
     <div class="resumo-nota">
       <span class="nota-numero">{{ mediaAvaliacoes }}</span>
@@ -33,12 +29,10 @@
     </div>
   </div>
  
-  <!-- Lista de avaliações -->
   <div class="lista-avaliacoes" *ngIf="!carregando && !erro && avaliacoes.length > 0">
  
     <div class="card-avaliacao" *ngFor="let avaliacao of avaliacoes">
  
-      <!-- Estrelas -->
       <div class="estrelas">
         <span
           *ngFor="let preenchida of gerarEstrelas(avaliacao.nota)"
@@ -50,7 +44,6 @@
         <span class="nota-texto">{{ avaliacao.nota }}/5</span>
       </div>
  
-      <!-- Conteúdo do card -->
       <div class="card-conteudo">
  
         <div class="card-secao" *ngIf="avaliacao.comentario">

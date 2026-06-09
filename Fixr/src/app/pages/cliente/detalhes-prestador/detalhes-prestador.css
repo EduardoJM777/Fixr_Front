@@ -17,7 +17,7 @@
 
 
 
-/* ── Coluna esquerda ── */
+
 .coluna-esquerda {
   display: flex;
   flex-direction: column;
@@ -79,7 +79,7 @@
 
 
 
-/* ── Coluna direita ── */
+
 .coluna-direita {
   flex: 1;
   background: #fff;

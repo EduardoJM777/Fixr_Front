@@ -6,7 +6,6 @@
 
   <div class="conteudo">
 
-    <!-- Coluna esquerda -->
     <div class="coluna-esquerda">
       <div class="avatar">
         <img *ngIf="prestador.foto" [src]="prestador.foto" [alt]="prestador.nome" />
@@ -25,7 +24,6 @@
       </div>
     </div>
 
-    <!-- Coluna direita: estatísticas -->
     <div class="coluna-direita">
 
       <div *ngIf="carregando" class="carregando">Carregando...</div>

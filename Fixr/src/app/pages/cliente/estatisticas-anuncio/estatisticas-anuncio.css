@@ -5,7 +5,6 @@
   box-sizing: border-box;
 }
  
-/* ── ESTADOS ─────────────────────────────── */
  
 .estado-loading,
 .estado-erro {
@@ -34,7 +33,6 @@
   to { transform: rotate(360deg); }
 }
  
-/* ── GRID PRINCIPAL ──────────────────────── */
  
 .detalhe-grid {
   display: grid;
@@ -43,7 +41,6 @@
   align-items: start;
 }
  
-/* ── CARD DO ANÚNCIO ─────────────────────── */
  
 .card-anuncio {
   background: #ffffff;
@@ -121,7 +118,6 @@
   font-family: 'Segoe UI', sans-serif;
 }
  
-/* ── BADGES DE STATUS ────────────────────── */
  
 .status-badge {
   padding: 4px 14px;
@@ -145,7 +141,6 @@
 .status-expirado     { background-color: #6f42c1; }
 .status-arquivado    { background-color: #495057; }
  
-/* ── CARD DE ESTATÍSTICAS ────────────────── */
  
 .card-stats {
   background: #ffffff;
@@ -185,7 +180,6 @@
   font-family: 'Segoe UI', sans-serif;
 }
  
-/* ── RESPONSIVO ──────────────────────────── */
  
 @media (max-width: 640px) {
   .detalhe-grid {

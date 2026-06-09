@@ -97,20 +97,17 @@ export class AvaliacaoPrestador implements OnInit {
       nota: this.notaSelecionada || null,
       comentario: this.comentario || null,
       sugest_melhoria: this.sugestaoMelhoria || null,
-      idCliente: this.cliente.id,       // ← cliente sendo avaliado
-      idPrestador: usuario.id           // ← prestador logado que avalia
+      idCliente: this.cliente.id,     
+      idPrestador: usuario.id         
     };
 
   this.http.post('http://localhost:8080/avaliacoes', body).subscribe({
   next: (res) => {
-    // console.log('SUCCESS:', res);
     this.enviando = false;
     alert('Avaliação enviada com sucesso! Obrigado pelo seu feedback.');
     this.router.navigate(['/chatVazioPrestador']);
   },
   error: (err) => {
-    // console.log('ERROR status:', err.status);
-    // console.log('ERROR body:', err.error);
 
     if (err.error?.id || err.status === 200 || err.status === 201) {
       this.enviando = false;

@@ -1,26 +1,22 @@
 <app-headr-fixr-prestador></app-headr-fixr-prestador>
 <app-sub-header-prestador></app-sub-header-prestador>
 
-<!-- Loading -->
 <div class="page-wrapper" *ngIf="loading">
   <div class="state-overlay">
     <div class="spinner"></div>
   </div>
 </div>
 
-<!-- Erro -->
 <div class="page-wrapper" *ngIf="!loading && erro">
   <div class="state-overlay">
     <div class="error-msg">{{ erro }}</div>
   </div>
 </div>
 
-<!-- Perfil carregado -->
 <div class="page-wrapper" *ngIf="!loading && !erro && prestador">
 
   <div class="profile-layout">
 
-    <!-- Foto -->
     <div class="avatar-col">
       <span class="avatar-label">Imagem de perfil</span>
 
@@ -41,7 +37,6 @@
       </button>
     </div>
 
-    <!-- Dados -->
     <div class="info-section">
       <div class="info-labels">
         <div class="info-row-label"><span class="info-label">Nome:</span></div>
@@ -68,5 +63,4 @@
   </div>
 </div>
 
-<!-- Toast -->
 <div class="toast" [class.show]="toastVisible">{{ toastMsg }}</div>

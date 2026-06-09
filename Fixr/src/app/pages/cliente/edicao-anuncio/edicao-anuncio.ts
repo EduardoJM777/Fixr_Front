@@ -52,7 +52,6 @@ export class EdicaoAnuncio implements OnInit {
   }
 
   private carregarDados(): void {
-    // Busca anúncio e profissões em paralelo
     this.http.get<AnuncioResponseDTO>(`${this.apiUrl}/anuncio/${this.anuncioId}`).subscribe({
       next: (anuncio) => {
         this.anuncio = anuncio;
