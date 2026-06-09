@@ -3,11 +3,12 @@ import { RouterOutlet } from '@angular/router';
 import { ChatService } from './services/chat-service';
 import { AuthService } from './services/auth-service';
 import { CallNotificationComponent } from './models/call-notification/call-notification';
+import { AcordoNotificacao } from "./pages/acordo/acordo-notificacao/acordo-notificacao";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CallNotificationComponent],
+  imports: [RouterOutlet, CallNotificationComponent, AcordoNotificacao],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

@@ -1,5 +1,7 @@
 <app-header-fixr-cliente *ngIf="papel === 'CLIENTE'"></app-header-fixr-cliente>
 <app-sub-header-cliente *ngIf="papel === 'CLIENTE'"></app-sub-header-cliente>
+<app-headr-fixr-prestador *ngIf="papel === 'PRESTADOR'"></app-headr-fixr-prestador>
+<app-sub-header-prestador *ngIf="papel === 'PRESTADOR'"></app-sub-header-prestador>
 
 <div class="page-wrapper">
 
@@ -9,19 +11,16 @@
 
   <button class="btn-cancelar" (click)="cancelar()">Cancelar Acordo</button>
 
-  <!-- Sucesso -->
   <div class="aviso-sucesso" *ngIf="aceito">
     ✓ Acordo fechado com sucesso!
   </div>
 
-  <!-- Cancelado -->
   <div class="aviso-cancelado" *ngIf="cancelado">
     Acordo cancelado.
   </div>
 
   <div class="negociacao-card" *ngIf="!aceito && !cancelado">
 
-    <!-- Proposta (quem iniciou) -->
     <div class="lado proposta">
       <div class="avatar-wrap">
         <img *ngIf="minhaFoto" [src]="getFotoUrl(minhaFoto)" class="avatar-img" />
@@ -36,28 +35,28 @@
           <input
             type="number"
             [(ngModel)]="meuValor"
-            [disabled]="enviado"
+            [disabled]="!podeEnviar()"
             placeholder="0,00"
             min="0" />
         </div>
+        <span class="erro-valor" *ngIf="erroValor">{{ erroValor }}</span>
       </div>
 
       <button
         class="btn-enviar"
         (click)="abrirModalEnvio()"
-        [disabled]="enviado || !meuValor">
-        {{ enviado ? 'Proposta enviada' : 'Enviar proposta' }}
+        [disabled]="!podeEnviar() || !meuValor">
+        {{ turno === 'aguardar' ? 'Aguardando resposta...' : (acordoId ? 'Enviar contra proposta' : 'Enviar proposta') }}
       </button>
     </div>
 
     <div class="divisor"></div>
 
-    <!-- Contraproposta -->
     <div class="lado contraproposta">
       <h3 class="lado-titulo">CONTRA PROPOSTA</h3>
       <div class="avatar-wrap direita">
         <img *ngIf="outroFoto" [src]="getFotoUrl(outroFoto)" class="avatar-img" />
-        <div *ngIf="!outroFoto" class="avatar-placeholder">{{ outroNome?.charAt(0) }}</div>
+        <div *ngIf="!outroFoto" class="avatar-placeholder">{{ outroNome.charAt(0) }}</div>
       </div>
 
       <div class="campo-valor">
@@ -75,7 +74,7 @@
       <button
         class="btn-aceitar"
         (click)="abrirModalAceite()"
-        [disabled]="!valorOutro">
+        [disabled]="!valorOutro || !podeEnviar()">
         Aceitar contra proposta
       </button>
     </div>

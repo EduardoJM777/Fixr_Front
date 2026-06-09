@@ -1,0 +1,17 @@
+<div class="toast-acordo" *ngIf="notificacao">
+  <div class="toast-icone">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="1.5">
+      <path d="M9 12l2 2 4-4"/>
+      <path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0"/>
+    </svg>
+  </div>
+  <div class="toast-info">
+    <strong>{{ notificacao.iniciadorNome }}</strong>
+    <span>enviou uma proposta de <b>R$ {{ notificacao.valor | number:'1.2-2' }}</b></span>
+  </div>
+  <div class="toast-acoes">
+    <button class="btn-ver" (click)="irParaAcordo()">Ver proposta</button>
+    <button class="btn-fechar" (click)="fechar()">Ignorar</button>
+  </div>
+</div>

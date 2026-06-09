@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -13,13 +13,14 @@ import { SubHeaderPrestador } from '../../../components/sub-header-prestador/sub
 @Component({
   selector: 'app-fechar-acordo',
   standalone: true,
-  imports: [CommonModule, FormsModule, HeaderFixrCliente, SubHeaderCliente, HeadrFixrPrestador, SubHeaderPrestador ],
+  imports: [CommonModule, FormsModule, HeaderFixrCliente, SubHeaderCliente, HeadrFixrPrestador, SubHeaderPrestador],
   templateUrl: './fechar-acordo.html',
   styleUrls: ['./fechar-acordo.css']
 })
 export class FecharAcordo implements OnInit, OnDestroy {
 
   chatId!: number;
+  erroValor: string | null = null;
   outroNome!: string;
   outroFoto?: string;
   meuNome!: string;
@@ -29,18 +30,20 @@ export class FecharAcordo implements OnInit, OnDestroy {
   acordoId: number | null = null;
   meuValor: number | null = null;
   valorOutro: number | null = null;
-  enviado = false;
   aceito = false;
   cancelado = false;
   modal: 'confirmar_envio' | 'confirmar_aceite' | null = null;
   valorAceite: number | null = null;
+
+  turno: 'enviar' | 'aguardar' = 'enviar';
 
   private subs: Subscription[] = [];
 
   constructor(
     private router: Router,
     private chatService: ChatService,
-    private authService: AuthService
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -64,23 +67,27 @@ export class FecharAcordo implements OnInit, OnDestroy {
     const usuario = this.authService.getUsuario();
     this.meuNome = usuario?.nome || '';
 
-    // ouve eventos de acordo em tempo real
     this.subs.push(
       this.chatService.acordos$.subscribe(evento => {
+        if(!evento) return;
         this.processarEvento(evento);
+        this.cdr.detectChanges();
       })
     );
 
-    // verifica se já existe acordo ativo para este chat
+    
     this.chatService.buscarAcordoAtivo(this.chatId).subscribe({
-      next: (acordo: any) => {
-        if (acordo?.id) {
-          this.acordoId = acordo.id;
-          this.valorOutro = acordo.valor;
-        }
-      },
-      error: () => {}
-    });
+  next: (acordo: any) => {
+  if (acordo?.id && acordo?.status === 'ATIVO') {
+    this.acordoId = acordo.id;
+   
+    this.valorOutro = acordo.valor;
+    this.turno = 'enviar';
+  }
+  this.cdr.detectChanges();
+},
+  error: () => {}
+});
   }
 
   ngOnDestroy(): void {
@@ -90,20 +97,31 @@ export class FecharAcordo implements OnInit, OnDestroy {
   processarEvento(evento: any): void {
     switch (evento.tipo) {
       case 'PROPOSTA_ENVIADA':
+        
         this.acordoId = evento.acordoId;
-        this.enviado = true;
+        this.turno = 'aguardar';
+        this.meuValor = null;
         break;
+
       case 'NOVA_PROPOSTA':
+        
         this.acordoId = evento.acordoId;
         this.valorOutro = evento.valor;
+        this.turno = 'enviar';
         break;
+
       case 'CONTRAPROPOSTA':
+        
         this.valorOutro = evento.valor;
+        this.turno = 'enviar';
+        this.meuValor = null;
         break;
+
       case 'ACORDO_ACEITO':
         this.aceito = true;
         setTimeout(() => this.voltar(), 2500);
         break;
+
       case 'ACORDO_CANCELADO':
         this.cancelado = true;
         setTimeout(() => this.voltar(), 2000);
@@ -111,10 +129,25 @@ export class FecharAcordo implements OnInit, OnDestroy {
     }
   }
 
-  abrirModalEnvio(): void {
-    if (!this.meuValor || this.meuValor <= 0) return;
-    this.modal = 'confirmar_envio';
+  podeEnviar(): boolean {
+    return this.turno === 'enviar';
   }
+
+  abrirModalEnvio(): void {
+     if (!this.meuValor || this.meuValor <= 0) {
+    this.erroValor = 'O valor deve ser maior que zero.';
+    return;
+  }
+
+  if (this.valorOutro && this.meuValor === this.valorOutro) {
+    this.erroValor = 'Sua proposta não pode ser igual à proposta atual. Use "Aceitar" se concordar com o valor.';
+    return;
+  }
+
+  this.erroValor = null;
+  this.modal = 'confirmar_envio';
+}
+
 
   abrirModalAceite(): void {
     this.valorAceite = this.valorOutro;
@@ -122,13 +155,14 @@ export class FecharAcordo implements OnInit, OnDestroy {
   }
 
   confirmarEnvio(): void {
+    console.log('confirmarEnvio chamado');
     this.modal = null;
     if (this.acordoId) {
       this.chatService.enviarContraproposta(this.acordoId, this.meuValor!);
     } else {
       this.chatService.iniciarAcordo(this.chatId, this.meuValor!, this.papel);
     }
-    this.enviado = true;
+    this.turno = 'aguardar';
   }
 
   confirmarAceite(): void {
@@ -160,4 +194,8 @@ export class FecharAcordo implements OnInit, OnDestroy {
     if (foto.startsWith('http')) return foto;
     return `http://localhost:8080${foto}`;
   }
+  
+onValorChange(): void {
+  this.erroValor = null;
+}
 }

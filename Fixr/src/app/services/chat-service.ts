@@ -37,33 +37,31 @@ export class ChatService {
             reconnectDelay: 5000,
 
             onConnect: () => {
-                this.conectado$.next(true);
-                this.stompClient.subscribe(
-    `/topic/usuario/${usuario.id}/acordo`,
-    (msg: IMessage) => {
-        this.acordos$.next(JSON.parse(msg.body));
-    }
-);
-                
+    this.conectado$.next(true);
 
+    // ← apenas UM subscribe por tópico
+    this.stompClient.subscribe(
+        `/topic/usuario/${usuario.id}/chamada`,
+        (msg: IMessage) => {
+            this.chamadas$.next(JSON.parse(msg.body));
+        }
+    );
 
-                this.stompClient.subscribe(
-                    `/topic/usuario/${usuario.id}/chamada`,
-                    (msg: IMessage) => {
-                        // console.log('Chamada recebida:', msg.body);
-                        this.chamadas$.next(JSON.parse(msg.body));
-                    }
-                );
+    this.stompClient.subscribe(
+        `/topic/usuario/${usuario.id}/resposta-chamada`,
+        (msg: IMessage) => {
+            this.respostas$.next(JSON.parse(msg.body));
+        }
+    );
 
-
-                this.stompClient.subscribe(
-                    `/topic/usuario/${usuario.id}/resposta-chamada`,
-                    (msg: IMessage) => {
-                        // console.log('resposta da chamada recebida:', msg.body);
-                        this.respostas$.next(JSON.parse(msg.body));
-                    }
-                );
-            },
+    this.stompClient.subscribe(
+        `/topic/usuario/${usuario.id}/acordo`,
+        (msg: IMessage) => {
+            console.log('ACORDO RECEBIDO:', msg.body);
+            this.acordos$.next(JSON.parse(msg.body));
+        }
+    );
+},
 
             onDisconnect: () => this.conectado$.next(false),
             onStompError: (frame) => console.error('STOMP erro:', frame),
@@ -181,6 +179,8 @@ adicionarChatAtivo(chat: Chats): void {
 
 iniciarAcordo(chatId: number, valor: number, papel: string): void {
     const usuario = this.authService.getUsuario();
+     console.log('stompClient connected?', this.stompClient?.connected); // ← log
+    console.log('publicando acordo:', { chatId, valor, papel });   
     this.stompClient.publish({
         destination: '/app/acordo.iniciar',
         body: JSON.stringify({
@@ -217,6 +217,6 @@ cancelarAcordo(acordoId: number): void {
 }
 
 buscarAcordoAtivo(chatId: number): Observable<any> {
-    return this.http.get(`http://localhost:8080/chats/acordos/chat/${chatId}`);
+    return this.http.get(`http://localhost:8080/acordos/chat/${chatId}`);
 }
 }

@@ -277,3 +277,10 @@
 }
 
 .btn-nao:hover { background: #14607a; }
+
+.erro-valor {
+  font-size: 11px;
+  color: #e53935;
+  margin-top: 4px;
+  display: block;
+}
