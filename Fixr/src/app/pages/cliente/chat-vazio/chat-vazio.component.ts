@@ -142,7 +142,6 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked {
     if (!this.chatSelecionado || this.isFavorito || this.carregandoFavorito) return;
 
     const usuario = this.authService.getUsuario();
-    // console.log('usuario logado:', usuario);
     if (!usuario) return;
 
     this.carregandoFavorito = true;

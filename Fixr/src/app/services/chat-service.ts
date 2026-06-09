@@ -38,8 +38,6 @@ export class ChatService {
 
             onConnect: () => {
     this.conectado$.next(true);
-
-    // ← apenas UM subscribe por tópico
     this.stompClient.subscribe(
         `/topic/usuario/${usuario.id}/chamada`,
         (msg: IMessage) => {
@@ -156,8 +154,6 @@ export class ChatService {
         chats.forEach(chat => this.adicionarChatAtivo(chat));
     });
 }
-
-
 
     buscarHistorico(chatId: number): Observable<Mensagens[]> {
         return this.http.get<Mensagens[]>(`${this.API_URL}/historico/${chatId}`);

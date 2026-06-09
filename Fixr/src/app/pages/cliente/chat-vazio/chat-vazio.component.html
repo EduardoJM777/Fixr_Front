@@ -6,7 +6,7 @@
 
     <div class="chat-panel">
 
-      <!-- Sidebar contatos -->
+      
       <div class="contacts-sidebar">
         <p class="contacts-title">CONTATOS</p>
         <div class="search-wrapper">
@@ -17,7 +17,6 @@
           <input type="text" placeholder="Pesquisar" />
         </div>
 
-        <!-- Lista de chats ativos -->
         <div *ngIf="chatsAtivos.length === 0" class="no-contacts">
           Sem contatos<br>para exibir.
         </div>
@@ -29,7 +28,7 @@
         </div>
       </div>
 
-      <!-- Área do chat -->
+      
       <div class="chat-area">
 
         <div class="chat-placeholder" *ngIf="!chatSelecionado">

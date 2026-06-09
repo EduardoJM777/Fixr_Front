@@ -81,7 +81,6 @@
 
   </div>
 
-  <!-- Modal confirmar envio -->
   <div class="modal-overlay" *ngIf="modal === 'confirmar_envio'" (click)="fecharModal()">
     <div class="modal" (click)="$event.stopPropagation()">
       <p>Deseja realmente enviar a proposta de:</p>
@@ -93,7 +92,6 @@
     </div>
   </div>
 
-  <!-- Modal confirmar aceite -->
   <div class="modal-overlay" *ngIf="modal === 'confirmar_aceite'" (click)="fecharModal()">
     <div class="modal" (click)="$event.stopPropagation()">
       <p>Deseja realmente aceitar a proposta de:</p>

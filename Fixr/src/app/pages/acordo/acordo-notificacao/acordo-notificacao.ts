@@ -36,7 +36,7 @@ export class AcordoNotificacao implements OnInit, OnDestroy {
           papel: evento.papel
         };
 
-        // fecha automaticamente após 15 segundos
+        
         setTimeout(() => this.fechar(), 15000);
       }
     });
@@ -52,7 +52,6 @@ export class AcordoNotificacao implements OnInit, OnDestroy {
     const papel = usuario?.tipo === 'CLIENTE' ? 'CLIENTE' : 'PRESTADOR';
     const rota = papel === 'CLIENTE' ? '/chatVazio' : '/chatVazioPrestador';
 
-    // primeiro vai para o chat, depois navega para o acordo
     this.router.navigate(['/fecharAcordo'], {
       state: {
         chatId: this.notificacao.chatId,
