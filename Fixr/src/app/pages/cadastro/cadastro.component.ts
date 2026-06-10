@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth-service';
+import { ChatService } from '../../services/chat-service';
 
 @Component({
   selector: 'app-login',
@@ -13,38 +14,43 @@ import { CommonModule } from '@angular/common';
 })
 export class CadastroComponent {
 
-  constructor(private http: HttpClient, private router: Router){}
+  constructor(private authService: AuthService, 
+              private router: Router, 
+              private chatService: ChatService,
+              ){}
 
-  email: string = "";
-  senha: string = "";
+  email = '';
+  senha = '';
+  erro = '';
+  carregando = false;
 
   
-  login(){
+  login(): void{
+    this.erro = '';
+    this.carregando = true;
 
-    const dados = {
-      email: this.email,
-      senha: this.senha
-    };
+    this.authService.login({ email: this.email, senha: this.senha})
+    .subscribe({
+      next: (usuario) => {
+        this.authService.salvarUsuario(usuario);
+        this.chatService.conectar();
 
-    this.http.post<boolean>("http://localhost:8080/prestador/login", dados)
-      .subscribe({
-        next: (res) => {
-          if(res){
-            alert("Login realizado!");
-            this.router.navigate(['/home']);
-          } else {
-            alert("Email ou senha inválidos");
-          }
-        },
-        error: (err) => {
-          console.log(err);
-          alert("Erro ao conectar com o servidor");
+        if (usuario.tipo === 'CLIENTE') {
+          this.router.navigate(['/chatVazio']);
+        } else {
+          this.router.navigate(['/chatVazioPrestador'])
         }
-      });
-  }
-
-  irChatVazio(){
-    this.router.navigate(['/chatVazio']);
+      },
+      error: (err) => {
+        this.carregando = false;
+        if (err.status === 403) {
+          this.erro = 'Sua conta está inativa. Entre em contato com o suporte.';
+        } else {
+          this.erro = 'Email ou senha inválidos.';
+          
+        }
+      }
+    });
   }
   
   irCadCliente(){
@@ -58,4 +64,5 @@ export class CadastroComponent {
   irRecSenha(){
     this.router.navigate(['/recuperarSenha']);
   }
+
 }

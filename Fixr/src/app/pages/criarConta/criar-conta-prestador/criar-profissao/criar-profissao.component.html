@@ -36,10 +36,9 @@
 
                 <div class="campo">
                     <label>PROFISSÃO SEMELHANTE</label>
-                    <select [(ngModel)]="profissaoSemelhanteId"
-                            name="profissaoSemelhanteId">
+                    <select>
 
-                        <option [ngValue]="null">Nenhuma</option>
+                        <option>Nenhuma</option>
 
                         <option *ngFor="let p of profissoes"
                                 [value]="p.id">

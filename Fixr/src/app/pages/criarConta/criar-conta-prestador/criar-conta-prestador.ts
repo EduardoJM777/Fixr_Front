@@ -22,8 +22,8 @@ export class CriarContaPrestador {
   senha = "";
   confSenha = "";
   telefone = "";
-
-  profissaoId: any = "";
+  readonly OUTRO = -1;
+  profissaoId: string = "";
   profissoes: any[] = [];
 
   
@@ -36,7 +36,7 @@ export class CriarContaPrestador {
 
   
   onProfissaoChange(){
-    if(this.profissaoId === 'outro'){
+    if(Number(this.profissaoId) === this.OUTRO){
       this.router.navigate(['/criarProfissao']);
     }
   }
@@ -49,18 +49,20 @@ export class CriarContaPrestador {
       return;
     }
 
-    if(this.profissaoId === 'outro'){
-      alert("Selecione uma profissão válida");
+    const idProfissao = Number(this.profissaoId)
+
+    if (!this.profissaoId || idProfissao === this.OUTRO || isNaN(idProfissao)) {
+      alert('Selecione uma profissão válida');
       return;
     }
 
     const dados = {
       nome: this.nome,
-      dataNascimento: this.dataNascimento,
+      dataNascimento: this.dataNascimento || null,
       email: this.email,
       senha: this.senha,
-      profissaoId: this.profissaoId,
-      telefone: this.telefone
+      profissaoId: idProfissao,
+      telefone: this.telefone || null
     };
 
     this.http.post("http://localhost:8080/prestador", dados)

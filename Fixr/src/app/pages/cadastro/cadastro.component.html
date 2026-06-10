@@ -18,7 +18,15 @@
                name="senha"
                [(ngModel)]="senha">
 
-        <button class="btn-entrar" (click)="irChatVazio()">ENTRAR</button>
+        @if (erro) { 
+            <p class="erro">{{ erro }}</p>  
+        }
+
+        <button class="btn-entrar"
+                (click)="login()"
+                [disabled]="carregando">
+            {{ carregando ? 'Entrando...' : 'Entrar' }}
+        </button>
 
         <button class="btn-rec" (click)="irRecSenha()">
             Recuperar senha

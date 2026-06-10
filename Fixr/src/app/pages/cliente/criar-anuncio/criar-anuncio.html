@@ -1,0 +1,73 @@
+<app-header-fixr-cliente></app-header-fixr-cliente>
+<app-sub-header-cliente></app-sub-header-cliente>
+
+<div class="page-wrapper">
+
+  <div class="content">
+
+    <div class="top-icons">
+      <span class="icon">🔔</span>
+      <span class="icon">⚙️</span>
+    </div>
+
+    <div class="form-area">
+
+      <div class="image-box">
+        @if (previewUrl) {
+          <img [src]="previewUrl" 
+               alt="Foto do problema" 
+               class="problem-image" />
+        }
+        
+        @if (!previewUrl) {
+          <label class="image-placeholder">
+              <span>+ Adicionar foto</span>
+              <input type="file" 
+                     (change)="onImagemSelecionada($event)" 
+                     accept="image/*" 
+                     hidden />
+          </label>
+        }     
+          
+        @if (previewUrl) {
+          <button class="btn-trocar-imagem"
+                  type="button"
+                  (click)="removerImagem()">
+            Trocar imagem
+          </button>
+        }
+      </div>
+
+      <div class="form-fields">
+
+        <label class="field-label">DESCRIÇÃO:</label>
+        <textarea class="field-textarea" 
+                  [(ngModel)]="descricao" 
+                  placeholder="Descreva o problema...">
+        </textarea>
+
+        <label class="field-label">PROFISSIONAL NECESSÁRIO:</label>
+        <div class="select-wrapper">
+          <select class="field-select" 
+                  name="profissaoId" 
+                  [(ngModel)]="profissaoId">
+
+            <option [ngValue]="null">Selecione...</option>
+
+            <option *ngFor="let p of profissoes" [ngValue]="p.id">
+              {{ p.nome }}
+            </option>
+          </select>
+          <span class="select-arrow">▼</span>
+        </div>
+
+        <button class="btn-publicar" 
+                (click)="publicar()"
+                [disabled]="!descricao || !profissaoId || !imagemSelecionada">
+          Publicar
+        </button>
+
+      </div>
+    </div>
+  </div>
+</div>

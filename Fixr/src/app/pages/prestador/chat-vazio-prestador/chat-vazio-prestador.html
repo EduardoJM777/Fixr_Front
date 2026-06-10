@@ -1,0 +1,158 @@
+<app-headr-fixr-prestador></app-headr-fixr-prestador>
+<app-sub-header-prestador></app-sub-header-prestador>
+
+<body>
+  <div class="main-wrapper">
+
+    <div class="chat-panel">
+
+      <div class="contacts-sidebar">
+        <p class="contacts-title">CONTATOS</p>
+        <div class="search-wrapper">
+          <svg viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          <input type="text" placeholder="Pesquisar" />
+        </div>
+
+        <div *ngIf="chatsAtivos.length === 0" class="no-contacts">
+          Sem contatos<br>para exibir.
+        </div>
+
+        <div *ngFor="let chat of chatsAtivos" class="contato-item" [class.ativo]="chatSelecionado?.id === chat.id"
+          (click)="selecionarChat(chat)">
+          <div class="contato-avatar">{{ chat.cliente.nome.charAt(0) }}</div>
+          <span class="contato-nome">{{ chat.cliente.nome }}</span>
+        </div>
+      </div>
+
+      <div class="chat-area">
+
+        <div class="chat-placeholder" *ngIf="!chatSelecionado">
+          <p>Inicie uma conversa com um cliente</p>
+          <ul>
+            <li>Selecione "buscar anúncio"</li>
+          </ul>
+        </div>
+
+        <ng-container *ngIf="chatSelecionado as chat">
+
+          <div class="chat-header-bar">
+            
+            <button class="btn-favorito" (click)="adicionarFavorito()" [disabled]="isFavorito || carregandoFavorito"
+              [class.favoritado]="isFavorito">
+              <svg *ngIf="!isFavorito" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02
+                       12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+              </svg>
+              <svg *ngIf="isFavorito" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"
+                stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02
+                       12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+              </svg>
+              {{ isFavorito ? 'Favoritado' : (carregandoFavorito ? '...' : 'Adicionar aos favoritos') }}
+            </button>
+
+            <div style="display:flex; align-items:center; gap:8px;">
+              <div class="chat-header-avatar">{{ chat.cliente.nome.charAt(0) }}</div>
+              <span class="chat-header-nome">{{ chat.cliente.nome }}</span>
+            </div>
+
+            <button class="btn-encerrar" (click)="fecharAcordo()" *ngIf="!chatEncerrado">
+  Acordo Fechado
+</button>
+            <span class="chat-encerrado-badge" *ngIf="chatEncerrado">Acordo Fechado</span>
+          </div>
+
+          <div class="mensagens-lista" #mensagensContainer>
+            <div *ngFor="let msg of mensagens" class="msg-wrapper" [class.minha]="isMinha(msg)"
+              [class.sistema]="isSistema(msg)">
+
+              <div *ngIf="isSistema(msg)" class="msg msg--sistema">
+                {{ msg.texto }}
+              </div>
+
+              <div *ngIf="!isSistema(msg)" class="msg" [class.msg--minha]="isMinha(msg)"
+                [class.msg--outra]="!isMinha(msg)">
+                <p class="msg-texto">{{ msg.texto }}</p>
+                <span class="msg-hora">{{ msg.enviadoEm | date:'HH:mm' }}</span>
+              </div>
+
+            </div>
+
+            <div class="chat-encerrado-aviso" *ngIf="chatEncerrado">
+              Chat encerrado
+            </div>
+          </div>
+
+        </ng-container>
+
+        <div class="chat-input-bar">
+          <button class="icon-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+              <line x1="9" y1="9" x2="9.01" y2="9" stroke-width="3" stroke-linecap="round" />
+              <line x1="15" y1="9" x2="15.01" y2="9" stroke-width="3" stroke-linecap="round" />
+            </svg>
+          </button>
+
+          <input type="text" [(ngModel)]="novaMensagem" (keydown)="onKeyDown($event)"
+            [disabled]="!chatSelecionado || chatEncerrado"
+            placeholder="{{ chatEncerrado ? 'Chat encerrado' : 'Digite uma mensagem...' }}" />
+
+          <button class="send-btn" (click)="enviar()" [disabled]="!novaMensagem.trim() || chatEncerrado">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5">
+              <line x1="22" y1="2" x2="11" y2="13" />
+              <polygon points="22 2 15 22 11 13 2 9 22 2" fill="#fff" />
+            </svg>
+          </button>
+
+          <button class="icon-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+              <line x1="12" y1="19" x2="12" y2="23" />
+              <line x1="8" y1="23" x2="16" y2="23" />
+            </svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="right-panel">
+      <div class="ads-card">
+        <p class="ads-card-title">Anúncios chamados</p>
+
+        <div *ngFor="let anuncio of anunciosChamados" class="anuncio-resumo">
+          <div class="anuncio-resumo__img">
+            <img *ngIf="anuncio.imagemUrl" 
+                 [src]="anuncio.imagemUrl"
+                 [alt]="anuncio.descricao" />
+            <div *ngIf="!anuncio.imagemUrl" class="anuncio-resumo__img-placeholder">
+              Sem foto
+            </div>
+          </div>
+          <div class="anuncio-resumo__info">
+            <p class="anuncio-resumo__descricao">{{ anuncio.descricao }}</p>
+            <button class="btn-editar" (click)="selecionarChatPorAnuncio(anuncio.chatId)">
+              Ver chat
+            </button>
+          </div>
+        </div>
+
+        <div *ngIf="anunciosChamados.length === 0" class="ads-card-inner">
+          <p>Nenhum anúncio chamado ainda.</p>
+          <ul>
+            <li>Clique em "Buscar Anúncio"</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</body>
