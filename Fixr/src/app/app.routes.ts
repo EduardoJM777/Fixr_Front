@@ -19,6 +19,7 @@ import { DetalhesPrestador } from './pages/cliente/detalhes-prestador/detalhes-p
 import { EditarPerfilPrestador } from './pages/prestador/editar-perfil-prestador/editar-perfil-prestador';
 import { Avaliacao } from './pages/cliente/avaliacao/avaliacao';
 import { AvaliacoesRecebidas } from './pages/prestador/avaliacoes-recebidas/avaliacoes-recebidas';
+import { FecharAcordo } from './pages/acordo/fechar-acordo/fechar-acordo';
 import { AvaliacaoPrestador } from './pages/prestador/avaliacao/avaliacao';
 import { AvaliacoesRecebidasCliente } from './pages/cliente/avaliacoes-recebidas-cliente/avaliacoes-recebidas-cliente';
 import { AnunciosPublicados } from './pages/cliente/anuncios-publicados/anuncios-publicados';
@@ -46,6 +47,7 @@ export const routes: Routes = [
     {path: 'editarPerfilPrestador', component: EditarPerfilPrestador},
     {path: 'avaliacao', component: Avaliacao},
     {path: 'avaliacoesRecebidasPrestador', component: AvaliacoesRecebidas},
+    { path: 'fecharAcordo', component: FecharAcordo },
     {path: 'avaliacaoPrestador', component: AvaliacaoPrestador},
     {path: 'avaliacoesRecebidasCliente', component: AvaliacoesRecebidasCliente},
     {path: 'anunciosPublicados', component: AnunciosPublicados},

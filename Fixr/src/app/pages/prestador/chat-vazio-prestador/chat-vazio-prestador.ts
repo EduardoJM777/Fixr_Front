@@ -236,4 +236,15 @@ export class ChatVazioPrestadorComponent implements OnInit, OnDestroy, AfterView
       error: () => { }
     });
   }
+
+  fecharAcordo(): void {
+  if (!this.chatSelecionado) return;
+  this.router.navigate(['/fecharAcordo'], {
+    state: {
+      chatId: this.chatSelecionado.id,
+      outroNome: this.chatSelecionado.cliente.nome,
+      papel: 'PRESTADOR'
+    }
+  });
+}
 }
