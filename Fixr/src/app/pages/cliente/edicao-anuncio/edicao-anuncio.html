@@ -1,1 +1,60 @@
 <app-header-fixr-cliente></app-header-fixr-cliente>
+<app-sub-header-cliente></app-sub-header-cliente>
+
+<div class="editar-container">
+
+    <div class="estado-loading" *ngIf="carregando">
+        <div class="spinner"></div>
+        <p>Carregando...</p>
+    </div>
+
+    <div class="estado-erro" *ngIf="!carregando && erro">
+        <span>⚠</span>
+        <p>{{ erro }}</p>
+    </div>
+
+    <div class="editar-grid" *ngIf="!carregando && !erro && anuncio">
+
+        <div class="coluna-imagem">
+            <img [src]="getImagemUrl()" [alt]="anuncio!.descricao" class="imagem-anuncio"
+                (error)="$any($event.target).src = 'assets/imagem-placeholder.png'" />
+        </div>
+
+        <div class="coluna-form">
+
+            <div class="campo">
+                <label class="campo-label">DESCRIÇÃO:</label>
+                <textarea class="campo-textarea" [(ngModel)]="descricao" maxlength="300" rows="7"
+                    placeholder="Descreva o serviço necessário...">
+        </textarea>
+            </div>
+
+            <div class="campos-linha">
+
+                <div class="campo">
+                    <label class="campo-label">PROFISSIONAL NECESSÁRIO:</label>
+                    <select class="campo-select" [(ngModel)]="profissaoSelecionadaId">
+                        <option *ngFor="let p of profissoes" [value]="p.id">{{ p.nome }}</option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label class="campo-label">STATUS:</label>
+                    <select class="campo-select" [(ngModel)]="statusSelecionado">
+                        <option *ngFor="let s of statusOpcoes" [value]="s">{{ getStatusLabel(s) }}</option>
+                    </select>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="rodape" *ngIf="!carregando && !erro && anuncio">
+        <button class="btn-atualizar" (click)="atualizar()" [disabled]="salvando">
+            {{ salvando ? 'Salvando...' : 'Atualizar' }}
+        </button>
+    </div>
+
+</div>

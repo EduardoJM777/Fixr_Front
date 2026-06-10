@@ -3,7 +3,6 @@
 
 <div class="page">
 
-  <!-- Toolbar -->
   <div class="toolbar">
     <button class="toolbar-icon" 
             title="Notificações">🔔</button>
@@ -11,17 +10,14 @@
             title="Configurações">⚙</button>
   </div>
 
-  <!-- Botão meu perfil -->
   <div class="perfil-btn-wrapper">
     <button class="btn-meu-perfil">MEU PERFIL</button>
   </div>
 
   <hr class="divider" />
 
-  <!-- Conteúdo principal -->
   <div class="content">
 
-    <!-- Coluna esquerda -->
     <div class="col-esquerda">
       <div class="avatar-wrapper">
         <img *ngIf="prestador?.foto" 
@@ -52,7 +48,6 @@
               (click)="editarPerfil()">Editar Perfil</button>
     </div>
 
-    <!-- Coluna direita: stats -->
     <div class="stats-card">
 
       <div *ngIf="carregando" 
@@ -61,7 +56,7 @@
       <ng-container *ngIf="!carregando">
 
         <div class="stat-item">
-          <span (click)="avaliacoesRecebidas()">Avaliações recebidas: <strong>{{ stats?.avaliacoesRecebidas ?? '-' }}</strong></span>
+          <span class="avaliacoesRecebidas" (click)="avaliacoesRecebidas()">Avaliações recebidas: <strong>{{ stats?.avaliacoesRecebidas ?? '-' }}</strong></span>
           <hr />
         </div>
       

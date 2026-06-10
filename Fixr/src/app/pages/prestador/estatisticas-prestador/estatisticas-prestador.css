@@ -15,7 +15,7 @@
   padding-bottom: 40px;
 }
 
-/* Toolbar */
+
 .toolbar {
   display: flex;
   justify-content: flex-end;
@@ -39,7 +39,7 @@
   }
 }
 
-/* Botão meu perfil */
+
 .perfil-btn-wrapper {
   padding: 8px 20px 12px;
 
@@ -66,7 +66,7 @@
   margin: 0 0 24px;
 }
 
-/* Layout principal */
+
 .content {
   display: flex;
   align-items: flex-start;
@@ -74,7 +74,7 @@
   padding: 0 40px;
 }
 
-/* Coluna esquerda */
+
 .col-esquerda {
   display: flex;
   flex-direction: column;
@@ -159,7 +159,7 @@
   }
 }
 
-/* Card de estatísticas */
+
 .stats-card {
   background: var(--fixr-white);
   border-radius: 12px;
@@ -191,4 +191,9 @@
       }
     }
   }
+}
+
+.avaliacoesRecebidas {
+  color: #1500FF;
+  cursor: pointer;
 }

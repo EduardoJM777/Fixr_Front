@@ -1,2 +1,64 @@
 <app-headr-fixr-prestador></app-headr-fixr-prestador>
 <app-sub-header-prestador></app-sub-header-prestador>
+
+<div class="avaliacoes-container">
+
+    <div class="estado-loading" *ngIf="carregando">
+        <div class="spinner"></div>
+        <p>Carregando avaliações...</p>
+    </div>
+
+    <div class="estado-erro" *ngIf="!carregando && erro">
+        <span class="icone-erro">⚠</span>
+        <p>{{ erro }}</p>
+    </div>
+
+    <div class="estado-vazio" *ngIf="!carregando && !erro && avaliacoes.length === 0">
+        <span class="icone-vazio">★</span>
+        <p>Você ainda não recebeu nenhuma avaliação.</p>
+    </div>
+
+    <div class="resumo" *ngIf="!carregando && !erro && avaliacoes.length > 0">
+        <div class="resumo-nota">
+            <span class="nota-numero">{{ mediaAvaliacoes }}</span>
+            <span class="nota-label">média geral</span>
+        </div>
+        <div class="resumo-total">
+            <span class="total-numero">{{ avaliacoes.length }}</span>
+            <span class="total-label">{{ avaliacoes.length === 1 ? 'avaliação' : 'avaliações' }}</span>
+        </div>
+    </div>
+
+    <div class="lista-avaliacoes" *ngIf="!carregando && !erro && avaliacoes.length > 0">
+
+        <div class="card-avaliacao" *ngFor="let avaliacao of avaliacoes">
+
+            <div class="estrelas">
+                <span *ngFor="let preenchida of gerarEstrelas(avaliacao.nota)" class="estrela"
+                    [class.preenchida]="preenchida" [class.vazia]="!preenchida">
+                    ★
+                </span>
+                <span class="nota-texto">{{ avaliacao.nota }}/5</span>
+            </div>
+
+            <div class="card-conteudo">
+
+                <div class="card-secao" *ngIf="avaliacao.comentario">
+                    <p class="secao-label">Comentário</p>
+                    <p class="secao-texto">{{ avaliacao.comentario }}</p>
+                </div>
+
+                <div class="card-divisor" *ngIf="avaliacao.comentario && avaliacao.sugest_melhoria"></div>
+
+                <div class="card-secao melhoria" *ngIf="avaliacao.sugest_melhoria">
+                    <p class="secao-label">O que pode melhorar</p>
+                    <p class="secao-texto">{{ avaliacao.sugest_melhoria }}</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

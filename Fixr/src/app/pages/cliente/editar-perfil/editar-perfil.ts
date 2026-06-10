@@ -122,7 +122,6 @@ export class EditarPerfil implements OnInit {
     reader.readAsDataURL(this.fotoArquivo);
   }
 
-  /** URL da foto: preview local → foto do backend → vazio (CSS mostra inicial) */
   get fotoSrc(): string {
     if (this.fotoPreview) return this.fotoPreview;
     if (this.cliente?.foto) return this.cliente.foto;

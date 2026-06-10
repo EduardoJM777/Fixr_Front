@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -19,7 +19,7 @@ export interface ClienteFavorito {
 @Component({
   selector: 'app-favoritos-prestador',
   standalone: true,
-  imports: [NgFor, NgIf, FormsModule, HeadrFixrPrestador, SubHeaderPrestador],
+  imports: [CommonModule, FormsModule, HeadrFixrPrestador, SubHeaderPrestador],
   templateUrl: './favoritos-prestador.html',
   styleUrls: ['./favoritos-prestador.css'],
 })
@@ -53,6 +53,12 @@ export class FavoritosPrestador implements OnInit {
   }
 
   avaliar(fav: ClienteFavorito): void {
-    this.router.navigate(['/avaliar-cliente', fav.id]);
-  }
+  this.router.navigate(['/avaliacaoPrestador'], {
+    state: {
+      clienteId: fav.id,
+      clienteNome: fav.nome,
+      clienteFoto: fav.foto
+    }
+  });
+}
 }

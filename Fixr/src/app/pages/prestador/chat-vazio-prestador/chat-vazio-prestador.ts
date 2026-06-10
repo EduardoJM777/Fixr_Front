@@ -71,7 +71,6 @@ export class ChatVazioPrestadorComponent implements OnInit, OnDestroy, AfterView
     );
 
 
-    
     this.subs.push(
       this.chatService.chatIniciado$.subscribe(chatId => {
         this.entrarNoChat(chatId);
@@ -81,7 +80,6 @@ export class ChatVazioPrestadorComponent implements OnInit, OnDestroy, AfterView
       })
     );
 
-    
     this.subs.push(
       this.chatService.mensagens$.subscribe(msg => {
         if (!msg.chat?.id) return;

@@ -14,7 +14,8 @@
   position: relative;
 }
 
-/* ─── Ícones topo direito ─── */
+
+
 .top-icons {
   display: flex;
   justify-content: flex-end;
@@ -31,7 +32,8 @@
   opacity: 1;
 }
 
-/* ─── Botão Meu Perfil ─── */
+
+
 .meu-perfil-row {
   margin-bottom: 0;
 }
@@ -51,14 +53,16 @@
   background: #f0f0f0;
 }
 
-/* ─── Divider ─── */
+
+
 .divider {
   height: 2px;
   background: rgba(0,0,0,0.15);
   margin: 12px 0 20px;
 }
 
-/* ─── Conteúdo ─── */
+
+
 .content {
   display: flex;
   align-items: flex-start;
@@ -66,7 +70,8 @@
   flex-wrap: wrap;
 }
 
-/* ─── Coluna esquerda ─── */
+
+
 .perfil-col {
   display: flex;
   flex-direction: column;
@@ -127,7 +132,8 @@
   background: #122b52;
 }
 
-/* ─── Card de estatísticas ─── */
+
+
 .stats-card {
   background: #fff;
   border-radius: 12px;
@@ -148,6 +154,14 @@
   font-size: 16px;
   color: #3a6fd8;
   font-weight: 400;
+}
+
+.ava {
+  cursor: pointer;
+}
+
+.pub {
+  cursor: pointer;
 }
 
 .stat-text {

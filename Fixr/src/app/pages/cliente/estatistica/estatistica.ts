@@ -83,4 +83,13 @@ export class EstatisticasClienteComponent implements OnInit, OnDestroy {
   editarPerfil(): void {
     this.router.navigate(['/editarPerfil']);
   }
+
+  avaliacoesRecebidasCliente(): void {
+    this.router.navigate(['/avaliacoesRecebidasCliente']);
+  }
+  
+  anunciosPublicados(): void {
+    this.router.navigate(['/anunciosPublicados']);
+  }
+
 }

@@ -3,7 +3,6 @@
 
 <div class="page-wrapper">
 
-  <!-- Ícones topo direito -->
   <div class="top-icons">
     <svg width="24" 
          height="24" 
@@ -63,12 +62,16 @@
       <div *ngIf="!carregando">
         
         <div class="stat-item">
-          <span class="stat-link">Avaliações recebidas: {{ stats?.avaliacoesRecebidas ?? '-' }}</span>
+          <span class="stat-link ava"
+                (click)="avaliacoesRecebidasCliente()"
+          >Avaliações recebidas: {{ stats?.avaliacoesRecebidas ?? '-' }}</span>
           <div class="stat-divider"></div>
         </div>
 
         <div class="stat-item">
-          <span class="stat-link">Anúncios publicados: {{ stats?.anunciosPublicados ?? '-' }}</span>
+          <span class="stat-link pub"
+                (click)="anunciosPublicados()"
+          >Anúncios publicados: {{ stats?.anunciosPublicados ?? '-' }}</span>
           <div class="stat-divider"></div>
         </div>
 

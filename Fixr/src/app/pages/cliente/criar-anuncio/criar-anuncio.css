@@ -1,4 +1,4 @@
-/* anunciar-problema.component.css */
+
 
 * {
   box-sizing: border-box;
@@ -14,7 +14,7 @@
   flex-direction: column;
 }
 
-/* ── Header ── */
+
 .header {
   background-color: #f0f0f0;
   display: flex;
@@ -45,7 +45,7 @@
   min-width: 120px;
 }
 
-/* ── Navbar ── */
+
 .navbar {
   background-color: #1b5f7a;
   display: flex;
@@ -84,7 +84,7 @@
   background-color: #ffffff;
 }
 
-/* ── Content ── */
+
 .content {
   flex: 1;
   padding: 12px 40px 40px;
@@ -107,14 +107,14 @@
   transform: scale(1.15);
 }
 
-/* ── Form Area ── */
+
 .form-area {
   display: flex;
   gap: 32px;
   align-items: flex-start;
 }
 
-/* ── Image Box ── */
+
 .image-box {
   flex: 0 0 440px;
   height: 440px;
@@ -148,7 +148,7 @@
   background-color: #b8b8b8;
 }
 
-/* ── Form Fields ── */
+
 .form-fields {
   flex: 1;
   display: flex;
@@ -181,7 +181,7 @@
   box-shadow: 0 0 0 2px #1b5f7a;
 }
 
-/* ── Select ── */
+
 .select-wrapper {
   position: relative;
   width: 200px;
@@ -215,7 +215,7 @@
   pointer-events: none;
 }
 
-/* ── Botão Publicar ── */
+
 .btn-publicar {
   align-self: flex-end;
   margin-top: 16px;

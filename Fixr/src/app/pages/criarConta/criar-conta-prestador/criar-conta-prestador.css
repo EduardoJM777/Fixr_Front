@@ -6,7 +6,7 @@
 
 
 
-/* HEADER */
+
 .header {
     display: flex;
     align-items: center;
@@ -24,7 +24,7 @@
 
 
 
-/* CONTAINER */
+
 .container {
     width: 100%;
     max-width: 1353px;
@@ -41,7 +41,7 @@
 
 
 
-/* LAYOUT */
+
 .linha {
     display: flex;
     gap: 40px;
@@ -55,7 +55,7 @@
 
 
 
-/* LABEL */
+
 h3 {
     color: #FFFFFF;
     font-weight: 800;
@@ -65,7 +65,7 @@ h3 {
 
 
 
-/* INPUTS */
+
 .inNome{
     width: 612px;
     height: 50px;
@@ -144,7 +144,7 @@ select {
 
 
 
-/* BOTÃO */
+
 .acoes {
     display: flex;
     justify-content: flex-end;

@@ -30,7 +30,6 @@ export class Avaliacao {
   sugestaoMelhoria: string = '';
   enviando: boolean = false;
 
-  // Dados combinados (opcionais)
   valorCombinado?: string;
   dataCombinada?: string;
   horarioCombinado?: string;
@@ -52,7 +51,6 @@ export class Avaliacao {
       horarioCombinado?: string;
     };
 
-    console.log('state recebido:', state);
 
     if (state?.prestadorId) {
       this.prestador = {
@@ -64,7 +62,6 @@ export class Avaliacao {
       this.dataCombinada = state.dataCombinada;
       this.horarioCombinado = state.horarioCombinado;
     } else {
-      // fallback: tenta pegar da rota
       const prestadorId = this.route.snapshot.paramMap.get('id');
       if (prestadorId) {
         this.http.get<any>(`http://localhost:8080/prestador/${prestadorId}`)
@@ -126,6 +123,7 @@ export class Avaliacao {
     this.http.post('http://localhost:8080/avaliacoes', body).subscribe({
       next: () => {
         this.enviando = false;
+        alert('Avaliação enviada com sucesso! Obrigado pelo seu feedback.');
         this.router.navigate(['/chatVazio']);
       },
       error: () => {

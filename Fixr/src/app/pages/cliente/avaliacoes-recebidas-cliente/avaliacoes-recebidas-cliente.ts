@@ -1,44 +1,43 @@
-import { Component, OnInit } from '@angular/core';
-import { HeadrFixrPrestador } from '../../../components/headr-fixr-prestador/headr-fixr-prestador';
-import { SubHeaderPrestador } from '../../../components/sub-header-prestador/sub-header-prestador';
+import { Component } from '@angular/core';
 import { AvaliacoesDTO } from '../../../models/avaliacoesDTO.model';
 import { AvaliacaoService } from '../../../services/avaliacao-service';
 import { AuthService } from '../../../services/auth-service';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { HeaderFixrCliente } from '../../../components/header-fixr-cliente/header-fixr-cliente';
+import { SubHeaderCliente } from '../../../components/sub-header-cliente/sub-header-cliente';
 
 @Component({
-  selector: 'app-avaliacoes-recebidas',
-  standalone: true,
-  imports: [CommonModule, HeadrFixrPrestador, SubHeaderPrestador],
-  templateUrl: './avaliacoes-recebidas.html',
-  styleUrl: './avaliacoes-recebidas.css',
+  selector: 'app-avaliacoes-recebidas-cliente',
+  imports: [CommonModule, FormsModule, HeaderFixrCliente, SubHeaderCliente],
+  templateUrl: './avaliacoes-recebidas-cliente.html',
+  styleUrl: './avaliacoes-recebidas-cliente.css',
 })
-
-export class AvaliacoesRecebidas implements OnInit {
+export class AvaliacoesRecebidasCliente {
 
   avaliacoes: AvaliacoesDTO[] = [];
   carregando = true;
   erro: string | null = null;
-
+ 
   constructor(
-    private avaliacaoService: AvaliacaoService,
+    private avaliacoesService: AvaliacaoService,
     private authService: AuthService
-  ) { }
-
+  ) {}
+ 
   ngOnInit(): void {
     this.carregarAvaliacoes();
   }
-
+ 
   carregarAvaliacoes(): void {
     const usuario = this.authService.getUsuario();
-
+ 
     if (!usuario?.id) {
       this.erro = 'Usuário não autenticado.';
       this.carregando = false;
       return;
     }
-
-    this.avaliacaoService.listarPorPrestador(usuario.id).subscribe({
+ 
+    this.avaliacoesService.listarPorCliente(usuario.id).subscribe({
       next: (dados) => {
         this.avaliacoes = dados;
         this.carregando = false;
@@ -50,17 +49,15 @@ export class AvaliacoesRecebidas implements OnInit {
       }
     });
   }
-
-
+ 
   gerarEstrelas(nota: number): boolean[] {
     return Array.from({ length: 5 }, (_, i) => i < nota);
   }
-
+ 
   get mediaAvaliacoes(): string {
     if (!this.avaliacoes.length) return '0.0';
     const soma = this.avaliacoes.reduce((acc, a) => acc + a.nota, 0);
     return (soma / this.avaliacoes.length).toFixed(1);
   }
-
 
 }

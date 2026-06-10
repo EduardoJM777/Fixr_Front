@@ -125,11 +125,11 @@ export class ChatService {
     }
 
     iniciarChatNaSidebar(chatId: number): void {
-    this.http.get<Chats>(`${this.API_URL}/${chatId}`).subscribe(chat => {
-        this.adicionarChatAtivo(chat);
-        this.chatIniciado$.next(chatId);
-    });
-}
+        this.http.get<Chats>(`${this.API_URL}/${chatId}`).subscribe(chat => {
+            this.adicionarChatAtivo(chat);
+            this.chatIniciado$.next(chatId);
+        });
+    }
 
     enviarMensagem(dto: MensagensDTO): void {
         this.stompClient.publish({
@@ -146,14 +146,14 @@ export class ChatService {
     }
 
     carregarChatsAtivos(papel: 'CLIENTE' | 'PRESTADOR', userId: number): void {
-    const url = papel === 'CLIENTE'
-        ? `${this.API_URL}/cliente/${userId}`
-        : `${this.API_URL}/prestador/${userId}`;
+        const url = papel === 'CLIENTE'
+            ? `${this.API_URL}/cliente/${userId}`
+            : `${this.API_URL}/prestador/${userId}`;
 
-    this.http.get<Chats[]>(url).subscribe(chats => {
-        chats.forEach(chat => this.adicionarChatAtivo(chat));
-    });
-}
+        this.http.get<Chats[]>(url).subscribe(chats => {
+            chats.forEach(chat => this.adicionarChatAtivo(chat));
+        });
+    }
 
     buscarHistorico(chatId: number): Observable<Mensagens[]> {
         return this.http.get<Mensagens[]>(`${this.API_URL}/historico/${chatId}`);
@@ -165,11 +165,12 @@ export class ChatService {
 
     chatsAtivos$ = new BehaviorSubject<Chats[]>([]);
 
-adicionarChatAtivo(chat: Chats): void {
-    const atual = this.chatsAtivos$.getValue();
-    const jaExiste = atual.find(c => c.id === chat.id);
-    if (!jaExiste) {
-        this.chatsAtivos$.next([...atual, chat]);
+    adicionarChatAtivo(chat: Chats): void {
+        const atual = this.chatsAtivos$.getValue();
+        const jaExiste = atual.find(c => c.id === chat.id);
+        if (!jaExiste) {
+            this.chatsAtivos$.next([...atual, chat]);
+        }
     }
 }
 

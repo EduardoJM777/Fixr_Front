@@ -98,7 +98,6 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.http.get<AnuncioResponseDTO[]>(`http://localhost:8080/anuncio/cliente/${usuario.id}`)
         .subscribe({
           next: (anuncios) => {
-            // console.log('meus anuncios:', anuncios);
             this.meusAnuncios = anuncios;
             this.cdr.detectChanges();
           },
@@ -166,7 +165,6 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   private verificarFavorito(prestadorId: number): void {
     const usuario = this.authService.getUsuario();
-    console.log('verificarFavorito - usuario:', usuario);
     if (!usuario) return;
 
     this.http.get<any[]>(
@@ -257,4 +255,8 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked {
     }
   });
 }
+  irEdicaoAnuncio(id: number): void{
+    this.router.navigate(['/edicaoAnuncio', id]);
+  }
+
 }

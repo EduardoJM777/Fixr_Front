@@ -12,12 +12,12 @@ export class ClienteService {
 
   private baseUrl = "http://localhost:8080/cliente";
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   salvar(clienteDTO: ClienteDTO): Observable<ClienteDTO> {
     return this.http.post<ClienteDTO>(this.baseUrl, clienteDTO)
   }
-  atualizar(id:Number, clienteDTO: ClienteDTO): Observable<ClienteDTO>{
+  atualizar(id: Number, clienteDTO: ClienteDTO): Observable<ClienteDTO> {
     return this.http.put<ClienteDTO>(`${this.baseUrl}/${id}`, clienteDTO)
   }
 

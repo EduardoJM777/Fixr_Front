@@ -20,6 +20,11 @@ import { EditarPerfilPrestador } from './pages/prestador/editar-perfil-prestador
 import { Avaliacao } from './pages/cliente/avaliacao/avaliacao';
 import { AvaliacoesRecebidas } from './pages/prestador/avaliacoes-recebidas/avaliacoes-recebidas';
 import { FecharAcordo } from './pages/acordo/fechar-acordo/fechar-acordo';
+import { AvaliacaoPrestador } from './pages/prestador/avaliacao/avaliacao';
+import { AvaliacoesRecebidasCliente } from './pages/cliente/avaliacoes-recebidas-cliente/avaliacoes-recebidas-cliente';
+import { AnunciosPublicados } from './pages/cliente/anuncios-publicados/anuncios-publicados';
+import { EstatisticasAnuncio } from './pages/cliente/estatisticas-anuncio/estatisticas-anuncio';
+import { EdicaoAnuncio } from './pages/cliente/edicao-anuncio/edicao-anuncio';
 
 export const routes: Routes = [
 
@@ -43,6 +48,11 @@ export const routes: Routes = [
     {path: 'avaliacao', component: Avaliacao},
     {path: 'avaliacoesRecebidasPrestador', component: AvaliacoesRecebidas},
     { path: 'fecharAcordo', component: FecharAcordo },
+    {path: 'avaliacaoPrestador', component: AvaliacaoPrestador},
+    {path: 'avaliacoesRecebidasCliente', component: AvaliacoesRecebidasCliente},
+    {path: 'anunciosPublicados', component: AnunciosPublicados},
+    {path: 'estatisticasAnuncio/:id', component: EstatisticasAnuncio},
+    {path: 'edicaoAnuncio/:id', component: EdicaoAnuncio},
     {path: '', redirectTo: 'cadastro', pathMatch: 'full'}
     
 ];

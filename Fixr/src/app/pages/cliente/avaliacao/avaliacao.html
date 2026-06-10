@@ -9,7 +9,6 @@
 
     <div class="avaliacao-layout" *ngIf="prestador">
 
-        <!-- Coluna esquerda: info do prestador -->
         <div class="coluna-esquerda">
 
             <div class="prestador-card">
@@ -39,10 +38,8 @@
 
         </div>
 
-        <!-- Coluna direita: formulário -->
         <div class="coluna-direita">
 
-            <!-- Estrelas -->
             <div class="nota-card">
                 <p class="nota-titulo">Dê uma nota (opcional)</p>
                 <div class="estrelas-row" (mouseleave)="clearHover()">
@@ -53,7 +50,6 @@
                 </div>
             </div>
 
-            <!-- Comentários -->
             <div class="comentarios-row">
                 <div class="campo-wrap">
                     <label class="campo-label">Insira um comentário (opcional):</label>
@@ -70,7 +66,6 @@
                 </div>
             </div>
 
-            <!-- Botão continuar -->
             <div class="btn-row">
                 <button class="btn-continuar" (click)="enviar()" [disabled]="enviando">
                     {{ enviando ? 'Enviando...' : 'Continuar' }}
