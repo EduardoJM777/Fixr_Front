@@ -17,6 +17,7 @@
 
   <div class="profile-layout">
 
+    <div class="profile-top">
     <div class="avatar-col">
       <span class="avatar-label">Imagem de perfil</span>
 
@@ -59,8 +60,43 @@
         </div>
       </div>
     </div>
+    </div>
+
+    <div class="profissao-section">
+      <p class="section-title">Profissão atual: <strong>{{ prestador?.profissao?.nome }}</strong></p>
+      <div class="profissao-row">
+        <select [(ngModel)]="profissaoSelecionada" class="select-profissao">
+          <option [ngValue]="null" disabled>Selecionar nova profissão</option>
+          <option *ngFor="let p of profissoes" [ngValue]="p.id">{{ p.nome }}</option>
+        </select>
+        <button class="btn-trocar" (click)="trocarProfissao()"
+                [disabled]="!profissaoSelecionada">
+          Trocar
+        </button>
+      </div>
+    </div>
+
+    
+    <div class="danger-section">
+      <button class="btn-excluir" (click)="confirmarExclusao()">
+        Excluir conta
+      </button>
+    </div>
 
   </div>
+
+  
+  <div class="modal-overlay" *ngIf="mostrarConfirmacaoExclusao">
+    <div class="modal">
+      <p>Tem certeza que deseja excluir sua conta?</p>
+      <p class="modal-aviso">Esta ação não pode ser desfeita.</p>
+      <div class="modal-btns">
+        <button class="btn-confirmar-excluir" (click)="excluirConta()">Sim, excluir</button>
+        <button class="btn-cancelar-modal" (click)="cancelarExclusao()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <div class="toast" [class.show]="toastVisible">{{ toastMsg }}</div>

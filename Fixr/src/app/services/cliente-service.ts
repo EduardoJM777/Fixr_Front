@@ -25,4 +25,10 @@ export class ClienteService {
     return this.http.get<ClienteDTO>(`${this.baseUrl}/${id}`);
   }
 
+  atualizarFoto(id: number, foto: File): Observable<void> {
+    const formData = new FormData();
+    formData.append('foto', foto);
+    return this.http.patch<void>(`${this.baseUrl}/${id}/foto`, formData);
+}
+
 }

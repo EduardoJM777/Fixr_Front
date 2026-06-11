@@ -12,7 +12,132 @@
   padding: 16px 28px 40px;
   position: relative;
 }
- 
+
+.profissao-section {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.2);
+}
+
+.section-title {
+  color: #fff;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.profissao-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.select-profissao {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: none;
+  font-size: 14px;
+  background: #fff;
+  color: #333;
+}
+
+.btn-trocar {
+  padding: 8px 18px;
+  background: #1a3c6e;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-trocar:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.danger-section {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.2);
+}
+
+.btn-excluir {
+  background: #e53935;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 9px 22px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-excluir:hover { background: #c62828; }
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 12px;
+  padding: 28px 36px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 280px;
+}
+
+.modal p {
+  font-size: 15px;
+  color: #333;
+  margin: 0;
+  font-weight: 500;
+}
+
+.modal-aviso {
+  font-size: 13px !important;
+  color: #e53935 !important;
+}
+
+.modal-btns {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.btn-confirmar-excluir {
+  background: #e53935;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-cancelar-modal {
+  background: #f5f5f5;
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
 
 .top-icons {
   display: flex;
@@ -36,9 +161,15 @@
 
 .profile-layout {
   display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 820px;
+}
+
+.profile-top {
+  display: flex;
   align-items: flex-start;
   gap: 32px;
-  max-width: 820px;
 }
  
 

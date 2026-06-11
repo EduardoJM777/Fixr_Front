@@ -47,7 +47,7 @@
     <div class="card-prestador" *ngFor="let p of prestadoresFiltrados">
 
       <div class="avatar">
-        <img *ngIf="p.foto" [src]="p.foto" [alt]="p.nome" />
+        <img *ngIf="p.foto" [src]="'http://localhost:8080' + p.foto" [alt]="p.nome" />
         <div *ngIf="!p.foto" class="avatar-placeholder">{{ p.nome.charAt(0) }}</div>
       </div>
 

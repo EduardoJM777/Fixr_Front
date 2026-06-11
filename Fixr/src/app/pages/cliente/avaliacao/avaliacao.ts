@@ -117,7 +117,8 @@ export class Avaliacao {
       comentario: this.comentario || null,
       sugest_melhoria: this.sugestaoMelhoria || null,
       idCliente: usuario.id,
-      idPrestador: this.prestador.id
+      idPrestador: this.prestador.id,
+      avaliadorTipo: 'CLIENTE' 
     };
 
     this.http.post('http://localhost:8080/avaliacoes', body).subscribe({

@@ -95,6 +95,26 @@ export class EditarPerfil implements OnInit {
       next: (atualizado) => {
         this.cliente = atualizado;
         this.preencherCampos(atualizado);
+
+        if (this.fotoArquivo) {
+                this.clienteService.atualizarFoto(usuario.id, this.fotoArquivo).subscribe({
+                    next: () => {
+                        this.fotoArquivo = null;
+                         this.clienteService.getPerfil(usuario.id).subscribe({
+                next: (clienteAtualizado) => {
+                    this.cliente = clienteAtualizado;
+                    const usuarioAtual = this.authService.getUsuario()!;
+                    sessionStorage.setItem('usuario', JSON.stringify({
+                        ...usuarioAtual,
+                        foto: clienteAtualizado.foto
+                    }));
+                }
+            });
+        },
+        error: (err) => console.error('Erro ao salvar foto:', err)
+    });
+            }
+
         this.salvando = false;
 
         const usuarioAtual = this.authService.getUsuario()!;
@@ -124,7 +144,7 @@ export class EditarPerfil implements OnInit {
 
   get fotoSrc(): string {
     if (this.fotoPreview) return this.fotoPreview;
-    if (this.cliente?.foto) return this.cliente.foto;
+    if (this.cliente?.foto) return 'http://localhost:8080' + this.cliente.foto;
     return '';
   }
 

@@ -98,7 +98,8 @@ export class AvaliacaoPrestador implements OnInit {
       comentario: this.comentario || null,
       sugest_melhoria: this.sugestaoMelhoria || null,
       idCliente: this.cliente.id,     
-      idPrestador: usuario.id         
+      idPrestador: usuario.id,
+      avaliadorTipo: 'PRESTADOR' 
     };
 
   this.http.post('http://localhost:8080/avaliacoes', body).subscribe({

@@ -12,7 +12,6 @@ export interface EstatisticasDTO {
   avaliacoesRecebidas: number;
   anunciosPublicados: number;
   tempoNoApp: string;
-  rankingPosicao: number;
   precoMedio: number;
 }
 
@@ -53,7 +52,16 @@ export class EstatisticasClienteComponent implements OnInit, OnDestroy {
 
     this.cliente = JSON.parse(dados);
 
-    if (this.cliente?.id) {
+   if (this.cliente?.id) {
+        this.http.get<any>(`http://localhost:8080/cliente/${this.cliente.id}`)
+            .pipe(takeUntil(this.destroy$))
+            .subscribe({
+                next: (clienteCompleto) => {
+                    this.cliente = clienteCompleto;
+                },
+                error: () => {}
+            });
+
       this.http.get<EstatisticasDTO>(`http://localhost:8080/cliente/${this.cliente.id}/stats`)
         .pipe(takeUntil(this.destroy$))
         .subscribe({
@@ -66,7 +74,6 @@ export class EstatisticasClienteComponent implements OnInit, OnDestroy {
               avaliacoesRecebidas: 0,
               anunciosPublicados: 0,
               tempoNoApp: '-',
-              rankingPosicao: 0,
               precoMedio: 0
             };
             this.carregando = false;

@@ -29,4 +29,18 @@ export class PrestadorService {
     return this.http.put<PrestadorResponse>(`${this.baseUrl}/${id}`, prestadorDTO);
   }
 
+  atualizarFoto(id: number, foto: File): Observable<void> {
+    const formData = new FormData();
+    formData.append('foto', foto);
+    return this.http.patch<void>(`${this.baseUrl}/${id}/foto`, formData);
+}
+
+getProfissoes(): Observable<any[]> {
+  return this.http.get<any[]>('http://localhost:8080/profissao');
+}
+
+deletar(id: number): Observable<void> {
+  return this.http.delete<void>(`${this.baseUrl}/${id}`);
+}
+
 }

@@ -19,16 +19,16 @@
   <div class="content">
 
     <div class="col-esquerda">
-      <div class="avatar-wrapper">
-        <img *ngIf="prestador?.foto" 
-             [src]="prestador!.foto" 
-             [alt]="prestador!.nome" 
-             class="avatar" />
-        <div *ngIf="!prestador?.foto" 
-             class="foto-placeholder">
-          {{ prestador?.nome?.charAt(0) || '?' }}
-        </div>
-      </div>
+      <div class="foto-wrapper">
+  <img *ngIf="prestador?.foto"
+       [src]="'http://localhost:8080' + prestador!.foto"
+       [alt]="prestador!.nome"
+       class="foto" />
+  <div *ngIf="!prestador?.foto"
+       class="foto-placeholder">
+    {{ prestador?.nome?.charAt(0) || '?' }}
+  </div>
+</div>
 
       <div class="nome-box">{{ prestador?.nome || 'Carregando...' }}</div>
 
@@ -60,10 +60,6 @@
           <hr />
         </div>
       
-        <div class="stat-item">
-          <span>Trabalhos realizados: <strong>{{ stats?.trabalhosRealizados ?? '-' }}</strong></span>
-          <hr />
-        </div>
         
         <div class="stat-item">
           <span>Tempo no App : <strong>{{ stats?.tempoNoApp || '-' }}</strong></span>
@@ -91,13 +87,9 @@
           <hr />
         </div>
 
-        <div class="stat-item">
-          <span>Ranking de posição total: <strong>{{ stats?.rankingPosicao ?? '-' }}</strong></span>
-          <hr />
-        </div>
       
         <div class="stat-item">
-          <span>Preço médio por serviço: <strong>R$ {{ stats?.precoMedio ?? '-' }}</strong></span>
+          <span>Preço médio por serviço: <strong>R$ {{ stats?.precoMedio | number:'1.2-2' }}</strong></span>
           <hr />
         </div>
 

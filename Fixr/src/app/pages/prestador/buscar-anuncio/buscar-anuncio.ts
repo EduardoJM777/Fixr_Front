@@ -37,7 +37,7 @@ export class BuscarAnuncioComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.http.get<AnuncioResponseDTO[]>('http://localhost:8080/anuncio')
+    this.http.get<AnuncioResponseDTO[]>('http://localhost:8080/anuncio/publicados')
       .subscribe({
         next: (dados) => {
           this.anuncios = dados;

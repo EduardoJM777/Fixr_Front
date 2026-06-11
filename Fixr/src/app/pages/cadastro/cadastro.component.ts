@@ -42,14 +42,12 @@ export class CadastroComponent {
         }
       },
       error: (err) => {
-        this.carregando = false;
-        if (err.status === 403) {
-          this.erro = 'Sua conta está inativa. Entre em contato com o suporte.';
-        } else {
-          this.erro = 'Email ou senha inválidos.';
-          
-        }
-      }
+  if (err.status === 403) {
+    alert("Confirme seu email antes de fazer login. Verifique sua caixa de entrada.");
+  } else {
+    alert("Email ou senha inválidos.");
+  }
+}
     });
   }
   
