@@ -62,20 +62,6 @@
     </div>
     </div>
 
-    <div class="profissao-section">
-      <p class="section-title">Profissão atual: <strong>{{ prestador?.profissao?.nome }}</strong></p>
-      <div class="profissao-row">
-        <select [(ngModel)]="profissaoSelecionada" class="select-profissao">
-          <option [ngValue]="null" disabled>Selecionar nova profissão</option>
-          <option *ngFor="let p of profissoes" [ngValue]="p.id">{{ p.nome }}</option>
-        </select>
-        <button class="btn-trocar" (click)="trocarProfissao()"
-                [disabled]="!profissaoSelecionada">
-          Trocar
-        </button>
-      </div>
-    </div>
-
     
     <div class="danger-section">
       <button class="btn-excluir" (click)="confirmarExclusao()">
