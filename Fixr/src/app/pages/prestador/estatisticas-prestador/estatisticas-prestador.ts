@@ -72,9 +72,7 @@ export class EstatisticasPrestador implements OnInit, OnDestroy {
           error: () => {
             this.stats = {
               avaliacoesRecebidas: 0,
-              trabalhosRealizados: 0,
               tempoNoApp: '-',
-              rankingPosicao: 0,
               precoMedio: 0,
               experienciaTrabalho: null,
               ultimaNota: 0

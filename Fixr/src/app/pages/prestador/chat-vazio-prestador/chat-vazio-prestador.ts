@@ -53,6 +53,7 @@ export class ChatVazioPrestadorComponent implements OnInit, OnDestroy, AfterView
   ngOnInit(): void {
     this.subs.push(
       this.chatService.chatsAtivos$.subscribe(chats => {
+        this.chatsAtivos = chats.filter(c => c.cliente);
         this.chatsAtivos = chats;
 
         this.anunciosChamados = chats

@@ -55,6 +55,7 @@ export class ChatVazioComponent implements OnInit, OnDestroy, AfterViewChecked {
 
     this.subs.push(
       this.chatService.chatsAtivos$.subscribe(chats => {
+        this.chatsAtivos = chats.filter(c => c.prestador);
         this.chatsAtivos = chats;
         this.cdr.detectChanges();
       })

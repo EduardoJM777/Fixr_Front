@@ -216,4 +216,10 @@ export class ChatService {
     buscarAcordoAtivo(chatId: number): Observable<any> {
         return this.http.get(`http://localhost:8080/acordos/chat/${chatId}`);
     }
+
+    limparChats(): void {
+    this.chatsAtivos$.next([]);
+    this.subscriptions.forEach(s => s.unsubscribe());
+    this.subscriptions = [];
+}
 }

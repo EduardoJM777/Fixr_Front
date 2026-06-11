@@ -35,6 +35,10 @@ export class EditarPerfilPrestador implements OnInit {
   toastVisible = false;
   private toastTimer: any;
 
+  profissoes: any[] = [];
+  profissaoSelecionada: number | null = null;
+  mostrarConfirmacaoExclusao = false;
+
   constructor(
     private router: Router,
     private prestadorService: PrestadorService,
@@ -103,14 +107,24 @@ export class EditarPerfilPrestador implements OnInit {
       next: (atualizado) => {
         this.prestador = atualizado;
 
-        if (this.prestadorDTO) {
-          this.prestadorDTO = {
-            ...this.prestadorDTO,
-            nome: atualizado.nome,
-            email: this.editEmail,
-            telefone: this.editTelefone,
-          };
-        }
+         if (this.fotoArquivo) {
+                this.prestadorService.atualizarFoto(usuario.id, this.fotoArquivo).subscribe({
+                    next: () => {
+                        this.fotoArquivo = null;
+                         this.prestadorService.getPerfil(usuario.id).subscribe({
+                next: (prestadorAtualizado) => {
+                    this.prestador = prestadorAtualizado;
+                    const usuarioAtual = this.authService.getUsuario()!;
+                    sessionStorage.setItem('usuario', JSON.stringify({
+                        ...usuarioAtual,
+                        foto: prestadorAtualizado.foto
+                    }));
+                }
+            });
+        },
+        error: (err) => console.error('Erro ao salvar foto:', err)
+    });
+            }
 
         this.salvando = false;
 
@@ -140,7 +154,7 @@ export class EditarPerfilPrestador implements OnInit {
 
   get fotoSrc(): string {
     if (this.fotoPreview) return this.fotoPreview;
-    if (this.prestador?.foto) return this.prestador.foto;
+    if (this.prestador?.foto) return 'http://localhost:8080' + this.prestador.foto;
     return '';
   }
 
@@ -150,5 +164,52 @@ export class EditarPerfilPrestador implements OnInit {
     clearTimeout(this.toastTimer);
     this.toastTimer = setTimeout(() => (this.toastVisible = false), 2800);
   }
+
+  carregarProfissoes(): void {
+  this.prestadorService.getProfissoes().subscribe({
+    next: (p) => this.profissoes = p,
+    error: () => {}
+  });
+}
+
+trocarProfissao(): void {
+  if (!this.profissaoSelecionada || !this.prestador) return;
+  const usuario = this.authService.getUsuario()!;
+
+  const payload: PrestadorDTO = {
+    nome: [this.editNome, this.editSobrenome].filter(Boolean).join(' '),
+    email: this.editEmail,
+    telefone: this.editTelefone,
+    dataNascimento: this.prestadorDTO!.dataNascimento,
+    profissaoId: this.profissaoSelecionada
+  };
+
+  this.prestadorService.atualizar(usuario.id, payload).subscribe({
+    next: (atualizado) => {
+      this.prestador = atualizado;
+      this.showToast('Profissão atualizada!');
+    },
+    error: () => this.showToast('Erro ao atualizar profissão.')
+  });
+}
+
+confirmarExclusao(): void {
+  this.mostrarConfirmacaoExclusao = true;
+}
+
+cancelarExclusao(): void {
+  this.mostrarConfirmacaoExclusao = false;
+}
+
+excluirConta(): void {
+  const usuario = this.authService.getUsuario()!;
+  this.prestadorService.deletar(usuario.id).subscribe({
+    next: () => {
+      sessionStorage.removeItem('usuario');
+      this.router.navigate(['/cadastro']);
+    },
+    error: () => this.showToast('Erro ao excluir conta.')
+  });
+}
 
 }

@@ -32,24 +32,23 @@ export class CadastroComponent {
     this.authService.login({ email: this.email, senha: this.senha})
     .subscribe({
       next: (usuario) => {
-        this.authService.salvarUsuario(usuario);
-        this.chatService.conectar();
+    this.authService.salvarUsuario(usuario);
+    this.chatService.limparChats(); // ← adicione antes de conectar
+    this.chatService.conectar();
 
-        if (usuario.tipo === 'CLIENTE') {
-          this.router.navigate(['/chatVazio']);
-        } else {
-          this.router.navigate(['/chatVazioPrestador'])
-        }
-      },
+    if (usuario.tipo === 'CLIENTE') {
+        this.router.navigate(['/chatVazio']);
+    } else {
+        this.router.navigate(['/chatVazioPrestador']);
+    }
+},
       error: (err) => {
-        this.carregando = false;
-        if (err.status === 403) {
-          this.erro = 'Sua conta está inativa. Entre em contato com o suporte.';
-        } else {
-          this.erro = 'Email ou senha inválidos.';
-          
-        }
-      }
+  if (err.status === 403) {
+    alert("Confirme seu email antes de fazer login. Verifique sua caixa de entrada.");
+  } else {
+    alert("Email ou senha inválidos.");
+  }
+}
     });
   }
   

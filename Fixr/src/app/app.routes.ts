@@ -25,34 +25,38 @@ import { AvaliacoesRecebidasCliente } from './pages/cliente/avaliacoes-recebidas
 import { AnunciosPublicados } from './pages/cliente/anuncios-publicados/anuncios-publicados';
 import { EstatisticasAnuncio } from './pages/cliente/estatisticas-anuncio/estatisticas-anuncio';
 import { EdicaoAnuncio } from './pages/cliente/edicao-anuncio/edicao-anuncio';
+import { ConfirmarEmailComponent } from './components/confirmar-email/confirmar-email';
+import { ClienteGuard } from './guards/cliente.guard';
+import { PrestadorGuard } from './guards/prestador.guard';
 
 export const routes: Routes = [
-
     {path: 'cadastro', component: CadastroComponent},
-    {path: 'chatVazio', component: ChatVazioComponent, canActivate: [AuthGuard]},
     {path: 'recuperarSenha', component: RecuSenhaComponent},
     {path: 'criarContaCliente', component: CriarContaClienteComponent},
     {path: 'criarContaPrestador', component: CriarContaPrestador},
     {path: 'criarProfissao', component: CriarProfissaoComponent},
-    {path: 'criarAnuncio', component: AnunciarProblemaComponent},
-    {path: 'buscarPrestador', component: BuscarPrestadorComponent},
-    {path: 'detalhesPrestador', component: DetalhesPrestador, canActivate: [AuthGuard]},
-    {path: 'estatistica', component: EstatisticasClienteComponent},
-    {path: 'favoritos', component: FavoritosComponent},
-    {path: 'buscarAnuncio', component: BuscarAnuncioComponent},
-    {path: 'chatVazioPrestador', component: ChatVazioPrestadorComponent, canActivate: [AuthGuard]},
-    {path: 'favoritosPrestador', component: FavoritosPrestador},
-    {path: 'estatisticaPrestador', component: EstatisticasPrestador},
-    {path: 'editarPerfil', component: EditarPerfil},
-    {path: 'editarPerfilPrestador', component: EditarPerfilPrestador},
-    {path: 'avaliacao', component: Avaliacao},
-    {path: 'avaliacoesRecebidasPrestador', component: AvaliacoesRecebidas},
-    { path: 'fecharAcordo', component: FecharAcordo },
-    {path: 'avaliacaoPrestador', component: AvaliacaoPrestador},
-    {path: 'avaliacoesRecebidasCliente', component: AvaliacoesRecebidasCliente},
-    {path: 'anunciosPublicados', component: AnunciosPublicados},
-    {path: 'estatisticasAnuncio/:id', component: EstatisticasAnuncio},
-    {path: 'edicaoAnuncio/:id', component: EdicaoAnuncio},
+    {path: 'confirmar-email', component: ConfirmarEmailComponent},
+
+    {path: 'chatVazio', component: ChatVazioComponent, canActivate: [ClienteGuard]},
+    {path: 'criarAnuncio', component: AnunciarProblemaComponent, canActivate: [ClienteGuard]},
+    {path: 'buscarPrestador', component: BuscarPrestadorComponent, canActivate: [ClienteGuard]},
+    {path: 'detalhesPrestador', component: DetalhesPrestador, canActivate: [ClienteGuard]},
+    {path: 'estatistica', component: EstatisticasClienteComponent, canActivate: [ClienteGuard]},
+    {path: 'favoritos', component: FavoritosComponent, canActivate: [ClienteGuard]},
+    {path: 'editarPerfil', component: EditarPerfil, canActivate: [ClienteGuard]},
+    {path: 'avaliacao', component: Avaliacao, canActivate: [ClienteGuard]},
+    {path: 'avaliacoesRecebidasCliente', component: AvaliacoesRecebidasCliente, canActivate: [ClienteGuard]},
+    {path: 'anunciosPublicados', component: AnunciosPublicados, canActivate: [ClienteGuard]},
+    {path: 'estatisticasAnuncio/:id', component: EstatisticasAnuncio, canActivate: [ClienteGuard]},
+    {path: 'edicaoAnuncio/:id', component: EdicaoAnuncio, canActivate: [ClienteGuard]},
+
+    {path: 'chatVazioPrestador', component: ChatVazioPrestadorComponent, canActivate: [PrestadorGuard]},
+    {path: 'buscarAnuncio', component: BuscarAnuncioComponent, canActivate: [PrestadorGuard]},
+    {path: 'favoritosPrestador', component: FavoritosPrestador, canActivate: [PrestadorGuard]},
+    {path: 'estatisticaPrestador', component: EstatisticasPrestador, canActivate: [PrestadorGuard]},
+    {path: 'editarPerfilPrestador', component: EditarPerfilPrestador, canActivate: [PrestadorGuard]},
+    {path: 'avaliacaoPrestador', component: AvaliacaoPrestador, canActivate: [PrestadorGuard]},
+    {path: 'avaliacoesRecebidasPrestador', component: AvaliacoesRecebidas, canActivate: [PrestadorGuard]},
+    {path: 'fecharAcordo', component: FecharAcordo, canActivate: [AuthGuard]},
     {path: '', redirectTo: 'cadastro', pathMatch: 'full'}
-    
 ];

@@ -7,6 +7,8 @@
   </div>
 </div>
 
+
+
 <div class="page-wrapper" *ngIf="!loading && erro">
   <div class="top-icons">
     <button title="Notificações">
@@ -94,6 +96,23 @@
     </div>
 
   </div>
+
+  <div class="danger-section">
+  <button class="btn-excluir" (click)="confirmarExclusao()">
+    Excluir conta
+  </button>
+</div>
+
+<div class="modal-overlay" *ngIf="mostrarConfirmacaoExclusao">
+  <div class="modal">
+    <p>Tem certeza que deseja excluir sua conta?</p>
+    <p class="modal-aviso">Esta ação não pode ser desfeita.</p>
+    <div class="modal-btns">
+      <button class="btn-confirmar-excluir" (click)="excluirConta()">Sim, excluir</button>
+      <button class="btn-cancelar-modal" (click)="cancelarExclusao()">Cancelar</button>
+    </div>
+  </div>
+</div>
 </div>
 
 <div class="toast" [class.show]="toastVisible">{{ toastMsg }}</div>

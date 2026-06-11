@@ -42,41 +42,78 @@ export class CriarContaPrestador {
   }
 
   
-  cadastrar(){
+  cadastrar() {
+  if (!this.validar()) return;
 
-    if(this.senha !== this.confSenha){
-      alert("Senhas não conferem");
-      return;
-    }
+  const dados = {
+    nome: this.nome,
+    dataNascimento: this.dataNascimento,
+    email: this.email,
+    senha: this.senha,
+    telefone: this.telefone,
+    profissaoId: Number(this.profissaoId)
+  };
 
-    const idProfissao = Number(this.profissaoId)
-
-    if (!this.profissaoId || idProfissao === this.OUTRO || isNaN(idProfissao)) {
-      alert('Selecione uma profissão válida');
-      return;
-    }
-
-    const dados = {
-      nome: this.nome,
-      dataNascimento: this.dataNascimento || null,
-      email: this.email,
-      senha: this.senha,
-      profissaoId: idProfissao,
-      telefone: this.telefone || null
-    };
-
-    this.http.post("http://localhost:8080/prestador", dados)
-      .subscribe({
-        next: () => {
-          alert("Prestador cadastrado!");
-          this.router.navigate(['/']);
-        },
-        error: (err) => {
-          console.log(err);
-          alert("Erro ao cadastrar");
+  this.http.post("http://localhost:8080/prestador", dados)
+    .subscribe({
+      next: () => {
+        alert("Cadastro realizado! Verifique seu email para confirmar sua conta.");
+        this.router.navigate(['/']);
+      },
+      error: (err) => {
+        if (err.status === 409) {
+          alert("Este email já está cadastrado.");
+        } else {
+          alert("Erro ao cadastrar. Tente novamente.");
         }
-      });
-      
+      }
+    });
+}
+
+validar(): boolean {
+  if (!this.nome.trim()) {
+    alert("Nome é obrigatório.");
+    return false;
   }
+
+  if (this.senha.length < 8) {
+    alert("A senha deve ter no mínimo 8 caracteres.");
+    return false;
+  }
+
+  if (this.senha !== this.confSenha) {
+    alert("Senhas não conferem.");
+    return false;
+  }
+
+  if (!this.dataNascimento) {
+    alert("Data de nascimento é obrigatória.");
+    return false;
+  }
+  if (!this.profissaoId || Number(this.profissaoId) === this.OUTRO) {
+  alert("Selecione uma profissão válida.");
+  return false;
+}
+
+  const hoje = new Date();
+  const nasc = new Date(this.dataNascimento);
+  const idade = hoje.getFullYear() - nasc.getFullYear();
+  const aniversarioPassou =
+    hoje.getMonth() > nasc.getMonth() ||
+    (hoje.getMonth() === nasc.getMonth() && hoje.getDate() >= nasc.getDate());
+  const idadeReal = aniversarioPassou ? idade : idade - 1;
+
+  if (idadeReal < 18) {
+    alert("Você deve ter no mínimo 18 anos.");
+    return false;
+  }
+
+  if (idadeReal > 100) {
+    alert("Data de nascimento inválida.");
+    return false;
+  }
+
+  return true;
+}
 
 }

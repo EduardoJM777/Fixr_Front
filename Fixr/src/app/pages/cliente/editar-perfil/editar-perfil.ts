@@ -34,6 +34,8 @@ export class EditarPerfil implements OnInit {
   toastVisible = false;
   private toastTimer: any;
 
+  mostrarConfirmacaoExclusao = false;
+
   constructor(
     private router: Router,
     private clienteService: ClienteService,
@@ -95,6 +97,26 @@ export class EditarPerfil implements OnInit {
       next: (atualizado) => {
         this.cliente = atualizado;
         this.preencherCampos(atualizado);
+
+        if (this.fotoArquivo) {
+                this.clienteService.atualizarFoto(usuario.id, this.fotoArquivo).subscribe({
+                    next: () => {
+                        this.fotoArquivo = null;
+                         this.clienteService.getPerfil(usuario.id).subscribe({
+                next: (clienteAtualizado) => {
+                    this.cliente = clienteAtualizado;
+                    const usuarioAtual = this.authService.getUsuario()!;
+                    sessionStorage.setItem('usuario', JSON.stringify({
+                        ...usuarioAtual,
+                        foto: clienteAtualizado.foto
+                    }));
+                }
+            });
+        },
+        error: (err) => console.error('Erro ao salvar foto:', err)
+    });
+            }
+
         this.salvando = false;
 
         const usuarioAtual = this.authService.getUsuario()!;
@@ -124,7 +146,7 @@ export class EditarPerfil implements OnInit {
 
   get fotoSrc(): string {
     if (this.fotoPreview) return this.fotoPreview;
-    if (this.cliente?.foto) return this.cliente.foto;
+    if (this.cliente?.foto) return 'http://localhost:8080' + this.cliente.foto;
     return '';
   }
 
@@ -138,4 +160,23 @@ export class EditarPerfil implements OnInit {
     clearTimeout(this.toastTimer);
     this.toastTimer = setTimeout(() => (this.toastVisible = false), 2800);
   }
+
+  confirmarExclusao(): void {
+  this.mostrarConfirmacaoExclusao = true;
+}
+
+cancelarExclusao(): void {
+  this.mostrarConfirmacaoExclusao = false;
+}
+
+excluirConta(): void {
+  const usuario = this.authService.getUsuario()!;
+  this.clienteService.deletar(usuario.id).subscribe({
+    next: () => {
+      sessionStorage.removeItem('usuario');
+      this.router.navigate(['/cadastro']);
+    },
+    error: () => this.showToast('Erro ao excluir conta.')
+  });
+}
 }

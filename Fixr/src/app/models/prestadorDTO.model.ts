@@ -18,9 +18,7 @@ export interface PrestadorResponse {
 
 export interface EstatisticasPrestadorDTO {
   avaliacoesRecebidas: number;
-  trabalhosRealizados: number;
   tempoNoApp: string;
-  rankingPosicao: number;
   precoMedio: number;
   experienciaTrabalho: string | null;
   ultimaNota: number | null;

@@ -42,12 +42,15 @@
 
     <div class="perfil-col">
       <div class="foto-wrapper">
-
-        <div *ngIf="!cliente?.foto" 
-             class="foto-placeholder">
-          {{ cliente?.nome?.charAt(0) || '?' }}
-        </div>
-      </div>
+  <img *ngIf="cliente?.foto"
+       [src]="'http://localhost:8080' + cliente!.foto"
+       [alt]="cliente!.nome"
+       class="foto" />
+  <div *ngIf="!cliente?.foto"
+       class="foto-placeholder">
+    {{ cliente?.nome?.charAt(0) || '?' }}
+  </div>
+</div>
 
       <div class="nome-box">{{ cliente?.nome || 'Carregando...' }}</div>
 
@@ -80,13 +83,9 @@
           <div class="stat-divider"></div>
         </div>
 
-        <div class="stat-item">
-          <span class="stat-text">Ranking de posição total: {{ stats?.rankingPosicao ?? '-' }}º</span>
-          <div class="stat-divider"></div>
-        </div>
 
         <div class="stat-item">
-          <span class="stat-text">Preço médio pago por serviço:<br />R${{ stats?.precoMedio ?? '-' }}</span>
+          <span class="stat-text">Preço médio pago por serviço:<br />R$ {{ stats?.precoMedio | number:'1.2-2' }}</span>
           <div class="stat-divider"></div>
         </div>
       </div>
