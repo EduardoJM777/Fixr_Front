@@ -38,9 +38,10 @@ export class FavoritosPrestador implements OnInit {
     this.http.get<ClienteFavorito[]>(`http://localhost:8080/favorito?usuarioId=${usuario.id}`)
       .subscribe({
         next: (dados) => {
-          this.favoritos = dados;
-          this.favoritosFiltrados = dados;
-        },
+    const dadosFiltrados = (dados || []).filter(f => f != null && f.nome);
+    this.favoritos = dadosFiltrados;
+    this.favoritosFiltrados = dadosFiltrados;
+},
         error: () => alert('Erro ao carregar favoritos.')
       });
   }

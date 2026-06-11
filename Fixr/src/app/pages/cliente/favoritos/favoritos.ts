@@ -53,6 +53,7 @@ export class FavoritosComponent implements OnInit {
       `http://localhost:8080/favorito?usuarioId=${usuario.id}`
     ).subscribe({
       next: (dados) => {
+        this.prestadores = dados.filter(p => p !== null && p.nome);
         this.prestadores = dados;
         this.prestadoresFiltrados = dados;
         this.profissoes = [...new Set(dados.map(p => p.profissao.nome))];
