@@ -31,4 +31,9 @@ export class ClienteService {
     return this.http.patch<void>(`${this.baseUrl}/${id}/foto`, formData);
 }
 
+
+deletar(id: number): Observable<void> {
+  return this.http.delete<void>(`${this.baseUrl}/${id}`);
+}
+
 }

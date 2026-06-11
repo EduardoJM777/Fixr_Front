@@ -32,15 +32,16 @@ export class CadastroComponent {
     this.authService.login({ email: this.email, senha: this.senha})
     .subscribe({
       next: (usuario) => {
-        this.authService.salvarUsuario(usuario);
-        this.chatService.conectar();
+    this.authService.salvarUsuario(usuario);
+    this.chatService.limparChats(); // ← adicione antes de conectar
+    this.chatService.conectar();
 
-        if (usuario.tipo === 'CLIENTE') {
-          this.router.navigate(['/chatVazio']);
-        } else {
-          this.router.navigate(['/chatVazioPrestador'])
-        }
-      },
+    if (usuario.tipo === 'CLIENTE') {
+        this.router.navigate(['/chatVazio']);
+    } else {
+        this.router.navigate(['/chatVazioPrestador']);
+    }
+},
       error: (err) => {
   if (err.status === 403) {
     alert("Confirme seu email antes de fazer login. Verifique sua caixa de entrada.");

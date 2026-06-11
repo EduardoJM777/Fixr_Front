@@ -34,6 +34,8 @@ export class EditarPerfil implements OnInit {
   toastVisible = false;
   private toastTimer: any;
 
+  mostrarConfirmacaoExclusao = false;
+
   constructor(
     private router: Router,
     private clienteService: ClienteService,
@@ -158,4 +160,23 @@ export class EditarPerfil implements OnInit {
     clearTimeout(this.toastTimer);
     this.toastTimer = setTimeout(() => (this.toastVisible = false), 2800);
   }
+
+  confirmarExclusao(): void {
+  this.mostrarConfirmacaoExclusao = true;
+}
+
+cancelarExclusao(): void {
+  this.mostrarConfirmacaoExclusao = false;
+}
+
+excluirConta(): void {
+  const usuario = this.authService.getUsuario()!;
+  this.clienteService.deletar(usuario.id).subscribe({
+    next: () => {
+      sessionStorage.removeItem('usuario');
+      this.router.navigate(['/cadastro']);
+    },
+    error: () => this.showToast('Erro ao excluir conta.')
+  });
+}
 }
